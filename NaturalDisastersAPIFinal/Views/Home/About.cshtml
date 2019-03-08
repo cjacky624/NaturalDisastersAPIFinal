@@ -1,5 +1,7 @@
-﻿
+﻿@{ int num = 0; }
 @foreach (var item in ViewBag.Results)
 {
 	<p>@item.Color</p>
+	num++;
 }
+<p>@num</p>
