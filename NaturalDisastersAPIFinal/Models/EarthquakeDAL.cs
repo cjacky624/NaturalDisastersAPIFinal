@@ -4,53 +4,37 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Web.Mvc;
-using NaturalDisastersAPIFinal.Models;
+using NaturalDisastersAPIFinal.APIKey;
 using Newtonsoft.Json.Linq;
 
-namespace NaturalDisastersAPIFinal.Controllers
+namespace NaturalDisastersAPIFinal.Models
 {
-    public class HomeController : Controller
-    {
+	public class EarthquakeDAL
+	{
 		public List<Earthquakes> EarthquakeList = new List<Earthquakes>();
-		public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult About()
-        {
+		public void GetData()
+		{
 			string APIText = "https://earthquake.usgs.gov/fdsnws/" +
 				$"event/1/query?format=geojson&starttime=2000-03-04&&minmagnitude=6&";
-
+			
 			HttpWebRequest request = WebRequest.CreateHttp(APIText);
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
 			StreamReader rd = new StreamReader(response.GetResponseStream());
 			string data = rd.ReadToEnd();
 			rd.Close();
-
-			JToken ColorData = JToken.Parse(data);
+			
+			JToken ColorData = JToken.Parse(APIText);
 			List<JToken> TheColors = ColorData["features"].ToList();
 
-
-			for (int i = 0; i < 2936; i++)
+			
+			for (int i = 0; i < 4000; i++)
 			{
 				Earthquakes e = new Earthquakes();
-				e.Color = TheColors[i]["properties"]["alert"].ToString();
+				e.Color = TheColors[i]["property"]["alert"].ToString();
 				EarthquakeList.Add(e);
 
 			}
-			ViewBag.Results = EarthquakeList;
-		
-			return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-    }
+		}
+	}
 }
