@@ -7,7 +7,10 @@ namespace NaturalDisastersAPIFinal.Models
 {
 	public class Earthquakes
 	{
-		public string Color { get; set; }
-
+		public string Alert { get; set; }
+		public string Place { get; set; }
+		public float Latitude { get; set; }
+		public float Longitude { get; set; }
+		public DateTime Time { get; set; }
 	}
 }

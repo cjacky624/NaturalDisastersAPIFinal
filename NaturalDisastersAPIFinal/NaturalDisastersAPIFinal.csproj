@@ -67,6 +67,8 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -129,9 +131,30 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Earthquake.cs">
+      <DependentUpon>NaturalDisasters.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EarthquakeDAL.cs" />
     <Compile Include="Models\Earthquakes.cs" />
+    <Compile Include="Models\NaturalDisasters.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NaturalDisasters.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NaturalDisasters.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NaturalDisasters.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NaturalDisasters.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NaturalDisasters.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\QuakeData.cs" />
+    <Compile Include="Models\Tornado.cs">
+      <DependentUpon>NaturalDisasters.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -143,8 +166,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\NaturalDisasters.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NaturalDisasters.edmx</DependentUpon>
+      <LastGenOutput>NaturalDisasters.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\NaturalDisasters.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NaturalDisasters.edmx</DependentUpon>
+      <LastGenOutput>NaturalDisasters.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\NaturalDisasters.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NaturalDisasters.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\NaturalDisasters.edmx.diagram">
+      <DependentUpon>NaturalDisasters.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -186,6 +226,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
