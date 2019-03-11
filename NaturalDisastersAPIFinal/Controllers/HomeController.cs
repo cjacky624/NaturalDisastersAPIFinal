@@ -10,8 +10,8 @@ using Newtonsoft.Json.Linq;
 
 namespace NaturalDisastersAPIFinal.Controllers
 {
-    public class HomeController : Controller
-    {
+	public class HomeController : Controller
+	{
 		//Lists
 		public List<Earthquakes> EarthquakeList = new List<Earthquakes>();
 		//Lists
@@ -25,21 +25,18 @@ namespace NaturalDisastersAPIFinal.Controllers
 			"Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
 			"Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "off the coast of Oregon"
 		};
-		public List<string> JustAlaska = new List<string>()
-		{
-			"Alaska"
-		};
+
 		public List<QuakeData> AllLocations = new List<QuakeData>();
 
 		public ActionResult Index()
-        {
-            return View();
-        }
+		{
+			return View();
+		}
 
-        public ActionResult About()
-        {
+		public ActionResult About()
+		{
 			string APIText = "https://earthquake.usgs.gov/fdsnws/" +
-				$"event/1/query?format=geojson&starttime=1970-01-01&&minmagnitude=6&";
+				$"event/1/query?format=geojson&starttime=1930-01-01&&minmagnitude=6&";
 
 			HttpWebRequest request = WebRequest.CreateHttp(APIText);
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -59,19 +56,24 @@ namespace NaturalDisastersAPIFinal.Controllers
 				q.Place = TheColors[i]["properties"]["place"].ToString();
 				AllLocations.Add(q);
 
-				if (USStates.Contains(q.Place))
+
+				for (int l = 0; l < USStates.Count; l++)
 				{
-				
-					Earthquakes e = new Earthquakes();
-					e.Color = TheColors[i]["properties"]["place"].ToString();
-					EarthquakeList.Add(e);
+					if (q.Place.Contains(USStates[l].ToString()))
+					{
+
+						Earthquakes e = new Earthquakes();
+						e.Color = TheColors[i]["properties"]["place"].ToString();
+						EarthquakeList.Add(e);
+					}
 				}
+
 
 			}
 			ViewBag.Results = EarthquakeList;
-		
+
 			return View();
-        }
+		}
 
 
 
@@ -81,14 +83,14 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 
 
-		
-public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
-    }
+		public ActionResult Contact()
+		{
+			ViewBag.Message = "Your contact page.";
+
+			return View();
+		}
+	}
 }
 
 
