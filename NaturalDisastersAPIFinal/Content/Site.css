@@ -22,3 +22,16 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#QuakeData {
+	text-align: center;
+	font-size: 15px;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color:navy;
+	border: solid red 10px;
+	padding: 0px 300px 0px 300px;
+	background-color:darkorange;
+}
+h3 {
+	text-align:center;
+}
