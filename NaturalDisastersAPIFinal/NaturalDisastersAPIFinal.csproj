@@ -131,6 +131,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+
     <Compile Include="Models\Earthquake.cs">
       <DependentUpon>NaturalDisasters.tt</DependentUpon>
     </Compile>
@@ -155,6 +156,7 @@
     <Compile Include="Models\Tornado.cs">
       <DependentUpon>NaturalDisasters.tt</DependentUpon>
     </Compile>
+
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

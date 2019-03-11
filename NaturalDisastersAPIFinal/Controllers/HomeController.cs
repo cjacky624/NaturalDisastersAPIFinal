@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NaturalDisastersAPIFinal.Models;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -95,7 +97,6 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 
 
-
 				for (int l = 0; l < USStates.Count; l++)
 				{
 					if (q.Place.Contains(USStates[l].ToString()))
@@ -135,7 +136,6 @@ namespace NaturalDisastersAPIFinal.Controllers
 			return View();
 		}
 	}
-}
 
 
 
