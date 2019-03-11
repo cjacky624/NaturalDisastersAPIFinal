@@ -1,7 +1,14 @@
-﻿@{
-    ViewBag.Title = "About";
+﻿@{ int num = 0;}
+@foreach (var item in ViewBag.Results)
+{
+	<br />
+	<p>Alert Status!!: @item.Alert</p>
+	<p>Who the fuck did it hit????: @item.Place</p>
+	<p>Gimme the longitude: @item.Longitude</p>
+	<p>Now Latitude kthx: @item.Latitude</p>
+	<p> @item.Time </p>
+	num++;
+	<p>@num</p>
+	<br /><br />
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-
-<p>Use this area to provide additional information.</p>
+<p>@num</p>

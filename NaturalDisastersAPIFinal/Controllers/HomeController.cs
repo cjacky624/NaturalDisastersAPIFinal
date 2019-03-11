@@ -1,30 +1,132 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using NaturalDisastersAPIFinal.Models;
+using Newtonsoft.Json.Linq;
 
 namespace NaturalDisastersAPIFinal.Controllers
 {
-    public class HomeController : Controller
-    {
-        public ActionResult Index()
-        {
-            return View();
-        }
+	public class HomeController : Controller
+	{
+		
+		public List<Earthquakes> EarthquakeList = new List<Earthquakes>();
+		
+		public List<string> USStates = new List<string>()
+		{
+			"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
+			"Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+			"Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+			"Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico",
+			"New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",  "Pennsylvania",
+			"Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+			"Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "off the coast of Oregon"
+		};
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+		public List<QuakeData> AllLocations = new List<QuakeData>();
 
-            return View();
-        }
+		public ActionResult Index()
+		{
+			return View();
+		}
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+		public ActionResult About()
+		{
+			string APIText = "https://earthquake.usgs.gov/fdsnws/" +
+				$"event/1/query?format=geojson&starttime=2017-01-01&&minmagnitude=6&";
 
-            return View();
-        }
-    }
+			HttpWebRequest request = WebRequest.CreateHttp(APIText);
+			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+			StreamReader rd = new StreamReader(response.GetResponseStream());
+			string data = rd.ReadToEnd();
+			rd.Close();
+
+			JToken AllQuakes = JToken.Parse(data);
+			List<JToken> ParsingQuakes = AllQuakes["features"].ToList();
+			//Grabs all 
+			for (int i = 0; i < ParsingQuakes.Count(); i++)
+			{
+				QuakeData q = new QuakeData();
+
+				q.Alert = ParsingQuakes[i]["properties"]["alert"].ToString();
+				q.Place = ParsingQuakes[i]["properties"]["place"].ToString();
+				string longitude = ParsingQuakes[i]["geometry"]["coordinates"][0].ToString();
+				string latitude = ParsingQuakes[i]["geometry"]["coordinates"][1].ToString();
+				float.TryParse(longitude, out float longParsed);
+				float.TryParse(latitude, out float latParsed);
+				q.LongitudeParsed = longParsed;
+				q.LatitudeParsed = latParsed;
+				AllLocations.Add(q);
+				string UnixTime = ParsingQuakes[i]["properties"]["time"].ToString();
+				long.TryParse(UnixTime, out long UnixInLong);
+				var dt = DateTimeOffset.FromUnixTimeSeconds(UnixInLong);
+
+				//double.TryParse(UnixTime, out double epoch);
+				//var FinalEpoch = (epoch - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+
+
+
+
+				//if (i >= 850)
+				//{
+				//	ViewBag.Hello = "Fix my shit fam";
+				//}
+
+				for (int l = 0; l < USStates.Count; l++)
+				{
+					if (q.Place.Contains(USStates[l].ToString()))
+					{
+
+						Earthquakes e = new Earthquakes();
+						e.Place = q.Place;
+						e.Alert = q.Alert;
+						e.Longitude = q.LongitudeParsed;
+						e.Latitude = q.LatitudeParsed;
+						//e.Time = dt;
+						EarthquakeList.Add(e);
+					}
+				}
+
+				// = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds; 
+			}
+			ViewBag.Results = EarthquakeList;
+			
+
+			return View();
+		}
+
+
+
+
+
+
+
+
+
+
+		public ActionResult Contact()
+		{
+			ViewBag.Message = "Your contact page.";
+
+			return View();
+		}
+	}
 }
+
+
+
+
+
+
+
+
+//if (TheColors[i]["properties"]["place"].ToString().Contains(JustAlaska.ToString()))
+//				{
+//					Earthquakes e = new Earthquakes();
+//e.Color = TheColors[i]["properties"]["alert"].ToString();
+//EarthquakeList.Add(e);
+//				}
