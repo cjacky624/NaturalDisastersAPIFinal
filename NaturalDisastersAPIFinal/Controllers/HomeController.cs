@@ -47,7 +47,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 			JToken AllQuakes = JToken.Parse(data);
 			List<JToken> ParsingQuakes = AllQuakes["features"].ToList();
-			//Grabs all 
+			
 			for (int i = 0; i < ParsingQuakes.Count(); i++)
 			{
 				QuakeData q = new QuakeData();
@@ -90,8 +90,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 				// Add the timestamp (number of seconds since the Epoch) to be converted
 				dateTime = dateTime.AddSeconds(UnixInLong);
 
-				//double.TryParse(UnixTime, out double epoch);
-				//var FinalEpoch = (epoch - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+			
 
 
 
@@ -112,7 +111,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 					}
 				}
 
-				// = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds; 
+			
 			}
 			ViewBag.Results = EarthquakeList;
 			
@@ -144,10 +143,3 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 
 
-
-//if (TheColors[i]["properties"]["place"].ToString().Contains(JustAlaska.ToString()))
-//				{
-//					Earthquakes e = new Earthquakes();
-//e.Color = TheColors[i]["properties"]["alert"].ToString();
-//EarthquakeList.Add(e);
-//				}
