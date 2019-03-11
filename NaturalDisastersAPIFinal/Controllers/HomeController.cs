@@ -36,7 +36,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 		public ActionResult About()
 		{
 			string APIText = "https://earthquake.usgs.gov/fdsnws/" +
-				$"event/1/query?format=geojson&starttime=2017-01-01&&minmagnitude=6&";
+				$"event/1/query?format=geojson&starttime=1970-01-01&&minmagnitude=6&";
 
 			HttpWebRequest request = WebRequest.CreateHttp(APIText);
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -62,8 +62,33 @@ namespace NaturalDisastersAPIFinal.Controllers
 				q.LatitudeParsed = latParsed;
 				AllLocations.Add(q);
 				string UnixTime = ParsingQuakes[i]["properties"]["time"].ToString();
-				long.TryParse(UnixTime, out long UnixInLong);
-				var dt = DateTimeOffset.FromUnixTimeSeconds(UnixInLong);
+
+				string finalUnix = UnixTime;
+				if (EarthquakeList.Count < 137)
+				{
+					finalUnix = UnixTime.Substring(0, 10);
+				}
+
+				if (EarthquakeList.Count >= 137)
+				{
+					finalUnix = UnixTime.Substring(0, 9);
+				}
+				if (EarthquakeList.Count >= 340)
+				{
+					finalUnix = UnixTime.Substring(0, 8);
+				}
+				if (EarthquakeList.Count >= 363)
+				{
+					finalUnix = UnixTime.Substring(0, 7);
+				}
+				ulong.TryParse(finalUnix, out ulong UnixInLong);
+
+
+				// Format our new DateTime object to start at the UNIX Epoch
+				DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+
+				// Add the timestamp (number of seconds since the Epoch) to be converted
+				dateTime = dateTime.AddSeconds(UnixInLong);
 
 				//double.TryParse(UnixTime, out double epoch);
 				//var FinalEpoch = (epoch - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
@@ -71,10 +96,6 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 
 
-				//if (i >= 850)
-				//{
-				//	ViewBag.Hello = "Fix my shit fam";
-				//}
 
 				for (int l = 0; l < USStates.Count; l++)
 				{
@@ -86,7 +107,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 						e.Alert = q.Alert;
 						e.Longitude = q.LongitudeParsed;
 						e.Latitude = q.LatitudeParsed;
-						//e.Time = dt;
+						e.Time = dateTime;
 						EarthquakeList.Add(e);
 					}
 				}
