@@ -25,10 +25,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 			"Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
 			"Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "off the coast of Oregon"
 		};
-		public List<string> JustAlaska = new List<string>()
-		{
-			"Alaska"
-		};
+
 		public List<QuakeData> AllLocations = new List<QuakeData>();
 
 		public ActionResult Index()
