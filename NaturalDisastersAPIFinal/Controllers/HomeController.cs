@@ -21,10 +21,15 @@ namespace NaturalDisastersAPIFinal.Controllers
 			"Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
 			"Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
 			"Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico",
-			"New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+			"New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",  "Pennsylvania",
 			"Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
-			"Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+			"Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "off the coast of Oregon"
 		};
+		public List<string> JustAlaska = new List<string>()
+		{
+			"Alaska"
+		};
+		public List<QuakeData> AllLocations = new List<QuakeData>();
 
 		public ActionResult Index()
         {
@@ -48,10 +53,17 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 			for (int i = 0; i < TheColors.Count(); i++)
 			{
-				if (TheColors[i]["properties"]["place"].ToString().Contains(USStates.ToString()))
+				QuakeData q = new QuakeData();
+
+				q.Alert = TheColors[i]["properties"]["alert"].ToString();
+				q.Place = TheColors[i]["properties"]["place"].ToString();
+				AllLocations.Add(q);
+
+				if (USStates.Contains(q.Place))
 				{
+				
 					Earthquakes e = new Earthquakes();
-					e.Color = TheColors[i]["properties"]["alert"].ToString();
+					e.Color = TheColors[i]["properties"]["place"].ToString();
 					EarthquakeList.Add(e);
 				}
 
@@ -78,3 +90,17 @@ public ActionResult Contact()
         }
     }
 }
+
+
+
+
+
+
+
+
+//if (TheColors[i]["properties"]["place"].ToString().Contains(JustAlaska.ToString()))
+//				{
+//					Earthquakes e = new Earthquakes();
+//e.Color = TheColors[i]["properties"]["alert"].ToString();
+//EarthquakeList.Add(e);
+//				}

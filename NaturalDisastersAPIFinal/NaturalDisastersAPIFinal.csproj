@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="Models\EarthquakeDAL.cs" />
     <Compile Include="Models\Earthquakes.cs" />
+    <Compile Include="Models\QuakeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
