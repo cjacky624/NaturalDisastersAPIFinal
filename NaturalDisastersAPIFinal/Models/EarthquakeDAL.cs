@@ -28,13 +28,7 @@ namespace NaturalDisastersAPIFinal.Models
 			List<JToken> TheColors = ColorData["features"].ToList();
 
 			
-			for (int i = 0; i < TheColors.Count; i++)
-			{
-				Earthquakes e = new Earthquakes();
-				e.Color = TheColors[i]["property"]["alert"].ToString();
-				EarthquakeList.Add(e);
 
-			}
 		}
 	}
 }

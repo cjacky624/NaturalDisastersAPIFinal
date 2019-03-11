@@ -10,11 +10,11 @@ using Newtonsoft.Json.Linq;
 
 namespace NaturalDisastersAPIFinal.Controllers
 {
-    public class HomeController : Controller
-    {
-		//Lists
+	public class HomeController : Controller
+	{
+		
 		public List<Earthquakes> EarthquakeList = new List<Earthquakes>();
-		//Lists
+		
 		public List<string> USStates = new List<string>()
 		{
 			"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
@@ -29,14 +29,14 @@ namespace NaturalDisastersAPIFinal.Controllers
 		public List<QuakeData> AllLocations = new List<QuakeData>();
 
 		public ActionResult Index()
-        {
-            return View();
-        }
+		{
+			return View();
+		}
 
-        public ActionResult About()
-        {
+		public ActionResult About()
+		{
 			string APIText = "https://earthquake.usgs.gov/fdsnws/" +
-				$"event/1/query?format=geojson&starttime=1970-01-01&&minmagnitude=6&";
+				$"event/1/query?format=geojson&starttime=2017-01-01&&minmagnitude=6&";
 
 			HttpWebRequest request = WebRequest.CreateHttp(APIText);
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -45,30 +45,59 @@ namespace NaturalDisastersAPIFinal.Controllers
 			string data = rd.ReadToEnd();
 			rd.Close();
 
-			JToken ColorData = JToken.Parse(data);
-			List<JToken> TheColors = ColorData["features"].ToList();
-
-			for (int i = 0; i < TheColors.Count(); i++)
+			JToken AllQuakes = JToken.Parse(data);
+			List<JToken> ParsingQuakes = AllQuakes["features"].ToList();
+			//Grabs all 
+			for (int i = 0; i < ParsingQuakes.Count(); i++)
 			{
 				QuakeData q = new QuakeData();
 
-				q.Alert = TheColors[i]["properties"]["alert"].ToString();
-				q.Place = TheColors[i]["properties"]["place"].ToString();
+				q.Alert = ParsingQuakes[i]["properties"]["alert"].ToString();
+				q.Place = ParsingQuakes[i]["properties"]["place"].ToString();
+				string longitude = ParsingQuakes[i]["geometry"]["coordinates"][0].ToString();
+				string latitude = ParsingQuakes[i]["geometry"]["coordinates"][1].ToString();
+				float.TryParse(longitude, out float longParsed);
+				float.TryParse(latitude, out float latParsed);
+				q.LongitudeParsed = longParsed;
+				q.LatitudeParsed = latParsed;
 				AllLocations.Add(q);
+				string UnixTime = ParsingQuakes[i]["properties"]["time"].ToString();
+				long.TryParse(UnixTime, out long UnixInLong);
+				var dt = DateTimeOffset.FromUnixTimeSeconds(UnixInLong);
 
-				if (USStates.Contains(q.Place))
+				//double.TryParse(UnixTime, out double epoch);
+				//var FinalEpoch = (epoch - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+
+
+
+
+				//if (i >= 850)
+				//{
+				//	ViewBag.Hello = "Fix my shit fam";
+				//}
+
+				for (int l = 0; l < USStates.Count; l++)
 				{
-				
-					Earthquakes e = new Earthquakes();
-					e.Color = TheColors[i]["properties"]["place"].ToString();
-					EarthquakeList.Add(e);
+					if (q.Place.Contains(USStates[l].ToString()))
+					{
+
+						Earthquakes e = new Earthquakes();
+						e.Place = q.Place;
+						e.Alert = q.Alert;
+						e.Longitude = q.LongitudeParsed;
+						e.Latitude = q.LatitudeParsed;
+						//e.Time = dt;
+						EarthquakeList.Add(e);
+					}
 				}
 
+				// = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds; 
 			}
 			ViewBag.Results = EarthquakeList;
-		
+			
+
 			return View();
-        }
+		}
 
 
 
@@ -78,14 +107,14 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 
 
-		
-public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
-    }
+		public ActionResult Contact()
+		{
+			ViewBag.Message = "Your contact page.";
+
+			return View();
+		}
+	}
 }
 
 

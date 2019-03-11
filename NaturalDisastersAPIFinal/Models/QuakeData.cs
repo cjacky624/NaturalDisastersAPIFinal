@@ -9,5 +9,13 @@ namespace NaturalDisastersAPIFinal.Models
 	{
 		public string Place { get; set; }
 		public string Alert { get; set; }
+		public float LongitudeParsed { get; set; }
+		public float LatitudeParsed { get; set; }
+	
+		public QuakeData()
+		{
+
+		}
+	
 	}
 }
