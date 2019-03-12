@@ -1,4 +1,7 @@
-﻿using System;
+using NaturalDisastersAPIFinal.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,8 +9,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using NaturalDisastersAPIFinal.APIKey;
-using NaturalDisastersAPIFinal.Models;
-using Newtonsoft.Json.Linq;
+
 
 namespace NaturalDisastersAPIFinal.Controllers
 {
@@ -148,37 +150,32 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 
 
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
+	 public ActionResult Contact()
+    {
+            int offset;            
+            //there is a total of 4105 disaster declarations as of 3-11-19
+            List<FemaDisaster> Tornados = new List<FemaDisaster>();
+            for (offset = 0; offset <= 4000; offset += 1000)
+            {
+                string APIText = "https://www.fema.gov/api/open/v1/FemaWebDisasterDeclarations?$skip=" + offset;
 
-			return View();
-		}
+                HttpWebRequest request = WebRequest.CreateHttp(APIText);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                StreamReader rd = new StreamReader(response.GetResponseStream());
+                string data = rd.ReadToEnd();
+                rd.Close();
+
+                MetaDataWrapper Disasters = JsonConvert.DeserializeObject<MetaDataWrapper>(data);
+                Tornados.AddRange(Disasters.FemaWebDisasterDeclarations.Where(x => x.incidentType == "Tornado").ToList());
+                
+                //.add only does one object, while .addRange does ALL the objects
+                //to populate the table Tornado, we will need to grab each item in the List and pull out the strings, etc that make up the Object Tornado and save to the DB
+            }
+
+            ViewBag.TornadoCount = Tornados.Count();
+            ViewBag.TornadoList = Tornados;
+            return View();
+     }
 	}
 }
-
-
-
-
-
-
-
-//string finalUnix = UnixTime;
-//				if (EarthquakeList.Count< 137)
-//				{
-//					finalUnix = UnixTime.Substring(0, 10);
-//				}
-
-//				if (EarthquakeList.Count >= 137)
-//				{
-//					finalUnix = UnixTime.Substring(0, 9);
-//				}
-//				if (EarthquakeList.Count >= 340)
-//				{
-//					finalUnix = UnixTime.Substring(0, 8);
-//				}
-//				if (EarthquakeList.Count >= 363)
-//				{
-//					finalUnix = UnixTime.Substring(0, 7);
-//				}
-//				ulong.TryParse(finalUnix, out ulong UnixInLong);

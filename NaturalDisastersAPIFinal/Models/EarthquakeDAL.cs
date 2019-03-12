@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace NaturalDisastersAPIFinal.Models
 {
+
 	public class EarthquakeDAL
 	{
 		public List<Earthquakes> EarthquakeList = new List<Earthquakes>();
@@ -31,4 +32,5 @@ namespace NaturalDisastersAPIFinal.Models
 
 		}
 	}
+
 }

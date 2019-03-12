@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace NaturalDisastersAPIFinal.Models
 {
+
 	public class QuakeData
 	{
 		public string Place { get; set; }
@@ -18,4 +19,5 @@ namespace NaturalDisastersAPIFinal.Models
 		}
 	
 	}
+
 }

@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Models\EarthquakeDAL.cs" />
     <Compile Include="Models\Earthquakes.cs" />
+    <Compile Include="Models\FemaDisaster.cs" />
     <Compile Include="Models\NaturalDisasters.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
