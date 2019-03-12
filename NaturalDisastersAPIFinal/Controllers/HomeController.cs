@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using NaturalDisastersAPIFinal.APIKey;
 using NaturalDisastersAPIFinal.Models;
 using Newtonsoft.Json.Linq;
 
@@ -33,11 +34,12 @@ namespace NaturalDisastersAPIFinal.Controllers
 			return View();
 		}
 
-		public ActionResult OneState(string StateChoice)
+		public ActionResult UserLocation(string Location)
 		{
-			string APIText = "https://earthquake.usgs.gov/fdsnws/" +
-				$"event/1/query?format=geojson&starttime=1970-01-01&&minmagnitude=6&";
-
+			MyKey key = new MyKey();
+			string APIkey = key.GetKey();
+			string APIText = $"https://maps.googleapis.com/maps/api/geocode/json?components=" +
+				$"locality:{Location}|country:US&key={APIkey}";
 			HttpWebRequest request = WebRequest.CreateHttp(APIText);
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -45,77 +47,10 @@ namespace NaturalDisastersAPIFinal.Controllers
 			string data = rd.ReadToEnd();
 			rd.Close();
 
-			JToken AllQuakes = JToken.Parse(data);
-			List<JToken> ParsingQuakes = AllQuakes["features"].ToList();
+			JToken UserLocation = JToken.Parse(data);
+			List<JToken> ParsedLocation = UserLocation.ToList();
 
-			for (int i = 0; i < ParsingQuakes.Count(); i++)
-			{
-				QuakeData q = new QuakeData();
-
-				q.Magnitude = ParsingQuakes[i]["properties"]["alert"].ToString();
-				q.Place = ParsingQuakes[i]["properties"]["place"].ToString();
-				string longitude = ParsingQuakes[i]["geometry"]["coordinates"][0].ToString();
-				string latitude = ParsingQuakes[i]["geometry"]["coordinates"][1].ToString();
-				float.TryParse(longitude, out float longParsed);
-				float.TryParse(latitude, out float latParsed);
-				q.LongitudeParsed = longParsed;
-				q.LatitudeParsed = latParsed;
-				AllLocations.Add(q);
-				string UnixTime = ParsingQuakes[i]["properties"]["time"].ToString();
-
-				string finalUnix = UnixTime.Substring(0, 10);
-				if (EarthquakeList.Count < 137)
-				{
-					finalUnix = UnixTime.Substring(0, 10);
-				}
-
-				if (EarthquakeList.Count >= 137)
-				{
-					finalUnix = UnixTime.Substring(0, 9);
-				}
-				if (EarthquakeList.Count >= 340)
-				{
-					finalUnix = UnixTime.Substring(0, 8);
-				}
-				if (EarthquakeList.Count >= 363)
-				{
-					finalUnix = UnixTime.Substring(0, 7);
-				}
-				ulong.TryParse(finalUnix, out ulong UnixInLong);
-
-
-				// Format our new DateTime object to start at the UNIX Epoch
-				DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-
-				// Add the timestamp (number of seconds since the Epoch) to be converted
-				dateTime = dateTime.AddSeconds(UnixInLong);
-
-
-
-
-
-
-
-				for (int l = 0; l < USStates.Count; l++)
-				{
-					if (q.Place.Contains(USStates[l].ToString()))
-					{
-
-						Earthquakes e = new Earthquakes();
-						e.Place = q.Place;
-						e.Magnitude = q.Magnitude;
-						e.Longitude = q.LongitudeParsed;
-						e.Latitude = q.LatitudeParsed;
-						e.Time = dateTime;
-						EarthquakeList.Add(e);
-					}
-				}
-
-
-			}
-			ViewBag.Results = EarthquakeList;
-
-
+			ViewBag.UserLocation = ParsedLocation;
 			return View();
 		}
 	
@@ -123,7 +58,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 		{
 			string APIText = "https://earthquake.usgs.gov/fdsnws/event/1/query?" +
 				"format=geojson&starttime=2018-06-01&endtime=2019-01-01&minmagnitude=3";
-			//&endtime=2002-01-01
+			//Grab the earthquakes and put them into a database table.
 			HttpWebRequest request = WebRequest.CreateHttp(APIText);
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
