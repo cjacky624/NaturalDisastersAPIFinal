@@ -166,6 +166,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Airplane ico.ico" />
     <Content Include="Models\NaturalDisasters.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>NaturalDisasters.edmx</DependentUpon>
