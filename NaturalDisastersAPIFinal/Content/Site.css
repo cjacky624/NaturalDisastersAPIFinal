@@ -35,3 +35,8 @@ textarea {
 h3 {
 	text-align:center;
 }
+.SearchBox {
+	text-align:center;
+	align-content:center;
+	font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

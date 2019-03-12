@@ -1,5 +1,18 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Travel Page</title>
+	<link rel="icon" href="~/Images/Airplane ico.ico" />
+</head>
+<body>
+	<div class="SearchBox">
+		<form action="/Home/UserLocation">
+			<h4>Pick a location ("City name/state" preferred!)</h4><br/>
+			<input id="TextBox" @Html.TextBox("Location")
+				<br/> <br/>
+			<input type="submit" value="Submit" />
+		</form>
+	</div>
+</body>
+</html>
 
-</div>
