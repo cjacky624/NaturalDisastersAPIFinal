@@ -1,20 +1,15 @@
-﻿@{ int num = 1;}
+﻿@{ int num = 0;}
 
 
 @foreach (var item in ViewBag.Results)
 {
+	num++;
 	<br/><br />
 	<h3>EARTHQUAKES!</h3>
 	<div id="QuakeData">
 		<br />
-		@if (item.Alert == "orange")
-		{
-			<p>WE'RE GONNA FUCKIN DIE!</p>
-		}
-		else
-		{
-		<p>Alert Status!!: @item.Alert</p>
-		}
+		<p>Magnitude: @item.Magnitude</p>
+		
 		<p>Where did it hit?: @item.Place</p>
 		<p>Gimme the longitude: @item.Longitude</p>
 		<p>Now Latitude kthx: @item.Latitude</p>
