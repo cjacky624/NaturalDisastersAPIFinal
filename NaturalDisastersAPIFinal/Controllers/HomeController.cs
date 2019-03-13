@@ -50,9 +50,13 @@ namespace NaturalDisastersAPIFinal.Controllers
 			rd.Close();
 
 			JToken UserLocation = JToken.Parse(data);
-			List<JToken> ParsedLocation = UserLocation.ToList();
+			List<JToken> ParsedLocation = UserLocation["results"].ToList();
 
-			ViewBag.UserLocation = ParsedLocation;
+			ViewBag.Address = ParsedLocation[0]["formatted_address"].ToString();
+			ViewBag.UserLat = ParsedLocation[0]["geometry"]["location"]["lat"].ToString();
+			ViewBag.UserLong = ParsedLocation[0]["geometry"]["location"]["lng"].ToString();
+
+			
 			return View();
 		}
 	
