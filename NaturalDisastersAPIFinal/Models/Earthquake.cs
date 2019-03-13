@@ -17,7 +17,8 @@ namespace NaturalDisastersAPIFinal.Models
         public int EarthquakeID { get; set; }
         public Nullable<double> Longitude { get; set; }
         public Nullable<double> Latitude { get; set; }
-        public string Alert { get; set; }
-        public Nullable<int> Time { get; set; }
+        public Nullable<decimal> Magnitude { get; set; }
+        public Nullable<System.DateTime> Time { get; set; }
+        public string Place { get; set; }
     }
 }
