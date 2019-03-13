@@ -24,7 +24,26 @@ namespace NaturalDisastersAPIFinal.Models
         public string hash { get; set; }
         public string lastRefresh { get; set; }
         public string id { get; set; }
-
+        
+       
+//ihProgramDeclared
+//iaProgramDeclared
+//paProgramDeclared
+//hmProgramDeclared
+//state	"GA"
+//declarationDate	"1953-05-02T00:00:00.000Z"
+//fyDeclared	1953
+//disasterType	"DR"
+//incidentType	"Tornado"
+//title	"TORNADO"
+//incidentBeginDate	"1953-05-02T00:00:00.000Z"
+//incidentEndDate	"1953-05-02T00:00:00.000Z"
+//disasterCloseOutDate	"1954-06-01T00:00:00.000Z"
+//declaredCountyArea	""
+//placeCode	null
+//hash	"e6f77c3a97c63d478bf14c9a58f60a0d"
+//lastRefresh	"2018-02-09T14:38:26.149Z"
+//id
     }
     public class MetaDataWrapper
     {
