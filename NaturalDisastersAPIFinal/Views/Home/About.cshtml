@@ -8,21 +8,17 @@
 	<h3>EARTHQUAKES!</h3>
 	<div id="QuakeData">
 		<br />
-		@if (item.Alert == "orange")
-		{
-			<p>WE'RE GONNA FUCKIN DIE!</p>
-		}
-		else
-		{
-		<p>Alert Status!!: @item.Alert</p>
-		}
+		
+		<p>Alert Status!!: @item.Magnitude</p>
+		
 		<p>Where did it hit?: @item.Place</p>
 		<p>Gimme the longitude: @item.Longitude</p>
 		<p>Now Latitude kthx: @item.Latitude</p>
 		<p> @item.Time </p>
 		<br /><br />
+        
 	</div>
 
 }
 
-<p>Number of Earthquakes all day erry day: @num</p>
+<p>Number of Earthquakes all day erry day: @ViewBag.Count</p>
