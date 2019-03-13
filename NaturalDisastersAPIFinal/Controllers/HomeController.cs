@@ -65,7 +65,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 			
 
-        public ActionResult About()
+        public ActionResult Earthquakes()
         {
             for (int year = 1970; year <= 2019; year++)
             {
@@ -140,7 +140,7 @@ namespace NaturalDisastersAPIFinal.Controllers
         }
 
 
-	 public ActionResult Contact()
+	 public ActionResult Tornados()
     {
             int offset;            
 
