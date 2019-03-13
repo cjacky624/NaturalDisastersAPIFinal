@@ -5,6 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
 
+
       <Diagram DiagramId="234a11fb1d9a4a0f97a18706c591da98" Name="Diagram1">
         <EntityTypeShape EntityType="NaturalDisastersModel.Tornado" Width="1.5" PointX="0.875" PointY="0.75" IsExpanded="true" />
 
@@ -12,6 +13,11 @@
         //<EntityTypeShape EntityType="NaturalDisastersModel.Earthquake" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         //<EntityTypeShape EntityType="NaturalDisastersModel.Tornado" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
      
+
+      //<Diagram DiagramId="6e06d9c578c74f4892fed02683a75d3a" Name="Diagram1">
+        //<EntityTypeShape EntityType="NaturalDisastersModel.Earthquake" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        //<EntityTypeShape EntityType="NaturalDisastersModel.Tornado" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+
       </Diagram>
         <EntityTypeShape EntityType="NaturalDisastersModel.Earthquake" Width="1.5" PointX="2.75" PointY="0.75" />
     </edmx:Diagrams>
