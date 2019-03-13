@@ -39,6 +39,8 @@ h3 {
 	text-align:center;
 	align-content:center;
 	font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	padding-top:2.5in;
+	padding-bottom: 2.5in;
 }
 
 #yourLocation {
@@ -62,4 +64,16 @@ h3 {
 }
 .navbar-inverse {
 	background-color:aquamarine !important;
+}
+#Tornados {
+	text-align: center;
+	font-size: 15px;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color: navy;
+	border: solid grey 10px;
+	padding: 0px 300px 0px 300px;
+	background-color:darkgrey;
+}
+#thefoot {
+	text-align:center;
 }
