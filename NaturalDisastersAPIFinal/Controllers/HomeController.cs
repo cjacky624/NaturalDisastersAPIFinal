@@ -63,7 +63,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 				AllLocations.Add(q);
 				string UnixTime = ParsingQuakes[i]["properties"]["time"].ToString();
 				long.TryParse(UnixTime, out long UnixInLong);
-				var dt = DateTimeOffset.FromUnixTimeSeconds(UnixInLong);
+				//var dt = DateTimeOffset.FromUnixTimeSeconds(UnixInLong);
 
 				//double.TryParse(UnixTime, out double epoch);
 				//var FinalEpoch = (epoch - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
