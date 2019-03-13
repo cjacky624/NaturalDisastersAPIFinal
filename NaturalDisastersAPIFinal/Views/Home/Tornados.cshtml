@@ -1,18 +1,19 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
+﻿
 <h3>TORNADOS</h3>
 
 @foreach (var item in ViewBag.TornadoList)
 {
-    <p>Incident: @item.incidentType</p>
-    <p>Disaster Name: @item.disasterName</p>
-    <p>State: @item.stateName</p>
-    <p>Declaration/Alert: @item.declarationType</p>
-    <p>Date: @item.incidentBeginDate</p>
-    <br />
-    <br />
-
+<div id="Tornados">
+	<br />
+	<p>Incident: @item.incidentType</p>
+	<p>Disaster Name: @item.disasterName</p>
+	<p>State: @item.stateName</p>
+	<p>Declaration/Alert: @item.declarationType</p>
+	<p>Date: @item.incidentBeginDate</p>
+	<br />
+	<br />
+</div>
+	<br/>
 }
 
     <p>@ViewBag.TornadoCount</p>
