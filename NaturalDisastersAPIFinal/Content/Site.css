@@ -35,3 +35,31 @@ textarea {
 h3 {
 	text-align:center;
 }
+.SearchBox {
+	text-align:center;
+	align-content:center;
+	font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#yourLocation {
+	text-align:center;
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	font-size: 17px;
+	color:forestgreen;
+}
+
+#HomeButton {
+	position:relative;
+	left: 500px;
+}
+#QuakesButton {
+	position: relative;
+	left: 500px;
+}
+#NadosButton {
+	position: relative;
+	left: 175px;
+}
+.navbar-inverse {
+	background-color:aquamarine !important;
+}

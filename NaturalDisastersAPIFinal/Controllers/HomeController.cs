@@ -1,4 +1,4 @@
-﻿using NaturalDisastersAPIFinal.Models;
+using NaturalDisastersAPIFinal.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -8,14 +8,47 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using NaturalDisastersAPIFinal.APIKey;
+
 
 namespace NaturalDisastersAPIFinal.Controllers
 {
-    public class HomeController : Controller
-    {
+	public class HomeController : Controller
+	{
+		
+		public List<Earthquakes> EarthquakeList = new List<Earthquakes>();
 
-        public List<Earthquake> EarthquakeList = new List<Earthquake>();
 
+		public ActionResult Index()
+		{
+			return View();
+		}
+
+		public ActionResult UserLocation(string Location)
+		{
+			MyKey key = new MyKey();
+			string APIkey = key.GetKey();
+			string APIText = $"https://maps.googleapis.com/maps/api/geocode/json?components=" +
+				$"locality:{Location}|country:US&key={APIkey}";
+			HttpWebRequest request = WebRequest.CreateHttp(APIText);
+			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+			StreamReader rd = new StreamReader(response.GetResponseStream());
+			string data = rd.ReadToEnd();
+			rd.Close();
+
+			JToken UserLocation = JToken.Parse(data);
+			List<JToken> ParsedLocation = UserLocation["results"].ToList();
+
+			ViewBag.Address = ParsedLocation[0]["formatted_address"].ToString();
+			ViewBag.UserLat = ParsedLocation[0]["geometry"]["location"]["lat"].ToString();
+			ViewBag.UserLong = ParsedLocation[0]["geometry"]["location"]["lng"].ToString();
+
+			
+			return View();
+		}
+	
+	
         public static List<string> GetUSStates()
         {
           return new List<string>(){
@@ -28,13 +61,10 @@ namespace NaturalDisastersAPIFinal.Controllers
                 "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
             };
         }
-
-
-
-        public ActionResult Index()
-        {
-            return View();
-        }
+	
+			
+			ViewBag.Results = EarthquakeList;
+			
 
         public ActionResult About()
         {
@@ -59,7 +89,7 @@ namespace NaturalDisastersAPIFinal.Controllers
             return View();
         }
 
-        public static List<Earthquake> CallEarthquakeAPI(string APIText)
+      public static List<Earthquake> CallEarthquakeAPI(string APIText)
         {
             HttpWebRequest request = WebRequest.CreateHttp(APIText);
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -110,10 +140,11 @@ namespace NaturalDisastersAPIFinal.Controllers
             return outputList;
         }
 
-        //aka the Tornado  data
-        public ActionResult Contact()
-        {
-            int offset;
+
+	 public ActionResult Contact()
+    {
+            int offset;            
+
             //there is a total of 4105 disaster declarations as of 3-11-19
             List<FemaDisaster> Tornados = new List<FemaDisaster>();
             for (offset = 0; offset <= 4000; offset += 1000)
@@ -138,9 +169,6 @@ namespace NaturalDisastersAPIFinal.Controllers
             ViewBag.TornadoList = Tornados;
             return View();
         }
-
-
-
         //we will need a sperate method for the other weathers.
         public static void AddToEQDatabase(List<Earthquake> EarthquakeList)
         {
@@ -182,21 +210,8 @@ namespace NaturalDisastersAPIFinal.Controllers
                 //}
                 //db.Earthquakes.Add();
             }
-
-
-
-
             db.SaveChanges();
         }
-
     }
-
-
 }
-
-
-
-
-
-
 
