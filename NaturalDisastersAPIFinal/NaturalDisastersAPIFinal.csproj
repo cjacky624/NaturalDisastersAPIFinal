@@ -134,8 +134,6 @@
     <Compile Include="Models\Earthquake.cs">
       <DependentUpon>NaturalDisasters.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EarthquakeDAL.cs" />
-    <Compile Include="Models\Earthquakes.cs" />
     <Compile Include="Models\FemaDisaster.cs" />
     <Compile Include="Models\NaturalDisasters.Context.cs">
       <AutoGen>True</AutoGen>
@@ -152,7 +150,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NaturalDisasters.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\QuakeData.cs" />
     <Compile Include="Models\Tornado.cs">
       <DependentUpon>NaturalDisasters.tt</DependentUpon>
     </Compile>

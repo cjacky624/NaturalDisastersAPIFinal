@@ -13,7 +13,7 @@
         //<EntityTypeShape EntityType="NaturalDisastersModel.Tornado" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
      
       </Diagram>
-        <EntityTypeShape EntityType="NaturalDisastersModel.Earthquake" Width="1.5" PointX="3.125" PointY="0.875" />
+        <EntityTypeShape EntityType="NaturalDisastersModel.Earthquake" Width="1.5" PointX="2.75" PointY="0.75" />
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
