@@ -1,43 +1,35 @@
-﻿using System;
+using NaturalDisastersAPIFinal.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using NaturalDisastersAPIFinal.Models;
-using Newtonsoft.Json.Linq;
+using NaturalDisastersAPIFinal.APIKey;
+
 
 namespace NaturalDisastersAPIFinal.Controllers
 {
 	public class HomeController : Controller
 	{
 		
-		public List<Earthquakes> EarthquakeList = new List<Earthquakes>();
-		
-		public List<string> USStates = new List<string>()
-		{
-			"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
-			"Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
-			"Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
-			"Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico",
-			"New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",  "Pennsylvania",
-			"Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
-			"Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "off the coast of Oregon"
-		};
+		public List<Earthquake> EarthquakeList = new List<Earthquake>();
 
-		public List<QuakeData> AllLocations = new List<QuakeData>();
 
 		public ActionResult Index()
 		{
 			return View();
 		}
 
-		public ActionResult About()
+		public ActionResult UserLocation(string Location)
 		{
-			string APIText = "https://earthquake.usgs.gov/fdsnws/" +
-				$"event/1/query?format=geojson&starttime=2017-01-01&&minmagnitude=6&";
-
+			MyKey key = new MyKey();
+			string APIkey = key.GetKey();
+			string APIText = $"https://maps.googleapis.com/maps/api/geocode/json?components=" +
+				$"locality:{Location}|country:US&key={APIkey}";
 			HttpWebRequest request = WebRequest.CreateHttp(APIText);
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -45,88 +37,180 @@ namespace NaturalDisastersAPIFinal.Controllers
 			string data = rd.ReadToEnd();
 			rd.Close();
 
-			JToken AllQuakes = JToken.Parse(data);
-			List<JToken> ParsingQuakes = AllQuakes["features"].ToList();
-			//Grabs all 
-			for (int i = 0; i < ParsingQuakes.Count(); i++)
-			{
-				QuakeData q = new QuakeData();
+			JToken UserLocation = JToken.Parse(data);
+			List<JToken> ParsedLocation = UserLocation["results"].ToList();
 
-				q.Alert = ParsingQuakes[i]["properties"]["alert"].ToString();
-				q.Place = ParsingQuakes[i]["properties"]["place"].ToString();
-				string longitude = ParsingQuakes[i]["geometry"]["coordinates"][0].ToString();
-				string latitude = ParsingQuakes[i]["geometry"]["coordinates"][1].ToString();
-				float.TryParse(longitude, out float longParsed);
-				float.TryParse(latitude, out float latParsed);
-				q.LongitudeParsed = longParsed;
-				q.LatitudeParsed = latParsed;
-				AllLocations.Add(q);
-				string UnixTime = ParsingQuakes[i]["properties"]["time"].ToString();
-				long.TryParse(UnixTime, out long UnixInLong);
-				var dt = DateTimeOffset.FromUnixTimeSeconds(UnixInLong);
+			ViewBag.Address = ParsedLocation[0]["formatted_address"].ToString();
+			ViewBag.UserLat = ParsedLocation[0]["geometry"]["location"]["lat"].ToString();
+			ViewBag.UserLong = ParsedLocation[0]["geometry"]["location"]["lng"].ToString();
 
-				//double.TryParse(UnixTime, out double epoch);
-				//var FinalEpoch = (epoch - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+			
+			return View();
+		}
+	
+	
+        public static List<string> GetUSStates()
+        {
+          return new List<string>(){
+                "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
+                "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+                "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+                "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico",
+                "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",  "Pennsylvania",
+                "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+                "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+            };
+        }
+	
 
-
-
-
-				//if (i >= 850)
-				//{
-				//	ViewBag.Hello = "Fix my shit fam";
-				//}
-
-				for (int l = 0; l < USStates.Count; l++)
-				{
-					if (q.Place.Contains(USStates[l].ToString()))
-					{
-
-						Earthquakes e = new Earthquakes();
-						e.Place = q.Place;
-						e.Alert = q.Alert;
-						e.Longitude = q.LongitudeParsed;
-						e.Latitude = q.LatitudeParsed;
-						//e.Time = dt;
-						EarthquakeList.Add(e);
-					}
-				}
-
-				// = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds; 
-			}
-			ViewBag.Results = EarthquakeList;
 			
 
-			return View();
-		}
+        public ActionResult About()
+        {
+            for (int year = 1970; year <= 2019; year++)
+            {
+                for (int month = 1; month <= 12; month++)
+                {
+                    string monthstring = "0" + month;
+                    monthstring = monthstring.Substring(monthstring.Length - 2, 2);
+                    string APIText = "https://earthquake.usgs.gov/fdsnws/" +
+                        $"event/1/query?format=geojson&starttime=" + year + "-" + monthstring + "-01&endtime=" + year + "-" + monthstring + "-31&minmagnitude=3";
+                    EarthquakeList.AddRange(CallEarthquakeAPI(APIText));
+                }
+                
+            }
+            //do multliplication of the Long and Lat for the radius  in the inner for loop. Then add all this data to the database.
+
+            ViewBag.Count = EarthquakeList.Count;
+            ViewBag.Results = EarthquakeList;
 
 
+            return View();
+        }
+
+      public static List<Earthquake> CallEarthquakeAPI(string APIText)
+        {
+            HttpWebRequest request = WebRequest.CreateHttp(APIText);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            StreamReader rd = new StreamReader(response.GetResponseStream());
+            string data = rd.ReadToEnd();
+            rd.Close();
+
+            JToken AllQuakes = JToken.Parse(data);
+            List<JToken> ParsingQuakes = AllQuakes["features"].ToList();
 
 
+            List<string> USStates = GetUSStates();
+            List<Earthquake> outputList = new List<Earthquake>();
+            for (int i = 0; i < ParsingQuakes.Count(); i++)
+            {
+                Earthquake e = new Earthquake();
+
+                
+                string Place = ParsingQuakes[i]["properties"]["place"].ToString();
+                for (int l = 0; l < USStates.Count; l++)
+                {
+                    if (Place.Contains(USStates[l].ToString()))
+                    {
+                        e.Place = Place;
+                        string Mag = ParsingQuakes[i]["properties"]["mag"].ToString();
+                        decimal.TryParse(Mag, out decimal MagnitudeParsed);
+                        e.Magnitude = MagnitudeParsed;
+                        string longitude = ParsingQuakes[i]["geometry"]["coordinates"][0].ToString();
+                        string latitude = ParsingQuakes[i]["geometry"]["coordinates"][1].ToString();
+                        float.TryParse(longitude, out float longParsed);
+                        float.TryParse(latitude, out float latParsed);
+                        e.Longitude = longParsed;
+                        e.Latitude = latParsed;
+                        string UnixTime = ParsingQuakes[i]["properties"]["time"].ToString();
+                        UnixTime = UnixTime.Substring(0, (UnixTime.Length - 3));
+                        double finalUnix = double.Parse(UnixTime);
+
+                        // Format our new DateTime object to start at the UNIX Epoch
+                        DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(finalUnix);
+                        e.Time = dateTime;
+                        outputList.Add(e);
+                    }
+
+                }
+            }
+
+            return outputList;
+        }
 
 
+	 public ActionResult Contact()
+    {
+            int offset;            
+
+            //there is a total of 4105 disaster declarations as of 3-11-19
+            List<FemaDisaster> Tornados = new List<FemaDisaster>();
+            for (offset = 0; offset <= 4000; offset += 1000)
+            {
+                string APIText = "https://www.fema.gov/api/open/v1/FemaWebDisasterDeclarations?$skip=" + offset;
+
+                HttpWebRequest request = WebRequest.CreateHttp(APIText);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                StreamReader rd = new StreamReader(response.GetResponseStream());
+                string data = rd.ReadToEnd();
+                rd.Close();
+
+                MetaDataWrapper Disasters = JsonConvert.DeserializeObject<MetaDataWrapper>(data);
+                Tornados.AddRange(Disasters.FemaWebDisasterDeclarations.Where(x => x.incidentType == "Tornado").ToList());
+
+                //.add only does one object, while .addRange does ALL the objects
+                //to populate the table Tornado, we will need to grab each item in the List and pull out the strings, etc that make up the Object Tornado and save to the DB
+            }
+
+            ViewBag.TornadoCount = Tornados.Count();
+            ViewBag.TornadoList = Tornados;
+            return View();
+        }
+        //we will need a sperate method for the other weathers.
+        public static void AddToEQDatabase(List<Earthquake> EarthquakeList)
+        {
+            NaturalDisastersEntities db = new NaturalDisastersEntities();
 
 
+            foreach (var q in EarthquakeList)
+            {
+                double DmgLowLongititude;
+                double DmgHighLongititude;
+                double DmgLowLatitude;
+                double DmgHighLatitude;
+                double FeltLowLongititude;
+                double FeltHighLongitutde;
+                double FeltLowLatitude;
+                double FeltHighLatitude;
 
-
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
-
-			return View();
-		}
-	}
+                //if (q.Magnitude >= 3 && q.Magnitude <= 4.00)
+                //{
+                //    DmgLowLongititude = q.Longitude * 0.998;
+                //    DmgHighLongititude = q.Longitude * 1.002;
+                //    DmgLowLatitude = q.Latitude * 0.998;
+                //    DmgHighLatitude = q.Latitude * 1.002;
+                //    FeltLowLongititude = q.Longitude - 0.9;
+                //    FeltHighLongitutde = q.Longitude + 0.9;
+                //    FeltLowLatitude = q.Latitude - 0.9;
+                //    FeltHighLatitude = q.Latitude + 0.9;
+                //}
+                //else if (q.Magnitude > 4 && q.Magnitude <= 6.00)
+                //{
+                //    DmgLowLongititude = q.Longitude * 0.992;
+                //    DmgHighLongititude = q.Longitude * 1.008;
+                //    DmgLowLatitude = q.Latitude * 0.992;
+                //    DmgHighLatitude = q.Latitude * 1.008;
+                //    FeltLowLongititude = q.Longitude - 1.2;
+                //    FeltHighLongitutde = q.Longitude + 1.2;
+                //    FeltLowLatitude = q.Latitude - 1.2;
+                //    FeltHighLatitude = q.Latitude + 1.2;
+                //}
+                //db.Earthquakes.Add();
+            }
+            db.SaveChanges();
+        }
+    }
 }
 
-
-
-
-
-
-
-
-//if (TheColors[i]["properties"]["place"].ToString().Contains(JustAlaska.ToString()))
-//				{
-//					Earthquakes e = new Earthquakes();
-//e.Color = TheColors[i]["properties"]["alert"].ToString();
-//EarthquakeList.Add(e);
-//				}

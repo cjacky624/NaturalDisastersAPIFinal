@@ -1,14 +1,22 @@
-﻿@{ int num = 0;}
+@{ int num = 0;}
+
 @foreach (var item in ViewBag.Results)
 {
-	<br />
-	<p>Alert Status!!: @item.Alert</p>
-	<p>Who the fuck did it hit????: @item.Place</p>
-	<p>Gimme the longitude: @item.Longitude</p>
-	<p>Now Latitude kthx: @item.Latitude</p>
-	<p> @item.Time </p>
 	num++;
-	<p>@num</p>
-	<br /><br />
+	<br/><br />
+	<h3>EARTHQUAKES!</h3>
+	<div id="QuakeData">
+		<br />
+
+		<p>Magnitude: @item.Magnitude</p>
+		<p>Where did it hit?: @item.Place</p>
+		<p>Gimme the longitude: @item.Longitude</p>
+		<p>Now Latitude kthx: @item.Latitude</p>
+		<p> @item.Time </p>
+		<br /><br />
+        
+	</div>
+
 }
-<p>@num</p>
+
+<p>Number of Earthquakes all day erry day: @ViewBag.Count</p>
