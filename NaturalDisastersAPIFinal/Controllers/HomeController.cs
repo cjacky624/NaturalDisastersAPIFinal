@@ -48,19 +48,13 @@ namespace NaturalDisastersAPIFinal.Controllers
 			return View();
 		}
 	
-	
-  
 
         public ActionResult Earthquakes()
         {
-
 			NaturalDisastersEntities db = new NaturalDisastersEntities();
 			ViewBag.Results = db.Earthquakes;
 			return View();
         }
-
-    
-
 
 	 public ActionResult Tornados()
     {
@@ -178,3 +172,4 @@ namespace NaturalDisastersAPIFinal.Controllers
 //				"Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
 //			};
 //}
+
