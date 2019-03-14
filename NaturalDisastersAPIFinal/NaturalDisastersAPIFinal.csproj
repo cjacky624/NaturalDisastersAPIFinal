@@ -167,6 +167,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Airplane ico.ico" />
+    <Content Include="Images\ShakesAndQuakes.jpg" />
     <Content Include="Models\NaturalDisasters.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>NaturalDisasters.edmx</DependentUpon>

@@ -111,3 +111,9 @@ h4 {
 	right: 50px;
 	text-align:center;
 }
+
+#earthquakesPic {
+	position:relative;
+	left: 800px;
+	bottom: 200px;
+}
