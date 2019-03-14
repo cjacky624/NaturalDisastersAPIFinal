@@ -127,6 +127,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EarthquakeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -134,8 +135,6 @@
     <Compile Include="Models\Earthquake.cs">
       <DependentUpon>NaturalDisasters.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EarthquakeDAL.cs" />
-    <Compile Include="Models\Earthquakes.cs" />
     <Compile Include="Models\FemaDisaster.cs" />
     <Compile Include="Models\NaturalDisasters.Context.cs">
       <AutoGen>True</AutoGen>
@@ -152,10 +151,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NaturalDisasters.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\QuakeData.cs" />
     <Compile Include="Models\Tornado.cs">
       <DependentUpon>NaturalDisasters.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +186,7 @@
     <Content Include="Models\NaturalDisasters.edmx.diagram">
       <DependentUpon>NaturalDisasters.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\NaturalDisastersAPIFinal - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -201,12 +201,13 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Earthquakes.cshtml" />
+    <Content Include="Views\Home\Tornados.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\UserLocation.cshtml" />
+    <Content Include="Views\Earthquake\EarthquakeRisk.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
