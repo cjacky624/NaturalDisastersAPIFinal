@@ -44,7 +44,18 @@ namespace NaturalDisastersAPIFinal.Controllers
 			ViewBag.UserLat = ParsedLocation[0]["geometry"]["location"]["lat"].ToString();
 			ViewBag.UserLong = ParsedLocation[0]["geometry"]["location"]["lng"].ToString();
 
-			
+			UserLocation User = new UserLocation();
+
+			string latitude = ParsedLocation[0]["geometry"]["location"]["lat"].ToString();
+			float.TryParse(latitude, out float UserLat);
+			string longitude = ParsedLocation[0]["geometry"]["location"]["lng"].ToString();
+			float.TryParse(longitude, out float UserLong);
+
+			User.Location = ParsedLocation[0]["formatted_address"].ToString();
+			User.Latitude = UserLat;
+			User.Longitude = UserLong;
+
+			Session["UserInfo"] = User;
 			return View();
 		}
 	

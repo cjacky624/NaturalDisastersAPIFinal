@@ -6,13 +6,30 @@
 	<link rel="icon" href="~/Images/Airplane ico.ico" />
 </head>
 <body>
+	<div id="ourTitle">
+		<h1>Trip Risk Evaluator!</h1>
+	</div>
+
 	<div class="SearchBox">
 		<form action="/Home/UserLocation">
 			<h4>Pick a location ("City name/state" preferred!)</h4><br/>
-			<input id="TextBox" @Html.TextBox("Location")
+			<input id="TextBox" required @Html.TextBox("Location")
 				<br/> <br/>
 			<input type="submit" value="Search now" />
 		</form>
+	</div>
+
+	<div id="leftBox">
+		<p>Want to check out some locations with heavy earthquake data?!</p>
+		<p>Type these into the search!</p>
+		<ul>
+			<li>San Francisco, California (Or just "San Fran")</li>
+			<li>Anchorage, Alaska</li>
+			<li>Hilo, Hawaii (Or you can just type "Hilo"!</li>
+			<li>Portland, Oregon (Or just "Portland")</li>
+			<li>Seattle, Washington (Or just "Seattle")</li>
+		</ul>
+
 	</div>
 </body>
 </html>

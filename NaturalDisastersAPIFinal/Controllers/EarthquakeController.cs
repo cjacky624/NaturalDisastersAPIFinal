@@ -73,30 +73,27 @@ namespace NaturalDisastersAPIFinal.Controllers
                 }
             }
             ViewBag.Results = userEarthquakes;
-
+			double totalQuakes = userEarthquakes.Count;
+			double allQuakesUS = db.Earthquakes.Count();
+			double division = totalQuakes / allQuakesUS;
+			double percent = division * 100;
+			ViewBag.Chance = Math.Round(percent, 6);
+			ViewBag.Count = totalQuakes;
             //if (q.Magnitude >= 3 && q.Magnitude <= 4.00)
             //{
             //    DmgLowLongititude = q.Longitude * 0.998;
             //    DmgHighLongititude = q.Longitude * 1.002;
             //    DmgLowLatitude = q.Latitude * 0.998;
             //    DmgHighLatitude = q.Latitude * 1.002;
-            //    FeltLowLongititude = q.Longitude - 0.9;
-            //    FeltHighLongitutde = q.Longitude + 0.9;
-            //    FeltLowLatitude = q.Latitude - 0.9;
-            //    FeltHighLatitude = q.Latitude + 0.9;
-            //}
+        
+
             //else if (q.Magnitude > 4 && q.Magnitude <= 6.00)
             //{
             //    DmgLowLongititude = q.Longitude * 0.992;
             //    DmgHighLongititude = q.Longitude * 1.008;
             //    DmgLowLatitude = q.Latitude * 0.992;
             //    DmgHighLatitude = q.Latitude * 1.008;
-            //    FeltLowLongititude = q.Longitude - 1.2;
-            //    FeltHighLongitutde = q.Longitude + 1.2;
-            //    FeltLowLatitude = q.Latitude - 1.2;
-            //    FeltHighLatitude = q.Latitude + 1.2;
-            //}
-
+            
 
             return View();
         }
