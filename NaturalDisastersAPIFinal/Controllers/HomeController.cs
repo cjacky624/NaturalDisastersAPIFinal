@@ -14,7 +14,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 	public class HomeController : Controller
 	{
 		
-		public List<Earthquake> EarthquakeList = new List<Earthquake>();
+		public List<EarthQuakeTable> EarthquakeList = new List<EarthQuakeTable>();
 
 
 		public ActionResult Index()
@@ -67,7 +67,8 @@ namespace NaturalDisastersAPIFinal.Controllers
         public ActionResult Earthquakes()
         {
 			NaturalDisastersEntities db = new NaturalDisastersEntities();
-			ViewBag.Results = db.Earthquakes;
+			ViewBag.Results = db.EarthQuakeTables;
+			ViewBag.Count = db.EarthQuakeTables.Count();
 			return View();
         }
 
