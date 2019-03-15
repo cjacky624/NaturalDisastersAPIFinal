@@ -39,8 +39,8 @@ h3 {
 	text-align:center;
 	align-content:center;
 	font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-	padding-top:2.5in;
-	padding-bottom: 2.5in;
+	padding-top:.2in;
+	
 }
 
 #yourLocation {
@@ -77,4 +77,48 @@ h3 {
 #thefoot {
 	text-align:center;
 	font-size: 20px;
+}
+h4 {
+	text-align:center;
+}
+
+#percentEarthquake {
+	text-align:center;
+	font-size: 20px;
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+#chanceMessage {
+	text-align:center;
+	font-size: 20px;
+}
+#dangerBox {
+	
+	width: 40%;
+	align-content: center;
+	text-align: center;
+	position: relative;
+	left: 350px;
+}
+#ourTitle {
+	text-align:center;
+	padding-top:1in;
+}
+
+#leftBox {
+	border: 1px black solid;
+	width: 40%;
+	position: relative;
+	right: 50px;
+	text-align:center;
+}
+
+#earthquakesPic {
+	position:relative;
+	left: 800px;
+	bottom: 200px;
+}
+
+#errorResult {
+	text-align:center;
+	padding-bottom: 2in;
 }

@@ -167,6 +167,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Airplane ico.ico" />
+    <Content Include="Images\ShakesAndQuakes.jpg" />
     <Content Include="Models\NaturalDisasters.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>NaturalDisasters.edmx</DependentUpon>
@@ -208,6 +209,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\UserLocation.cshtml" />
     <Content Include="Views\Earthquake\EarthquakeRisk.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
