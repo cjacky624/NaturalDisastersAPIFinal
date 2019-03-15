@@ -1,12 +1,10 @@
 using NaturalDisastersAPIFinal.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using NaturalDisastersAPIFinal.APIKey;
 
@@ -40,6 +38,12 @@ namespace NaturalDisastersAPIFinal.Controllers
 			JToken UserLocation = JToken.Parse(data);
 			List<JToken> ParsedLocation = UserLocation["results"].ToList();
 
+			if (ParsedLocation.Count == 0)
+			{
+				ViewBag.TitleError = "Wrong Country";
+				ViewBag.Error = "You gave a country out of bounds!";
+				return View("Error"); 
+			}
 			ViewBag.Address = ParsedLocation[0]["formatted_address"].ToString();
 			ViewBag.UserLat = ParsedLocation[0]["geometry"]["location"]["lat"].ToString();
 			ViewBag.UserLong = ParsedLocation[0]["geometry"]["location"]["lng"].ToString();

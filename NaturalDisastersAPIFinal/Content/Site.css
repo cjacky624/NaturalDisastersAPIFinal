@@ -117,3 +117,8 @@ h4 {
 	left: 800px;
 	bottom: 200px;
 }
+
+#errorResult {
+	text-align:center;
+	padding-bottom: 2in;
+}
