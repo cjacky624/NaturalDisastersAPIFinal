@@ -132,7 +132,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Earthquake.cs">
+    <Compile Include="Models\EarthQuakeTable.cs">
       <DependentUpon>NaturalDisasters.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FemaDisaster.cs" />

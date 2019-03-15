@@ -7,14 +7,14 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using NaturalDisastersAPIFinal.APIKey;
-
+using System;
 
 namespace NaturalDisastersAPIFinal.Controllers
 {
 	public class HomeController : Controller
 	{
 		
-		public List<Earthquake> EarthquakeList = new List<Earthquake>();
+		public List<EarthQuakeTable> EarthquakeList = new List<EarthQuakeTable>();
 
 
 		public ActionResult Index()
@@ -22,7 +22,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 			return View();
 		}
 
-		public ActionResult UserLocation(string Location)
+		public ActionResult UserLocation(string Location, DateTime? StartDate = null, DateTime? EndDate = null)
 		{
 			MyKey key = new MyKey();
 			string APIkey = key.GetKey();
@@ -60,14 +60,23 @@ namespace NaturalDisastersAPIFinal.Controllers
 			User.Longitude = UserLong;
 
 			Session["UserInfo"] = User;
-			return View();
+
+            if (!StartDate.HasValue)
+            { StartDate = DateTime.Now; }
+            if (!EndDate.HasValue)
+            { EndDate = DateTime.Now.AddDays(0.1); }//maybe change this later - not certain how we want to calculate risk if they just want to see a specific location.
+            TimeSpan userTime = (DateTime)EndDate - (DateTime)StartDate;
+
+            Session["UserTime"] = userTime;
+
+            return RedirectToAction("EarthquakeRisk", "Earthquake");
 		}
 	
 
         public ActionResult Earthquakes()
         {
 			NaturalDisastersEntities db = new NaturalDisastersEntities();
-			ViewBag.Results = db.Earthquakes;
+			ViewBag.Results = db.EarthQuakeTables;
 			return View();
         }
 
