@@ -213,6 +213,7 @@
     <Content Include="Views\Home\UserLocation.cshtml" />
     <Content Include="Views\Earthquake\EarthquakeRisk.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Earthquake\SpeedUpSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

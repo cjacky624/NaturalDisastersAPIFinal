@@ -55,6 +55,9 @@ namespace NaturalDisastersAPIFinal.Controllers
             string longitude = ParsedLocation[0]["geometry"]["location"]["lng"].ToString();
             float.TryParse(longitude, out float UserLong);
 
+          
+
+
             User.Location = ParsedLocation[0]["formatted_address"].ToString();
             User.Latitude = UserLat;
             User.Longitude = UserLong;
@@ -65,7 +68,9 @@ namespace NaturalDisastersAPIFinal.Controllers
             { StartDate = DateTime.Now; }
             if (!EndDate.HasValue)
             { EndDate = DateTime.Now.AddDays(0.1); }//maybe change this later - not certain how we want to calculate risk if they just want to see a specific location.
+            //DateTime date = StartDate;
             TimeSpan userTime = (DateTime)EndDate - (DateTime)StartDate;
+            int userMonth = StartDate.Value.Month;  //code to grab the month out of the StartDate - what will we do if the user selects multiple months?
 
             Session["UserTime"] = userTime;
 
@@ -80,12 +85,12 @@ namespace NaturalDisastersAPIFinal.Controllers
             return View();
         }
 
-        public ActionResult Tornados()
+        public ActionResult Tornados() //this method is to populate the database table Tornado. we will need a method to search the database based off user input
         {
             int offset;
 
-            //there is a total of 4105 disaster declarations as of 3-11-19
-            //1174 FEMA disasters are Tornados since 1970
+
+            //1174 FEMA disasters are Tornados since 1970 
             List<FemaDisaster> Tornados = new List<FemaDisaster>();
             for (offset = 0; offset <= 1000; offset += 1000)
             {
@@ -110,21 +115,21 @@ namespace NaturalDisastersAPIFinal.Controllers
             for (int i = 0; i < Tornados.Count(); i++)
             {
                 Tornados[i].declaredCountyArea = Tornados[i].declaredCountyArea.Replace("(", "").Replace(")", "");
-                
+
             }
 
 
 
             NaturalDisastersEntities db = new NaturalDisastersEntities();
-            
+
             List<Tornado> FematoTornadoObjects = new List<Tornado>();
             foreach (FemaDisaster incident in Tornados)
             {
                 Tornado t = new Tornado();
                 var latlong = db.Counties.Where(x => x.USPS == incident.state && x.NAME == incident.declaredCountyArea).Select(l => new { l.INTPTLAT, l.INTPTLONG }).FirstOrDefault();
-                if(latlong==null)
+                if (latlong == null)
                 {
-                    latlong= db.Counties.Where(x => x.USPS == incident.state && x.NAME == incident.declaredCountyArea+" County").Select(l => new { l.INTPTLAT, l.INTPTLONG }).FirstOrDefault();
+                    latlong = db.Counties.Where(x => x.USPS == incident.state && x.NAME == incident.declaredCountyArea + " County").Select(l => new { l.INTPTLAT, l.INTPTLONG }).FirstOrDefault();
                 }
                 if (latlong != null)
                 {
@@ -143,8 +148,49 @@ namespace NaturalDisastersAPIFinal.Controllers
 
             return View();
         }
+
+        public ActionResult OtherFEMADisasters(string Disaster, string StateCode, string UserCounty)//method to call the others in the DisasterDeclarationSummaries API - available options (their count):
+             //"Coastal Storm"(474), "Chemical"(9), "Dam/Levee Break" (6), "Drought" (1292), "Fire" (3040), "Fishing Losses" (42), "Flood" (9739), "Freezing" (301), "Hurricane" (10555),
+             //"Mud/Landslide" (31), "Severe Ice Storm" (1990), "Severe Storm(s)" (16127), "Snow" (3659), "Tsunami" (9), "Typhoon" (135), "Volcano" (51- 47 of these are from Mt. Helens on 1980)
+        {
+            //will need to add the comment code below to the UserLocation() to grab this data and find the matching county incidents.
+            //string StateCode = ParsedLocation[0]["address_components"][2]["short_name"].ToString();
+            //string UserCounty = ParsedLocation[0]["address_components"][1]["short_name"].ToString();
+
+
+            int offset;
+
+            //there is a total of 49314 disaster declarations as of 3-17-19
+            List<FemaDisaster> UniqueDisasters = new List<FemaDisaster>();
+            //for loop size will change based on the disaster entered into the OtherFEMADisasters()
+            for (offset = 0; offset <= 2000; offset += 1000)
+            {
+                string APIText = "https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$filter=(incidentType eq '" + Disaster + "') and (incidentBeginDate gt '1970-01-01T00:00:00.000z') and (state eq '"+StateCode+"' and declaredCountyArea eq '"+UserCounty +" County')&$skip=" + offset;
+           
+                HttpWebRequest request = WebRequest.CreateHttp(APIText);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                StreamReader rd = new StreamReader(response.GetResponseStream());
+                string data = rd.ReadToEnd();
+                rd.Close();
+
+                MetaDataWrapper Disasters = JsonConvert.DeserializeObject<MetaDataWrapper>(data);
+                UniqueDisasters.AddRange(Disasters.DisasterDeclarationsSummaries.ToList());
+
+                //warning county returns null at times we will need to default to the state name for the long and lat
+
+                //.add only does one object, while .addRange does ALL the objects
+
+            }
+
+
+            ViewBag.Disasters = UniqueDisasters;
+            
+                return View();
+        }
     }
 }
+
 
 
 //public static List<Earthquake> CallEarthquakeAPI(string APIText)
