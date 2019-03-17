@@ -6,7 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="416b6da6891b421c9dfa1a48614e43a6" Name="Diagram1">
         <EntityTypeShape EntityType="NaturalDisastersModel.EarthQuakeTable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NaturalDisastersModel.Tornado" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NaturalDisastersModel.County" Width="1.5" PointX="5" PointY="1.125" />
+        <EntityTypeShape EntityType="NaturalDisastersModel.Tornado" Width="1.5" PointX="2.75" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,14 +4,17 @@
 @foreach (var item in ViewBag.TornadoList)
 {
 <div id="Tornados">
-	<br />
-	<p>Incident: @item.incidentType</p>
-	<p>Disaster Name: @item.disasterName</p>
-	<p>State: @item.stateName</p>
-	<p>Declaration/Alert: @item.declarationType</p>
-	<p>Date: @item.incidentBeginDate</p>
-	<br />
-	<br />
+    <br />
+    @if (item.Longitude != null)
+    {
+    <p>Longitude: @item.Longitude</p>
+    <p>Latitude @item.Latitude</p>
+    }
+    <p>Alert/Title: @item.Alert</p>
+    <p>Date: @item.Time</p>
+   
+    <br />
+    <br />
 </div>
 	<br/>
 }

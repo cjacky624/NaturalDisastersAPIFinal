@@ -26,12 +26,15 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 
             List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
+           
             foreach(EarthQuakeTable Eq in db.EarthQuakeTables)
             {
-                if(Eq.Latitude>=FeltLowLatitude && Eq.Latitude<=FeltHighLatitude &&
+                //change to linq query.
+                if (Eq.Latitude>=FeltLowLatitude && Eq.Latitude<=FeltHighLatitude &&
                     Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
                 {
-                    if(Eq.Magnitude > 6 && Eq.Magnitude <= 8)
+                    
+                    if (Eq.Magnitude > 6 && Eq.Magnitude <= 8)
                     {
                         FeltLowLongitude = User.Longitude - 1.5;
                         FeltHighLongitutde = User.Longitude + 1.5;
@@ -99,4 +102,6 @@ namespace NaturalDisastersAPIFinal.Controllers
             return View();
         }
     }
+
+
 }
