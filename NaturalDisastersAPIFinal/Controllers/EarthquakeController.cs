@@ -15,6 +15,7 @@ namespace NaturalDisastersAPIFinal.Controllers
             NaturalDisastersEntities db = new NaturalDisastersEntities();
             
             UserLocation User = (UserLocation)Session["UserInfo"];
+            TimeSpan userTime = (TimeSpan)Session["UserTime"];
 
             ViewBag.User = User;
 
@@ -25,12 +26,14 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 
             List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
+            
             foreach(EarthQuakeTable Eq in db.EarthQuakeTables)
             {
-                if(Eq.Latitude>=FeltLowLatitude && Eq.Latitude<=FeltHighLatitude &&
+                if (Eq.Latitude>=FeltLowLatitude && Eq.Latitude<=FeltHighLatitude &&
                     Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
                 {
-                    if(Eq.Magnitude > 6 && Eq.Magnitude <= 8)
+                    
+                    if (Eq.Magnitude > 6 && Eq.Magnitude <= 8)
                     {
                         FeltLowLongitude = User.Longitude - 1.5;
                         FeltHighLongitutde = User.Longitude + 1.5;
@@ -98,9 +101,65 @@ namespace NaturalDisastersAPIFinal.Controllers
             return View();
         }
 
+
+        public ActionResult SpeedUpSearch()
+        {
+            NaturalDisastersEntities db = new NaturalDisastersEntities();
+
+            UserLocation User = new UserLocation ();
+           
+
+            TimeSpan userTime = (TimeSpan)Session["UserTime"];
+
+            ViewBag.User = User;
+            
+            double FeltLowLongitude = User.Longitude - 2.3;
+            double FeltHighLongitutde = User.Longitude + 2.3;
+            double FeltLowLatitude = User.Latitude - 2.3;
+            double FeltHighLatitude = User.Latitude + 2.3;
+
+
+            List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
+            userEarthquakes = db.EarthQuakeTables.Where(x => x.Magnitude>8 && x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude>=FeltLowLongitude).ToList();
+
+            FeltLowLongitude = User.Longitude - 1.5;
+            FeltHighLongitutde = User.Longitude + 1.5;
+            FeltLowLatitude = User.Latitude - 1.5;
+            FeltHighLatitude = User.Latitude + 1.5;
+            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 6 && x.Magnitude<=8 && 
+                                x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
+
+            FeltLowLongitude = User.Longitude - 1.2;
+            FeltHighLongitutde = User.Longitude + 1.2;
+            FeltLowLatitude = User.Latitude - 1.2;
+            FeltHighLatitude = User.Latitude + 1.2;
+            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 4 && x.Magnitude <= 6 && 
+                                x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
+
+
+            FeltLowLongitude = User.Longitude - 0.9;
+            FeltHighLongitutde = User.Longitude + 0.9;
+            FeltLowLatitude = User.Latitude - 0.9;
+            FeltHighLatitude = User.Latitude + 0.9;
+            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude <= 4 &&
+                                x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
+
+
+
+         
+            ViewBag.Results = userEarthquakes;
+            double totalQuakes = userEarthquakes.Count;
+            double allQuakesUS = 83944;
+            double division = totalQuakes / allQuakesUS;
+            double percent = division * 100;
+            ViewBag.Chance = Math.Round(percent, 6);
+            ViewBag.Count = totalQuakes;
+            return View();
+        }
+
 		public ActionResult Redirecting()
-		{
-			return View();
-		}
-    }
+	  	{
+        return View();
+	  	}
+   }
 }
