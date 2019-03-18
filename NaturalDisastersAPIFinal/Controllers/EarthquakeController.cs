@@ -18,50 +18,50 @@ namespace NaturalDisastersAPIFinal.Controllers
 
             ViewBag.User = User;
 
-            double FeltLowLongitude = User.Longitude - 2.3;
-            double FeltHighLongitutde = User.Longitude + 2.3;
-            double FeltLowLatitude = User.Latitude - 2.3;
-            double FeltHighLatitude = User.Latitude + 2.3;
+            double FeltLowLongitude = User.Longitude - 5;
+            double FeltHighLongitude = User.Longitude + 5;
+            double FeltLowLatitude = User.Latitude - 5;
+            double FeltHighLatitude = User.Latitude + 5;
 
 
             List<Earthquake> userEarthquakes = new List<Earthquake>();
             foreach(Earthquake Eq in db.Earthquakes)
             {
                 if(Eq.Latitude>=FeltLowLatitude && Eq.Latitude<=FeltHighLatitude &&
-                    Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
+                    Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitude)
                 {
                     if(Eq.Magnitude > 6 && Eq.Magnitude <= 8)
                     {
-                        FeltLowLongitude = User.Longitude - 1.5;
-                        FeltHighLongitutde = User.Longitude + 1.5;
-                        FeltLowLatitude = User.Latitude - 1.5;
-                        FeltHighLatitude = User.Latitude + 1.5;
+                        FeltLowLongitude = User.Longitude - 2.5;
+                        FeltHighLongitude = User.Longitude + 2.5;
+                        FeltLowLatitude = User.Latitude - 2.5;
+                        FeltHighLatitude = User.Latitude + 2.5;
                         if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
-                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
+                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitude)
                         {
                             userEarthquakes.Add(Eq);
                         }
                     }
                     else if(Eq.Magnitude <= 6 && Eq.Magnitude > 4)
                     {
-                        FeltLowLongitude = User.Longitude - 1.2;
-                        FeltHighLongitutde = User.Longitude + 1.2;
-                        FeltLowLatitude = User.Latitude - 1.2;
-                        FeltHighLatitude = User.Latitude + 1.2;
+                        FeltLowLongitude = User.Longitude - 1.5;
+                        FeltHighLongitude = User.Longitude + 1.5;
+                        FeltLowLatitude = User.Latitude - 1.5;
+                        FeltHighLatitude = User.Latitude + 1.5;
                         if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
-                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
+                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitude)
                         {
                             userEarthquakes.Add(Eq);
                         }
                     }
                     else if(Eq.Magnitude <= 4)
                     {
-                        FeltLowLongitude = User.Longitude - 0.9;
-                        FeltHighLongitutde = User.Longitude + 0.9;
-                        FeltLowLatitude = User.Latitude - 0.9;
-                        FeltHighLatitude = User.Latitude + 0.9;
+                        FeltLowLongitude = User.Longitude - 1.2;
+                        FeltHighLongitude = User.Longitude + 1.2;
+                        FeltLowLatitude = User.Latitude - 1.2;
+                        FeltHighLatitude = User.Latitude + 1.2;
                         if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
-                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
+                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitude)
                         {
                             userEarthquakes.Add(Eq);
                         }
@@ -79,23 +79,55 @@ namespace NaturalDisastersAPIFinal.Controllers
 			double percent = division * 100;
 			ViewBag.Chance = Math.Round(percent, 6);
 			ViewBag.Count = totalQuakes;
-            //if (q.Magnitude >= 3 && q.Magnitude <= 4.00)
-            //{
-            //    DmgLowLongititude = q.Longitude * 0.998;
-            //    DmgHighLongititude = q.Longitude * 1.002;
-            //    DmgLowLatitude = q.Latitude * 0.998;
-            //    DmgHighLatitude = q.Latitude * 1.002;
-        
 
-            //else if (q.Magnitude > 4 && q.Magnitude <= 6.00)
-            //{
-            //    DmgLowLongititude = q.Longitude * 0.992;
-            //    DmgHighLongititude = q.Longitude * 1.008;
-            //    DmgLowLatitude = q.Latitude * 0.992;
-            //    DmgHighLatitude = q.Latitude * 1.008;
-            
+                return View();
+        }
 
+        public ActionResult EarthquakeDamageRisk()
+        {
+            NaturalDisastersEntities db = new NaturalDisastersEntities();
+            UserLocation User = (UserLocation)Session["UserInfo"];
+            ViewBag.User = User;
+
+            double DmgLowLongitude = User.Longitude - 5;
+            double DmgHighLongitude = User.Longitude + 5;
+            double DmgLowLatitude = User.Latitude - 5;
+            double DmgHighLatitude = User.Latitude + 5;
+
+            List<Earthquake> userEarthquakes = new List<Earthquake>();
+            foreach (Earthquake Eq in db.Earthquakes)
+            {
+
+                if (Eq.Latitude >= DmgLowLatitude && Eq.Latitude <= DmgHighLatitude &&
+                    Eq.Longitude >= DmgLowLongitude && Eq.Longitude <= DmgHighLongitude)
+                {
+                    if (Eq.Magnitude >= 3 && User.Magnitude <= 4.00)
+                    {
+                        DmgLowLongitude = User.Longitude - 0.1;
+                        DmgHighLongitude = User.Longitude + 0.1;
+                        DmgLowLatitude = User.Latitude - 0.1;
+                        DmgHighLatitude = User.Latitude + 0.1;
+                    }
+
+                    else if (Eq.Magnitude > 4 && Eq.Magnitude <= 6.00)
+                    {
+                        DmgLowLongitude = User.Longitude - 0.25;
+                        DmgHighLongitude = User.Longitude + 0.25;
+                        DmgLowLatitude = User.Latitude - 0.25;
+                        DmgHighLatitude = User.Latitude + 0.25;
+                    }
+                    else if (Eq.Magnitude > 6.01 && Eq.Magnitude <= 8.00)
+                    {
+                        DmgLowLongitude = User.Longitude - 2.5;
+                        DmgHighLongitude = User.Longitude + 2.5;
+                        DmgLowLatitude = User.Latitude - 2.5;
+                        DmgHighLatitude = User.Latitude + 2.5;
+                    }
+                }
+            }
             return View();
         }
     }
 }
+
+
