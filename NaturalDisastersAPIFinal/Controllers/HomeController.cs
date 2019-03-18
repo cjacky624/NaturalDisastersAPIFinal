@@ -109,12 +109,6 @@ namespace NaturalDisastersAPIFinal.Controllers
                 MetaDataWrapper Disasters = JsonConvert.DeserializeObject<MetaDataWrapper>(data);
                 Tornados.AddRange(Disasters.DisasterDeclarationsSummaries.ToList());
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 196c3aa9ffe872e0f0a58735a0090098ed7e9f6d
-                //.add only does one object, while .addRange does ALL the objects
-
             }
             for (int i = 0; i < Tornados.Count(); i++)
             {
