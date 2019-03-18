@@ -107,8 +107,6 @@ namespace NaturalDisastersAPIFinal.Controllers
                 MetaDataWrapper Disasters = JsonConvert.DeserializeObject<MetaDataWrapper>(data);
                 Tornados.AddRange(Disasters.DisasterDeclarationsSummaries.ToList());
 
-                //warning county returns null at times we will need to default to the state name for the long and lat
-
                 //.add only does one object, while .addRange does ALL the objects
 
             }
