@@ -11,6 +11,7 @@ using System;
 
 namespace NaturalDisastersAPIFinal.Controllers
 {
+
     public class HomeController : Controller
     {
 
@@ -83,6 +84,7 @@ namespace NaturalDisastersAPIFinal.Controllers
             NaturalDisastersEntities db = new NaturalDisastersEntities();
             ViewBag.Results = db.EarthQuakeTables;
             return View();
+
         }
 
         public ActionResult Tornados() //this method is to populate the database table Tornado. we will need a method to search the database based off user input
@@ -107,7 +109,6 @@ namespace NaturalDisastersAPIFinal.Controllers
                 MetaDataWrapper Disasters = JsonConvert.DeserializeObject<MetaDataWrapper>(data);
                 Tornados.AddRange(Disasters.DisasterDeclarationsSummaries.ToList());
 
-                //warning county returns null at times we will need to default to the state name for the long and lat
 
                 //.add only does one object, while .addRange does ALL the objects
 

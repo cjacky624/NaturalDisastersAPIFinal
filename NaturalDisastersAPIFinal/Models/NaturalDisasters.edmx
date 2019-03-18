@@ -1,9 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
+
     <Schema Namespace="NaturalDisastersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'NaturalDisasters.dbo.Counties' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -52,11 +53,23 @@ warning 6002: The table/view 'NaturalDisasters.dbo.Counties' does not have a pri
     FROM [dbo].[Counties] AS [Counties]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NaturalDisastersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="EarthQuakeTable">
+          <Key>
+            <PropertyRef Name="EarthquakeID" />
+          </Key>
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Magnitude" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="Place" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EarthquakeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Tornado">
           <Key>
             <PropertyRef Name="EarthquakeID" />
           </Key>
@@ -94,6 +107,8 @@ warning 6002: The table/view 'NaturalDisasters.dbo.Counties' does not have a pri
           <Property Name="Alert" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Time" Type="DateTime" Precision="3" />
         </EntityType>
+          <EntitySet Name="Tornadoes" EntityType="Self.Tornado" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -133,6 +148,7 @@ warning 6002: The table/view 'NaturalDisasters.dbo.Counties' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
