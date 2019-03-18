@@ -106,10 +106,10 @@ namespace NaturalDisastersAPIFinal.Controllers
         {
             NaturalDisastersEntities db = new NaturalDisastersEntities();
 
-            UserLocation User = new UserLocation ();
            
 
-            TimeSpan userTime = (TimeSpan)Session["UserTime"];
+			UserLocation User = (UserLocation)Session["UserInfo"];
+			TimeSpan userTime = (TimeSpan)Session["UserTime"];
 
             ViewBag.User = User;
             
