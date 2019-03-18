@@ -26,7 +26,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 
             List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
-           
+            
             foreach(EarthQuakeTable Eq in db.EarthQuakeTables)
             {
                 if (Eq.Latitude>=FeltLowLatitude && Eq.Latitude<=FeltHighLatitude &&
@@ -101,6 +101,7 @@ namespace NaturalDisastersAPIFinal.Controllers
             return View();
         }
 
+
         public ActionResult SpeedUpSearch()
         {
             NaturalDisastersEntities db = new NaturalDisastersEntities();
@@ -155,7 +156,10 @@ namespace NaturalDisastersAPIFinal.Controllers
             ViewBag.Count = totalQuakes;
             return View();
         }
-    }
 
-
+		public ActionResult Redirecting()
+	  	{
+        return View();
+	  	}
+   }
 }
