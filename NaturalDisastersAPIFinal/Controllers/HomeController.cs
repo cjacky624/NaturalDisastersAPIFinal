@@ -142,6 +142,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 				t.Time = Convert.ToDateTime(incident.incidentBeginDate);
 				FematoTornadoObjects.Add(t);
+				
 			}
 
 			ViewBag.TornadoCount = FematoTornadoObjects.Count();
@@ -158,7 +159,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 			//string StateCode = ParsedLocation[0]["address_components"][2]["short_name"].ToString();
 			//string UserCounty = ParsedLocation[0]["address_components"][1]["short_name"].ToString();
 
-
+			
 			int offset;
 
 			//there is a total of 49314 disaster declarations as of 3-17-19
@@ -184,7 +185,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 			}
 
-
+			
 			ViewBag.Disasters = UniqueDisasters;
 
 			return View();
@@ -280,3 +281,8 @@ namespace NaturalDisastersAPIFinal.Controllers
 //}
 //}
 //}
+
+
+	//To populate the tornados DB
+	//db.Tornadoes.Add(t);
+	//db.SaveChanges();

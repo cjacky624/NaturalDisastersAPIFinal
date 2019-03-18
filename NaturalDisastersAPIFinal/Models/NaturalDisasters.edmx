@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="NaturalDisastersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="NaturalDisastersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'NaturalDisasters.dbo.Counties' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Counties">
@@ -37,7 +37,7 @@ warning 6002: The table/view 'NaturalDisasters.dbo.Counties' does not have a pri
           <Property Name="TornadoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Longitude" Type="float" />
           <Property Name="Latitude" Type="float" />
-          <Property Name="Alert" Type="nvarchar" MaxLength="10" />
+          <Property Name="Alert" Type="nvarchar" MaxLength="75" />
           <Property Name="Time" Type="datetime" />
         </EntityType>
         <EntityContainer Name="NaturalDisastersModelStoreContainer">
@@ -52,8 +52,7 @@ warning 6002: The table/view 'NaturalDisasters.dbo.Counties' does not have a pri
     FROM [dbo].[Counties] AS [Counties]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NaturalDisastersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -75,7 +74,7 @@ warning 6002: The table/view 'NaturalDisasters.dbo.Counties' does not have a pri
           <Property Name="TornadoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Longitude" Type="Double" />
           <Property Name="Latitude" Type="Double" />
-          <Property Name="Alert" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Alert" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
           <Property Name="Time" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="County">
