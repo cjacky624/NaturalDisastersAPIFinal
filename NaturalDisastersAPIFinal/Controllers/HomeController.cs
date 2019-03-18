@@ -72,7 +72,7 @@ namespace NaturalDisastersAPIFinal.Controllers
             //DateTime date = StartDate;
             TimeSpan userTime = (DateTime)EndDate - (DateTime)StartDate;
             int userMonth = StartDate.Value.Month;  //code to grab the month out of the StartDate - what will we do if the user selects multiple months?
-
+            Session["Month"] = userMonth;
             Session["UserTime"] = userTime;
 
             return RedirectToAction("EarthquakeRisk", "Earthquake");

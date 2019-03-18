@@ -106,13 +106,12 @@ namespace NaturalDisastersAPIFinal.Controllers
         {
             NaturalDisastersEntities db = new NaturalDisastersEntities();
 
-            UserLocation User = new UserLocation ();
            
-
+            UserLocation User = (UserLocation)Session["UserInfo"];
             TimeSpan userTime = (TimeSpan)Session["UserTime"];
 
             ViewBag.User = User;
-            
+
             double FeltLowLongitude = User.Longitude - 2.3;
             double FeltHighLongitutde = User.Longitude + 2.3;
             double FeltLowLatitude = User.Latitude - 2.3;
@@ -120,20 +119,20 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 
             List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
-            userEarthquakes = db.EarthQuakeTables.Where(x => x.Magnitude>8 && x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude>=FeltLowLongitude).ToList();
+            userEarthquakes = db.EarthQuakeTables.Where(x => x.Magnitude > 8 && x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList();
 
             FeltLowLongitude = User.Longitude - 1.5;
             FeltHighLongitutde = User.Longitude + 1.5;
             FeltLowLatitude = User.Latitude - 1.5;
             FeltHighLatitude = User.Latitude + 1.5;
-            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 6 && x.Magnitude<=8 && 
+            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 6 && x.Magnitude <= 8 &&
                                 x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
 
             FeltLowLongitude = User.Longitude - 1.2;
             FeltHighLongitutde = User.Longitude + 1.2;
             FeltLowLatitude = User.Latitude - 1.2;
             FeltHighLatitude = User.Latitude + 1.2;
-            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 4 && x.Magnitude <= 6 && 
+            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 4 && x.Magnitude <= 6 &&
                                 x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
 
 
@@ -145,6 +144,11 @@ namespace NaturalDisastersAPIFinal.Controllers
                                 x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
 
 
+            //int userMonth = (int)Session["Month"];
+            //List<int> UserMonthRisk = new List<int>();
+
+            //var EQCount = userEarthquakes.Where(x => x.Time.Value.Month ==userMonth);
+            
 
          
             ViewBag.Results = userEarthquakes;
