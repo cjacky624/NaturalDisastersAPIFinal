@@ -1,13 +1,13 @@
 ﻿<script>
 	function LoadMore() {
 		var x = document.getElementById("AllQuakes");
-		if (x.style.display === "none")
+		if (x.style.display === "block")
 		{
-			x.style.display = "block";
+			x.style.display = "none";
 		}
 		else
 		{
-			x.style.display = "none";
+			x.style.display = "block";
 		}
 	}
 </script>
@@ -56,8 +56,15 @@
 	<p>Total earthquakes in this area since 1970: @ViewBag.Count</p>
 </div>
 <br />
+@if (ViewBag.Results.Count != 0)
+{
 <button onclick="LoadMore()" name="SeeMore" title="Click to see me!" id="LoadMoreButton">Click to see more details</button>
-
+}
+else
+{
+	<h3>The location you chose has no earthquakes near it, you're lucky!</h3>
+	<a href="~/Home/Index" id="searchAgain">Search again?</a>
+}
 <div id="AllQuakes">
 	<br />
 	@foreach (var item in ViewBag.Results)
