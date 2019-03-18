@@ -25,7 +25,8 @@ namespace NaturalDisastersAPIFinal.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<EarthQuakeTable> EarthQuakeTables { get; set; }
+        public virtual DbSet<County> Counties { get; set; }
         public virtual DbSet<Tornado> Tornadoes { get; set; }
-        public virtual DbSet<Earthquake> Earthquakes { get; set; }
     }
 }

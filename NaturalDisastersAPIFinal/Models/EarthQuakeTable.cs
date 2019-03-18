@@ -12,12 +12,13 @@ namespace NaturalDisastersAPIFinal.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tornado
+    public partial class EarthQuakeTable
     {
-        public int TornadoID { get; set; }
-        public Nullable<double> Longitude { get; set; }
-        public Nullable<double> Latitude { get; set; }
-        public string Alert { get; set; }
         public Nullable<System.DateTime> Time { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
+        public Nullable<decimal> Magnitude { get; set; }
+        public string Place { get; set; }
+        public int EarthquakeID { get; set; }
     }
 }
