@@ -24,8 +24,8 @@ namespace NaturalDisastersAPIFinal.Controllers
             double FeltHighLatitude = User.Latitude + 2.3;
 
 
-            List<Earthquake> userEarthquakes = new List<Earthquake>();
-            foreach(Earthquake Eq in db.Earthquakes)
+            List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
+            foreach(EarthQuakeTable Eq in db.EarthQuakeTables)
             {
                 if(Eq.Latitude>=FeltLowLatitude && Eq.Latitude<=FeltHighLatitude &&
                     Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
@@ -74,7 +74,7 @@ namespace NaturalDisastersAPIFinal.Controllers
             }
             ViewBag.Results = userEarthquakes;
 			double totalQuakes = userEarthquakes.Count;
-			double allQuakesUS = db.Earthquakes.Count();
+			double allQuakesUS = db.EarthQuakeTables.Count();
 			double division = totalQuakes / allQuakesUS;
 			double percent = division * 100;
 			ViewBag.Chance = Math.Round(percent, 6);
@@ -97,5 +97,10 @@ namespace NaturalDisastersAPIFinal.Controllers
 
             return View();
         }
+
+		public ActionResult Redirecting()
+		{
+			return View();
+		}
     }
 }
