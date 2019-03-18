@@ -75,7 +75,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 			Session["UserTime"] = userTime;
 
-			return RedirectToAction("EarthquakeRisk", "Earthquake");
+			return View();
 		}
 
 
