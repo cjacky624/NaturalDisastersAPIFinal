@@ -132,6 +132,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+
+    <Compile Include="Models\County.cs">
+      <DependentUpon>NaturalDisasters.tt</DependentUpon>
+    </Compile>
+
     <Compile Include="Models\EarthQuakeTable.cs">
       <DependentUpon>NaturalDisasters.tt</DependentUpon>
     </Compile>
@@ -210,6 +215,7 @@
     <Content Include="Views\Home\UserLocation.cshtml" />
     <Content Include="Views\Earthquake\EarthquakeRisk.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Earthquake\SpeedUpSearch.cshtml" />
     <Content Include="Views\Earthquake\Redirecting.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
