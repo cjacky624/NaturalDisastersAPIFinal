@@ -3,7 +3,7 @@
 <html>
 <head>
 	<title>Travel Page</title>
-	<link rel="icon" href="~/Images/Airplane ico.ico" />
+	<link rel="shortcut icon"  href="~/Images/Airplane ico.ico" />
 </head>
 <body>
 	<div id="ourTitle">
@@ -14,6 +14,9 @@
 		<form action="/Home/UserLocation">
 			<h4>Pick a location ("City name/state" preferred!)</h4><br/>
 			<input id="TextBox" required @Html.TextBox("Location")
+            <label for="Start">First Day : </label><input type="date" name="StartDate" data-date-inline-picker="true" />
+            <label for="End">Last Day : </label><input type="date" name="EndDate" data-date-inline-picker="true" />
+            
 				<br/> <br/>
 			<input type="submit" value="Search now" />
 		</form>

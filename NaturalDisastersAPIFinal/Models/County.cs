@@ -12,13 +12,11 @@ namespace NaturalDisastersAPIFinal.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Earthquake
+    public partial class County
     {
-        public int EarthquakeID { get; set; }
-        public Nullable<double> Longitude { get; set; }
-        public Nullable<double> Latitude { get; set; }
-        public Nullable<decimal> Magnitude { get; set; }
-        public Nullable<System.DateTime> Time { get; set; }
-        public string Place { get; set; }
+        public string USPS { get; set; }
+        public string NAME { get; set; }
+        public double INTPTLAT { get; set; }
+        public double INTPTLONG { get; set; }
     }
 }
