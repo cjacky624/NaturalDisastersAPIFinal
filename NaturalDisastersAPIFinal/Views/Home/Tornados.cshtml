@@ -1,28 +1,41 @@
-<!DOCTYPE Html>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>All US Tornados</title>
+	<title>Travel Page</title>
+	<link rel="shortcut icon" href="~/Images/Airplane ico.ico" />
 </head>
 <body>
-	<h3>TORNADOS</h3>
+	<div id="ourTitle">
+		<h1>Trip Risk Evaluator!</h1>
+		<h3>This will calculate all earthquakes in the US!</h3>
+		<a href="~/Home/Earthquakes">Want earthquakes instead?</a> or maybe <a href="~/Home/Index">both?</a>
+	</div>
 
-@foreach (var item in ViewBag.TornadoList)
-{
-<div id="Tornados">
-    <br />
-    @if (item.Longitude != null)
-    {
-    <p>Longitude: @item.Longitude</p>
-    <p>Latitude @item.Latitude</p>
-    }
-    <p>Alert/Title: @item.Alert</p>
-    <p>Date: @item.Time</p>
-   
-    <br />
-    <br />
-</div>
-	<br/>
-}
-	<p>@ViewBag.TornadoCount</p>
+	<div class="SearchBox">
+		<form action="/Tornado/UserTornado">
+			<h4>Pick a location ("City name/state" preferred!)</h4>
+			<input id="TextBox" required @Html.TextBox("Location")<br /><br />
+			<label for="Start">First Day</label><input type="date" name="StartDate" data-date-inline-picker="true" /><br />
+			<label for="End">Last Day</label><input type="date" name="EndDate" data-date-inline-picker="true" />
+
+			<br /> <br />
+			<input type="submit" value="Search now" />
+		</form>
+	</div>
+
+	<div id="leftBox">
+		<p>Want some states with high tornado volume?</p>
+		<p>Type these into the search!</p>
+		<ul>
+			<li>Texas</li>
+			<li>Kansas</li>
+			<li>Oklahoma</li>
+			<li>Florida</li>
+			<li>Nebraska</li>
+		</ul>
+	</div>
+	<div id="TornadosPic">
+		<img src="~/Images/Tornados.png" width="450" height="auto"/>
+	</div>
 </body>
 </html>

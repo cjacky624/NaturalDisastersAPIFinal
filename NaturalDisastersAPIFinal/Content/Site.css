@@ -60,7 +60,7 @@ h3 {
 }
 #NadosButton {
 	position: relative;
-	left: 175px;
+	left: 125px;
 }
 .navbar-inverse {
 	background-color:aquamarine !important;
@@ -109,17 +109,38 @@ h4 {
 	width: 40%;
 	position: relative;
 	right: 50px;
-	text-align:center;
+	text-align: center;
+	bottom: 150px;
+}
+#UpperLeftBox {
+	border: 1px black solid;
+	width: 40%;
+	position: relative;
+	right: 50px;
+	text-align: center;
+	bottom:150px;
 }
 
-#earthquakesPic {
+#BothPics {
+	position: relative;
+	left: 800px;
+	bottom: 575px;
+	padding-right: 4.4in;
+	margin: 0px;
+}
+#TornadosPic {
 	position:relative;
 	left: 800px;
-	bottom: 200px;
+	bottom:400px;
+}
+#earthquakesPic {
+	position: relative;
+	left: 800px;
+	bottom: 400px;
 }
 
 #errorResult {
-	text-align:center;
+	text-align: center;
 	padding-bottom: 2in;
 }
 #AllQuakes {

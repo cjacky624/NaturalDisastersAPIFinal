@@ -1,32 +1,40 @@
-<!DOCTYPE Html>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Earthquakes!</title>
+	<title>Travel Page</title>
+	<link rel="shortcut icon" href="~/Images/Airplane ico.ico" />
 </head>
 <body>
-	<h3>EARTHQUAKES!</h3>
+	<div id="ourTitle">
+		<h1>Trip Risk Evaluator!</h1>
+		<h3>This will calculate all earthquakes in the US!</h3>
+		<a href="~/Home/Tornados">Want tornados instead?</a> or maybe <a href="~/Home/Index">both?</a>
+	</div>
 
-	@{ int num = 0;}
+	<div class="SearchBox">
+		<form action="/Home/UserLocation">
+			<h4>Pick a location ("City name/state" preferred!)</h4>
+			<input id="TextBox" required @Html.TextBox("Location")<br /><br />
+			<label for="Start">First Day</label><input type="date" name="StartDate" data-date-inline-picker="true" /><br />
+			<label for="End">Last Day</label><input type="date" name="EndDate" data-date-inline-picker="true" />
 
-	@foreach (var item in ViewBag.Results)
-	{
-		num++;
-		<br />
-		<br />
-
-		<div id="QuakeData">
-			<br />
-
-			<p>Magnitude: @item.Magnitude</p>
-			<p>Where did it hit?: @item.Place</p>
-			<p>Gimme the longitude: @item.Longitude</p>
-			<p>Now Latitude kthx: @item.Latitude</p>
-			<p> @item.Time </p>
-			<br /><br />
-
-		</div>
-
-	}
-	<p>Number of Earthquakes all day erry day: @ViewBag.Count</p>
+			<br /> <br />
+			<input type="submit" value="Search now" />
+		</form>
+	</div>
+	<div id="leftBox">
+		<p>Want to check out some locations with heavy earthquake data?!</p>
+		<p>Type these into the search!</p>
+		<ul>
+			<li>San Francisco, California (Or just "San Fran")</li>
+			<li>Anchorage, Alaska</li>
+			<li>Hilo, Hawaii (Or you can just type "Hilo"!</li>
+			<li>Portland, Oregon (Or just "Portland")</li>
+			<li>Seattle, Washington (Or just "Seattle")</li>
+		</ul>
+	</div>
+	<div id="earthquakesPic">
+		<img src="~/Images/ShakesAndQuakes.jpg" width="450" height="auto" />
+	</div>
 </body>
 </html>
