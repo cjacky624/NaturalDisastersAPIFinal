@@ -2,20 +2,17 @@
     padding-top: 50px;
     padding-bottom: 20px;
 }
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
-
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
 .dl-horizontal dt {
     white-space: normal;
 }
-
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
@@ -24,171 +21,193 @@ textarea {
 }
 
 #QuakeData {
-	text-align: center;
-	font-size: 15px;
-	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-	color:navy;
-	border: solid red 10px;
-	padding: 0px 300px 0px 300px;
-	background-color:darkorange;
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: navy;
+    border: solid red 10px;
+    padding: 0px 300px 0px 300px;
+    background-color: darkorange;
 }
+
 h3 {
-	text-align:center;
+    text-align: center;
 }
+
 .SearchBox {
-	text-align:center;
-	align-content:center;
-	font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-	padding-top:.2in;
-	
+    text-align: center;
+    align-content: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding-top: .2in;
 }
 
 #yourLocation {
-	text-align:center;
-	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	font-size: 17px;
-	color:forestgreen;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 17px;
+    color: forestgreen;
 }
 
 #HomeButton {
-	position:relative;
-	left: 500px;
+    position: relative;
+    left: 500px;
 }
+
 #QuakesButton {
-	position: relative;
-	left: 500px;
+    position: relative;
+    left: 500px;
 }
+
 #NadosButton {
-	position: relative;
-	left: 125px;
+    position: relative;
+    left: 125px;
 }
+
 .navbar-inverse {
-	background-color:aquamarine !important;
+    background-color: aquamarine !important;
 }
+
 #Tornados {
-	text-align: center;
-	font-size: 15px;
-	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-	color: navy;
-	border: solid grey 10px;
-	padding: 0px 300px 0px 300px;
-	background-color:darkgrey;
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: navy;
+    border: solid grey 10px;
+    padding: 0px 300px 0px 300px;
+    background-color: darkgrey;
 }
+
 #thefoot {
-	text-align:center;
-	font-size: 20px;
+    text-align: center;
+    font-size: 20px;
 }
+
 h4 {
-	text-align:center;
+    text-align: center;
 }
 
 #percentEarthquake {
-	text-align:center;
-	font-size: 20px;
-	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
 #chanceMessage {
-	text-align:center;
-	font-size: 20px;
+    text-align: center;
+    font-size: 20px;
 }
+
 #dangerBox {
-	
-	width: 40%;
-	align-content: center;
-	text-align: center;
-	position: relative;
-	left: 350px;
+    width: 40%;
+    align-content: center;
+    text-align: center;
+    position: relative;
+    left: 350px;
 }
+
 #ourTitle {
-	text-align: center;
-	padding-top: .2in;
-	align-content: center;
-	align-items:center;
-	width: 400px;
-	position:relative;
-	left: 350px;
+    text-align: center;
+    padding-top: .2in;
+    align-content: center;
+    align-items: center;
+    width: 400px;
+    position: relative;
+    left: 350px;
 }
 
 #leftBox {
-	border: 1px black solid;
-	width: 40%;
-	position: relative;
-	right: 50px;
-	text-align: center;
-	bottom: 150px;
+    border: 1px black solid;
+    width: 40%;
+    position: relative;
+    right: 50px;
+    text-align: center;
+    bottom: 150px;
 }
+
 #UpperLeftBox {
-	border: 1px black solid;
-	width: 40%;
-	position: relative;
-	right: 120px;
-	text-align: center;
-	bottom:300px;
+    border: 1px black solid;
+    width: 40%;
+    position: relative;
+    right: 120px;
+    text-align: center;
+    bottom: 300px;
 }
+
 #LowerLeftBox {
-	border: 1px black solid;
-	width: 40%;
-	position: relative;
-	right: 120px;
-	text-align: center;
-	bottom: 300px;
+    border: 1px black solid;
+    width: 40%;
+    position: relative;
+    right: 120px;
+    text-align: center;
+    bottom: 300px;
 }
 
 #BothPics {
-	position: relative;
-	left: 800px;
-	bottom: 725px;
-	width: 300px;
+    position: relative;
+    left: 800px;
+    bottom: 725px;
+    width: 300px;
 }
+
 #TornadosPic {
-	position: relative;
-	left: 800px;
-	bottom: 375px;
-	width: 300px;
+    position: relative;
+    left: 800px;
+    bottom: 375px;
+    width: 300px;
 }
+
 #earthquakesPic {
-	position: relative;
-	left: 800px;
-	bottom: 375px;
-	width: 300px;
+    position: relative;
+    left: 800px;
+    bottom: 375px;
+    width: 300px;
 }
 
 #errorResult {
-	text-align: center;
-	padding-bottom: 2in;
+    text-align: center;
+    padding-bottom: 2in;
 }
+
 #AllQuakes {
-	display:none;
+    display: none;
 }
+
 #LoadMoreButton {
-	position:relative;
-	left:480px;
+    position: relative;
+    left: 480px;
 }
+
 #searchAgain {
-	position:relative;
-	font-size: 20px;
-	left: 500px;
+    position: relative;
+    font-size: 20px;
+    left: 500px;
 }
+
 #dangerBox1 {
-	width: 500px;
-	align-content: center;
-	text-align: center;
-	float:left;
+    width: 500px;
+    align-content: center;
+    text-align: center;
+    float: left;
 }
+
 #dangerBox2 {
-	width: 500px;
-	align-content: center;
-	text-align: center;
-	float:right;
-	
+    width: 500px;
+    align-content: center;
+    text-align: center;
+    float: right;
 }
-#boxContainer{
-	width: 1000px;
-	height: 300px;
-	position:relative;
-	left: 70px;
+
+#boxContainer {
+    width: 1000px;
+    height: 300px;
+    position: relative;
+    left: 70px;
 }
+
 .TitlePage {
-	height: 625px;
-	
+    height: 625px;
+}
+
+.percentData {
+    text-align: center;
 }

@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NaturalDisastersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NaturalDisasters.dbo.Counties' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Counties">
+          <Key>
+            <PropertyRef Name="USPS" />
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="INTPTLAT" />
+            <PropertyRef Name="INTPTLONG" />
+          </Key>
+          <Property Name="USPS" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="INTPTLAT" Type="float" Nullable="false" />
+          <Property Name="INTPTLONG" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EarthQuakeTable">
+          <Key>
+            <PropertyRef Name="EarthquakeID" />
+          </Key>
+          <Property Name="Time" Type="datetime" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Magnitude" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="Place" Type="nvarchar" MaxLength="100" />
+          <Property Name="EarthquakeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tornado">
+          <Key>
+            <PropertyRef Name="TornadoID" />
+          </Key>
+          <Property Name="TornadoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Alert" Type="nvarchar" MaxLength="75" />
+          <Property Name="Time" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NaturalDisasters.dbo.UpdatedTornado' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UpdatedTornado">
+          <Key>
+            <PropertyRef Name="INTPTLAT" />
+            <PropertyRef Name="INTPTLONG" />
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="USPS" />
+          </Key>
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="INTPTLAT" Type="float" Nullable="false" />
+          <Property Name="INTPTLONG" Type="float" Nullable="false" />
+          <Property Name="Alert" Type="nvarchar" MaxLength="75" />
+          <Property Name="Time" Type="datetime" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="USPS" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="NaturalDisastersModelStoreContainer">
+          <EntitySet Name="EarthQuakeTable" EntityType="Self.EarthQuakeTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tornado" EntityType="Self.Tornado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Counties" EntityType="Self.Counties" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Counties].[USPS] AS [USPS], 
+    [Counties].[NAME] AS [NAME], 
+    [Counties].[INTPTLAT] AS [INTPTLAT], 
+    [Counties].[INTPTLONG] AS [INTPTLONG]
+    FROM [dbo].[Counties] AS [Counties]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UpdatedTornado" EntityType="Self.UpdatedTornado" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UpdatedTornado].[Longitude] AS [Longitude], 
+    [UpdatedTornado].[Latitude] AS [Latitude], 
+    [UpdatedTornado].[INTPTLAT] AS [INTPTLAT], 
+    [UpdatedTornado].[INTPTLONG] AS [INTPTLONG], 
+    [UpdatedTornado].[Alert] AS [Alert], 
+    [UpdatedTornado].[Time] AS [Time], 
+    [UpdatedTornado].[NAME] AS [NAME], 
+    [UpdatedTornado].[USPS] AS [USPS]
+    FROM [dbo].[UpdatedTornado] AS [UpdatedTornado]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NaturalDisastersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EarthQuakeTable">
+          <Key>
+            <PropertyRef Name="EarthquakeID" />
+          </Key>
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Magnitude" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="Place" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EarthquakeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Tornado">
+          <Key>
+            <PropertyRef Name="TornadoID" />
+          </Key>
+          <Property Name="TornadoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Alert" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="County">
+          <Key>
+            <PropertyRef Name="USPS" />
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="INTPTLAT" />
+            <PropertyRef Name="INTPTLONG" />
+          </Key>
+          <Property Name="USPS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="INTPTLAT" Type="Double" Nullable="false" />
+          <Property Name="INTPTLONG" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UpdatedTornado">
+          <Key>
+            <PropertyRef Name="INTPTLAT" />
+            <PropertyRef Name="INTPTLONG" />
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="USPS" />
+          </Key>
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="INTPTLAT" Type="Double" Nullable="false" />
+          <Property Name="INTPTLONG" Type="Double" Nullable="false" />
+          <Property Name="Alert" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="USPS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="NaturalDisastersEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EarthQuakeTables" EntityType="Self.EarthQuakeTable" />
+          <EntitySet Name="Tornadoes" EntityType="Self.Tornado" />
+          <EntitySet Name="Counties" EntityType="Self.County" />
+          <EntitySet Name="UpdatedTornadoes" EntityType="Self.UpdatedTornado" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NaturalDisastersModelStoreContainer" CdmEntityContainer="NaturalDisastersEntities">
+          <EntitySetMapping Name="EarthQuakeTables">
+            <EntityTypeMapping TypeName="NaturalDisastersModel.EarthQuakeTable">
+              <MappingFragment StoreEntitySet="EarthQuakeTable">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Magnitude" ColumnName="Magnitude" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="EarthquakeID" ColumnName="EarthquakeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tornadoes">
+            <EntityTypeMapping TypeName="NaturalDisastersModel.Tornado">
+              <MappingFragment StoreEntitySet="Tornado">
+                <ScalarProperty Name="TornadoID" ColumnName="TornadoID" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Alert" ColumnName="Alert" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Counties">
+            <EntityTypeMapping TypeName="NaturalDisastersModel.County">
+              <MappingFragment StoreEntitySet="Counties">
+                <ScalarProperty Name="USPS" ColumnName="USPS" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="INTPTLAT" ColumnName="INTPTLAT" />
+                <ScalarProperty Name="INTPTLONG" ColumnName="INTPTLONG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UpdatedTornadoes">
+            <EntityTypeMapping TypeName="NaturalDisastersModel.UpdatedTornado">
+              <MappingFragment StoreEntitySet="UpdatedTornado">
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="INTPTLAT" ColumnName="INTPTLAT" />
+                <ScalarProperty Name="INTPTLONG" ColumnName="INTPTLONG" />
+                <ScalarProperty Name="Alert" ColumnName="Alert" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="USPS" ColumnName="USPS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
