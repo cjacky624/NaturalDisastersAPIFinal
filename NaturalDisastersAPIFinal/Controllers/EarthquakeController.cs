@@ -187,8 +187,10 @@ namespace NaturalDisastersAPIFinal.Controllers
             double DmgHighLatitude = User.Latitude + 1.5;
             List<EarthQuakeTable> userEarthquakesDmg = new List<EarthQuakeTable>();
 
+
             userEarthquakesDmg = db.EarthQuakeTables.Where(x => x.Magnitude > 8 && x.Latitude <= DmgHighLatitude && x.Latitude >= DmgLowLatitude
                                                         && x.Longitude <= DmgHighLongitude && x.Longitude >= DmgLowLongitude).ToList();
+
 
             DmgLowLongitude = User.Longitude - 0.25;
             DmgHighLongitude = User.Longitude + 0.25;
