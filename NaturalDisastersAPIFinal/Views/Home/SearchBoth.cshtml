@@ -1,189 +1,197 @@
-﻿<script>
-	function LoadMore() {
-		var x = document.getElementById("AllQuakes");
-		if (x.style.display === "block") {
-			x.style.display = "none";
+﻿<html>
+<head>
+	<title>Quakes and tornados in your area</title>
+</head>
+<body>
+	<script>
+		function LoadMore() {
+			var x = document.getElementById("AllQuakes");
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			}
+			else {
+				x.style.display = "block";
+			}
 		}
-		else {
-			x.style.display = "block";
-		}
-	}
-</script>
+	</script>
 
-<p>@ViewBag.Time</p>
-<br /><br /><br />
-<div id="boxContainer">
-	<div id="dangerBox1">
-		<br />
-		<p id="percentEarthquake">@ViewBag.QuakeChance % of all US earthquakes happened here in the past 50 years!</p>
-		@if (ViewBag.QuakeChance <= .005)
-		{
-			<style>
-				#dangerBox1 {
-					border: 5px green solid;
-				}
-			</style>
-			<p id="chanceMessage">Your plans will most likely be okay, don't worry too much about it!</p>
-		}
-		else if (ViewBag.QuakeChance <= .01 && ViewBag.QuakeChance > .005)
-		{
-			<style>
-				#dangerBox1 {
-					border: 5px yellow solid;
-				}
-			</style>
-			<p id="chanceMessage">There's a chance you may experience a small quake, but highly unlikely!</p>
-		}
-		else if (ViewBag.QuakeChance <= .1 && ViewBag.QuakeChance > .01)
-		{
-			<style>
-				#dangerBox1 {
-					border: 5px orange solid;
-				}
-			</style>
-			<p id="chanceMessage">An earthquake may happen while you visit, it's possible that it could just be a ground shaker.</p>
-		}
-		else
-		{
-			<style>
-				#dangerBox1 {
-					border: 5px red solid;
-				}
-			</style>
-			<p id="chanceMessage">Why are you going there? You're probably gonna die, theres been a lot of quakes there!</p>
-		}
-		<p>Total earthquakes in this area since 1970: @ViewBag.QuakeCount</p>
+	<p>@ViewBag.Time</p>
+	<br /><br /><br />
+	<div id="boxContainer">
+		<div id="dangerBox1">
+			<br />
+			<p id="percentEarthquake">@ViewBag.QuakeChance % of all US earthquakes happened here in the past 50 years!</p>
+			@if (ViewBag.QuakeChance <= .005)
+			{
+				<style>
+					#dangerBox1 {
+						border: 5px green solid;
+					}
+				</style>
+				<p id="chanceMessage">Your plans will most likely be okay, don't worry too much about it!</p>
+			}
+			else if (ViewBag.QuakeChance <= .01 && ViewBag.QuakeChance > .005)
+			{
+				<style>
+					#dangerBox1 {
+						border: 5px yellow solid;
+					}
+				</style>
+				<p id="chanceMessage">There's a chance you may experience a small quake, but highly unlikely!</p>
+			}
+			else if (ViewBag.QuakeChance <= .1 && ViewBag.QuakeChance > .01)
+			{
+				<style>
+					#dangerBox1 {
+						border: 5px orange solid;
+					}
+				</style>
+				<p id="chanceMessage">An earthquake may happen while you visit, it's possible that it could just be a ground shaker.</p>
+			}
+			else
+			{
+				<style>
+					#dangerBox1 {
+						border: 5px red solid;
+					}
+				</style>
+				<p id="chanceMessage">Why are you going there? You're probably gonna die, theres been a lot of quakes there!</p>
+			}
+			<p>Total earthquakes in this area since 1970: @ViewBag.QuakeCount</p>
+		</div>
+		<div id="dangerBox2">
+			<br />
+			<p id="percentEarthquake">@ViewBag.NadoChance % of all US tornados happened here in the past 50 years!</p>
+			@if (ViewBag.NadoChance <= .05)
+			{
+				<style>
+					#dangerBox2 {
+						border: 5px green solid;
+					}
+				</style>
+				<p id="chanceMessage">Your plans will most likely be okay, don't worry too much about it all!</p>
+			}
+			else if (ViewBag.NadoChance <= .1 && ViewBag.NadoChance > .05)
+			{
+				<style>
+					#dangerBox2 {
+						border: 5px yellow solid;
+					}
+				</style>
+				<p id="chanceMessage">There's a chance you may experience high winds, but highly unlikely!</p>
+			}
+			else if (ViewBag.NadoChance <= 5 && ViewBag.NadoChance > .1)
+			{
+				<style>
+					#dangerBox2 {
+						border: 5px orange solid;
+					}
+				</style>
+				<p id="chanceMessage">There may be heavy winds, but no real chance of a tornado.</p>
+			}
+			else
+			{
+				<style>
+					#dangerBox2 {
+						border: 5px red solid;
+					}
+				</style>
+				<p id="chanceMessage">You may see a tornado, over 5% of all US tornados happen here!</p>
+			}
+			<p>Total tornado in this area since 1970: @ViewBag.NadoCount</p>
+		</div>
 	</div>
-	<div id="dangerBox2">
-		<br />
-		<p id="percentEarthquake">@ViewBag.NadoChance % of all US tornados happened here in the past 50 years!</p>
-		@if (ViewBag.NadoChance <= .05)
-		{
-			<style>
-				#dangerBox2 {
-					border: 5px green solid;
-				}
-			</style>
-			<p id="chanceMessage">Your plans will most likely be okay, don't worry too much about it all!</p>
-		}
-		else if (ViewBag.NadoChance <= .1 && ViewBag.NadoChance > .05)
-		{
-			<style>
-				#dangerBox2 {
-					border: 5px yellow solid;
-				}
-			</style>
-			<p id="chanceMessage">There's a chance you may experience high winds, but highly unlikely!</p>
-		}
-		else if (ViewBag.NadoChance <= 5 && ViewBag.NadoChance > .1)
-		{
-			<style>
-				#dangerBox2 {
-					border: 5px orange solid;
-				}
-			</style>
-			<p id="chanceMessage">There may be heavy winds, but no real chance of a tornado.</p>
-		}
-		else
-		{
-			<style>
-				#dangerBox2 {
-					border: 5px red solid;
-				}
-			</style>
-			<p id="chanceMessage">You may see a tornado, over 5% of all US tornados happen here!</p>
-		}
-		<p>Total tornado in this area since 1970: @ViewBag.NadoCount</p>
-	</div>
-</div>
-<br />
-@if (ViewBag.NadoChance >= 5 && ViewBag.QuakeChance >= .1)
-{
-	<h3>You're gonna have a bad time.</h3>
-}
-<br/><br/><br/>
-@if (ViewBag.TotalDisaster != 0)
-{
-	<button onclick="LoadMore()" name="SeeMore" title="Click to see me!" id="LoadMoreButton">Click to see more details</button>
-}
-else
-{
-	<h3>The location you chose has no earthquakes OR tornados near it, you're lucky!</h3>
-	<a href="~/Home/Index" id="searchAgain">Search again?</a>
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div id="AllQuakes">
 	<br />
-	@{int nadoNum = 0, quakeNum = 0, i = 0; }
-	@while (i < ViewBag.TotalDisaster)
+	@if (ViewBag.NadoChance >= 5 && ViewBag.QuakeChance >= .1)
 	{
-		if (nadoNum < ViewBag.NadoCount)
-		{
-			//for loop for tornados
-			for (int x = 0; x < 1; x++)
-			{
-				<h3>TORNADOS!</h3>
-				<div id="Tornados">
-					<br />
-
-
-					<p>Where did it hit?: @ViewBag.nadoResults[nadoNum].NAME,@ViewBag.nadoResults[nadoNum].USPS</p>
-					<p>Gimme the longitude: @ViewBag.nadoResults[nadoNum].Longitude</p>
-					<p>Now Latitude kthx: @ViewBag.nadoResults[nadoNum].Latitude</p>
-					<p> @ViewBag.nadoResults[nadoNum].Time </p>
-					<p>Alert status: @ViewBag.nadoResults[nadoNum].Alert</p>
-					<br /><br />
-					@{
-						nadoNum++;
-						i++;
-					}
-				</div>
-
-			}
-		}
-		else
-		{
-		}
-
-		if (quakeNum < ViewBag.QuakeCount)
-		{
-			//For loop for quakes
-			for (int g = 0; g < 1; g++)
-			{
-				<h3>EARTHQUAKES!</h3>
-				<div id="QuakeData">
-					<br />
-
-					<p>Magnitude: @ViewBag.quakeResults[quakeNum].Magnitude</p>
-					<p>Where did it hit?: @ViewBag.quakeResults[quakeNum].Place</p>
-					<p>Gimme the longitude: @ViewBag.quakeResults[quakeNum].Longitude</p>
-					<p>Now Latitude kthx: @ViewBag.quakeResults[quakeNum].Latitude</p>
-					<p> @ViewBag.quakeResults[quakeNum].Time </p>
-					<br /><br />
-					@{
-						quakeNum++;
-						i++;
-					}
-				</div>
-			}
-
-		}
-		else
-		{
-		}
+		<h3>You're gonna have a bad time.</h3>
+	}
+	<br /><br /><br />
+	@if (ViewBag.TotalDisaster != 0)
+	{
+		<button onclick="LoadMore()" name="SeeMore" title="Click to see me!" id="LoadMoreButton">Click to see more details</button>
+	}
+	else
+	{
+		<h3>The location you chose has no earthquakes OR tornados near it, you're lucky!</h3>
+		<a href="~/Home/Index" id="searchAgain">Search again?</a>
 	}
 
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div id="AllQuakes">
+		<br />
+		@{int nadoNum = 0, quakeNum = 0, i = 0; }
+		@while (i < ViewBag.TotalDisaster)
+		{
+			if (nadoNum < ViewBag.NadoCount)
+			{
+				//for loop for tornados
+				for (int x = 0; x < 1; x++)
+				{
+					<h3>TORNADOS!</h3>
+					<div id="Tornados">
+						<br />
+
+
+						<p>Where did it hit?: @ViewBag.nadoResults[nadoNum].NAME,@ViewBag.nadoResults[nadoNum].USPS</p>
+						<p>Gimme the longitude: @ViewBag.nadoResults[nadoNum].Longitude</p>
+						<p>Now Latitude kthx: @ViewBag.nadoResults[nadoNum].Latitude</p>
+						<p> @ViewBag.nadoResults[nadoNum].Time </p>
+						<p>Alert status: @ViewBag.nadoResults[nadoNum].Alert</p>
+						<br /><br />
+						@{
+							nadoNum++;
+							i++;
+						}
+					</div>
+
+				}
+			}
+			else
+			{
+			}
+
+			if (quakeNum < ViewBag.QuakeCount)
+			{
+				//For loop for quakes
+				for (int g = 0; g < 1; g++)
+				{
+					<h3>EARTHQUAKES!</h3>
+					<div id="QuakeData">
+						<br />
+
+						<p>Magnitude: @ViewBag.quakeResults[quakeNum].Magnitude</p>
+						<p>Where did it hit?: @ViewBag.quakeResults[quakeNum].Place</p>
+						<p>Gimme the longitude: @ViewBag.quakeResults[quakeNum].Longitude</p>
+						<p>Now Latitude kthx: @ViewBag.quakeResults[quakeNum].Latitude</p>
+						<p> @ViewBag.quakeResults[quakeNum].Time </p>
+						<br /><br />
+						@{
+							quakeNum++;
+							i++;
+						}
+					</div>
+				}
+
+			}
+			else
+			{
+			}
+		}
+
+	</div>
+
+	</body>
+</html>
