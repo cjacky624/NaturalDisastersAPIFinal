@@ -224,6 +224,8 @@
     <Content Include="Views\Tornado\SearchTornados.cshtml" />
     <Content Include="Views\Earthquake\UserQuakes.cshtml" />
     <Content Include="Views\Home\SearchBoth.cshtml" />
+    <Content Include="Views\Earthquake\Error.cshtml" />
+    <Content Include="Views\Tornado\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
