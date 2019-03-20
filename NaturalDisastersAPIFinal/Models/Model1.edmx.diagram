@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+<<<<<<< HEAD:NaturalDisastersAPIFinal/Models/Model1.edmx.diagram
+      <Diagram DiagramId="f8f2fb3015ea425fade6329f65fba75a" Name="Diagram1">
+=======
+      <Diagram DiagramId="83ec4685c36d401d9d7bd10ba8a7f869" Name="Diagram1">
+>>>>>>> 510588196b7d00a68726e34452ba19c455354ca3:NaturalDisastersAPIFinal/Models/NaturalDisasters.edmx.diagram
+        <EntityTypeShape EntityType="NaturalDisastersModel.EarthQuakeTable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NaturalDisastersModel.Tornado" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NaturalDisastersModel.County" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NaturalDisastersModel.UpdatedTornado" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

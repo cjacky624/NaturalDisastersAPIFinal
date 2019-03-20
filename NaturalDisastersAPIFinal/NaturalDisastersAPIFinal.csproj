@@ -134,32 +134,32 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\County.cs">
-      <DependentUpon>NaturalDisasters.tt</DependentUpon>
+      <DependentUpon>NaturalDisastersEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EarthQuakeTable.cs">
-      <DependentUpon>NaturalDisasters.tt</DependentUpon>
+      <DependentUpon>NaturalDisastersEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FemaDisaster.cs" />
-    <Compile Include="Models\NaturalDisasters.Context.cs">
+    <Compile Include="Models\NaturalDisastersEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NaturalDisasters.Context.tt</DependentUpon>
+      <DependentUpon>NaturalDisastersEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\NaturalDisasters.cs">
+    <Compile Include="Models\NaturalDisastersEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NaturalDisasters.tt</DependentUpon>
+      <DependentUpon>NaturalDisastersEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\NaturalDisasters.Designer.cs">
+    <Compile Include="Models\NaturalDisastersEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NaturalDisasters.edmx</DependentUpon>
+      <DependentUpon>NaturalDisastersEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Tornado.cs">
-      <DependentUpon>NaturalDisasters.tt</DependentUpon>
+      <DependentUpon>NaturalDisastersEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UpdatedTornado.cs">
-      <DependentUpon>NaturalDisasters.tt</DependentUpon>
+      <DependentUpon>NaturalDisastersEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -176,24 +176,24 @@
     <Content Include="Images\Airplane ico.ico" />
     <Content Include="Images\ShakesAndQuakes.jpg" />
     <Content Include="Images\Tornados.png" />
-    <Content Include="Models\NaturalDisasters.Context.tt">
+    <Content Include="Models\NaturalDisastersEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NaturalDisasters.edmx</DependentUpon>
-      <LastGenOutput>NaturalDisasters.Context.cs</LastGenOutput>
+      <DependentUpon>NaturalDisastersEntities.edmx</DependentUpon>
+      <LastGenOutput>NaturalDisastersEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\NaturalDisasters.tt">
+    <Content Include="Models\NaturalDisastersEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NaturalDisasters.edmx</DependentUpon>
-      <LastGenOutput>NaturalDisasters.cs</LastGenOutput>
+      <DependentUpon>NaturalDisastersEntities.edmx</DependentUpon>
+      <LastGenOutput>NaturalDisastersEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\NaturalDisasters.edmx">
+    <EntityDeploy Include="Models\NaturalDisastersEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NaturalDisasters.Designer.cs</LastGenOutput>
+      <LastGenOutput>NaturalDisastersEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\NaturalDisasters.edmx.diagram">
-      <DependentUpon>NaturalDisasters.edmx</DependentUpon>
+    <Content Include="Models\NaturalDisastersEntities.edmx.diagram">
+      <DependentUpon>NaturalDisastersEntities.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\NaturalDisastersAPIFinal - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

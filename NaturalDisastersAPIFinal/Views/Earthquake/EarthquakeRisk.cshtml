@@ -1,86 +1,86 @@
 <script>
-	function LoadMore() {
-		var x = document.getElementById("AllQuakes");
-		if (x.style.display === "none")
-		{
-			x.style.display = "block";
-		}
-		else
-		{
-			x.style.display = "none";
-		}
-	}
+    function LoadMore() {
+        var x = document.getElementById("AllQuakes");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        }
+        else {
+            x.style.display = "none";
+        }
+    }
 </script>
 
 <p>@ViewBag.Time</p>
 <br /><br /><br />
-			<div id="dangerBox">
-				<br/>
-				<p id="percentEarthquake">@ViewBag.Chance % of all US earthquakes happened here in the past 50 years!</p>
-				@if (ViewBag.Chance <= .005)
-				{
-					<style>
-						#dangerBox {
-							border: 5px green solid;
-						}
-					</style>
-					<p id="chanceMessage">Your plans will most likely be okay, don't worry!</p>
-				}
-				else if (ViewBag.Chance <= .01 && ViewBag.Chance > .005)
-				{
-					<style>
-						#dangerBox {
-							border: 5px yellow solid;
-						}
-					</style>
-					<p id="chanceMessage">There's a chance you may experience a small quake, but highly unlikely!</p>
-				}
-				else if (ViewBag.Chance <= .1 && ViewBag.Chance > .01)
-				{
-					<style>
-						#dangerBox {
-							border: 5px orange solid;
-						}
-					</style>
-					<p id="chanceMessage">An earthquake may happen while you visit, it's possible that it could just be a ground shaker.</p>
-				}
-				else
-				{
-					<style>
-						#dangerBox {
-							border: 5px red solid;
-						}
-					</style>
-					<p id="chanceMessage">Why are you going there? You're probably gonna die.</p>
-				}
-				<p>Total earthquakes in this area since 1970: @ViewBag.Count</p>
-			</div>
-					@foreach (var item in ViewBag.Results)
-						{
-							<br /><br />
-							<h3>EARTHQUAKES!</h3>
-							<div class="col-sm-2" id="QuakeData">
-								<br />
-
-			<br />
-<button onclick="LoadMore()"name="SeeMore" title="Click to see me!" id="LoadMoreButton">Click to see more details</button>
-
-<div id="AllQuakes">
-	<br/>
-	@foreach (var item in ViewBag.Results)
-	{
-		<br /><br />
-		<h3>EARTHQUAKES!</h3>
-		<div id="QuakeData">
-			<br />
-
-			<p>Magnitude: @item.Magnitude</p>
-			<p>Where did it hit?: @item.Place</p>
-			<p>Gimme the longitude: @item.Longitude</p>
-			<p>Now Latitude kthx: @item.Latitude</p>
-			<p> @item.Time </p>
-			<br /><br />
-
-		</div>
-	}
+<div id="dangerBox">
+    <br />
+    <p id="percentEarthquake">@ViewBag.Chance % of all US earthquakes happened here in the past 50 years!</p>
+    @if (ViewBag.Chance <= .005)
+    {
+        <style>
+            #dangerBox {
+                border: 5px green solid;
+            }
+        </style>
+        <p id="chanceMessage">Your plans will most likely be okay, don't worry!</p>
+    }
+    else if (ViewBag.Chance <= .01 && ViewBag.Chance > .005)
+    {
+        <style>
+            #dangerBox {
+                border: 5px yellow solid;
+            }
+        </style>
+        <p id="chanceMessage">There's a chance you may experience a small quake, but highly unlikely!</p>
+    }
+    else if (ViewBag.Chance <= .1 && ViewBag.Chance > .01)
+    {
+        <style>
+            #dangerBox {
+                border: 5px orange solid;
+            }
+        </style>
+        <p id="chanceMessage">An earthquake may happen while you visit, it's possible that it could just be a ground shaker.</p>
+    }
+    else
+    {
+        <style>
+            #dangerBox {
+                border: 5px red solid;
+            }
+        </style>
+        <p id="chanceMessage">Why are you going there? You're probably gonna die.</p>
+    }
+    <p>Total earthquakes in this area since 1970: @ViewBag.Count</p>
 </div>
+@foreach (var item in ViewBag.Results)
+{
+    <div class="col-sm-2" id="QuakeData">
+
+        <br /><br />
+        <h3>EARTHQUAKES!</h3>
+        <br />
+        </div>
+        }
+        <br />
+        <button onclick="LoadMore()" name="SeeMore" title="Click to see me!" id="LoadMoreButton">Click to see more details</button>
+
+        <div id="AllQuakes">
+            <br />
+            @foreach (var item in ViewBag.Results)
+            {
+                <br /><br />
+                <h3>EARTHQUAKES!</h3>
+                <div id="QuakeData">
+                    <br />
+
+                    <p>Magnitude: @item.Magnitude</p>
+                    <p>Where did it hit?: @item.Place</p>
+                    <p>Gimme the longitude: @item.Longitude</p>
+                    <p>Now Latitude kthx: @item.Latitude</p>
+                    <p> @item.Time </p>
+                    <br /><br />
+
+                </div>
+            }
+        </div>

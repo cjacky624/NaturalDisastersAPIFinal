@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="83ec4685c36d401d9d7bd10ba8a7f869" Name="Diagram1">
+      <Diagram DiagramId="586fa6fadbcf4c05a4b86bf2e80f4b60" Name="Diagram1">
         <EntityTypeShape EntityType="NaturalDisastersModel.EarthQuakeTable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="NaturalDisastersModel.Tornado" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="NaturalDisastersModel.County" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
