@@ -1,6 +1,7 @@
 ﻿using NaturalDisastersAPIFinal.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,56 +14,58 @@ namespace NaturalDisastersAPIFinal.Controllers
         public ActionResult EarthquakeRisk()
         {
             NaturalDisastersEntities db = new NaturalDisastersEntities();
-            
+
             UserLocation User = (UserLocation)Session["UserInfo"];
             TimeSpan userTime = (TimeSpan)Session["UserTime"];
 
+
+
             ViewBag.User = User;
 
-            double FeltLowLongitude = User.Longitude - 2.3;
-            double FeltHighLongitutde = User.Longitude + 2.3;
-            double FeltLowLatitude = User.Latitude - 2.3;
-            double FeltHighLatitude = User.Latitude + 2.3;
+            double FeltLowLongitude = User.Longitude - 5.0;
+            double FeltHighLongitutde = User.Longitude + 5.0;
+            double FeltLowLatitude = User.Latitude - 5.0;
+            double FeltHighLatitude = User.Latitude + 5.0;
 
 
             List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
-            
-            foreach(EarthQuakeTable Eq in db.EarthQuakeTables)
+
+            foreach (EarthQuakeTable Eq in db.EarthQuakeTables)
             {
-                if (Eq.Latitude>=FeltLowLatitude && Eq.Latitude<=FeltHighLatitude &&
+                if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
                     Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
                 {
-                    
+
                     if (Eq.Magnitude > 6 && Eq.Magnitude <= 8)
                     {
-                        FeltLowLongitude = User.Longitude - 1.5;
-                        FeltHighLongitutde = User.Longitude + 1.5;
-                        FeltLowLatitude = User.Latitude - 1.5;
-                        FeltHighLatitude = User.Latitude + 1.5;
+                        FeltLowLongitude = User.Longitude - 2.5;
+                        FeltHighLongitutde = User.Longitude + 2.5;
+                        FeltLowLatitude = User.Latitude - 2.5;
+                        FeltHighLatitude = User.Latitude + 2.5;
                         if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
                             Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
                         {
                             userEarthquakes.Add(Eq);
                         }
                     }
-                    else if(Eq.Magnitude <= 6 && Eq.Magnitude > 4)
+                    else if (Eq.Magnitude <= 6 && Eq.Magnitude > 4)
+                    {
+                        FeltLowLongitude = User.Longitude - 2.5;
+                        FeltHighLongitutde = User.Longitude + 2.5;
+                        FeltLowLatitude = User.Latitude - 2.5;
+                        FeltHighLatitude = User.Latitude + 2.5;
+                        if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
+                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
+                        {
+                            userEarthquakes.Add(Eq);
+                        }
+                    }
+                    else if (Eq.Magnitude <= 4)
                     {
                         FeltLowLongitude = User.Longitude - 1.2;
                         FeltHighLongitutde = User.Longitude + 1.2;
                         FeltLowLatitude = User.Latitude - 1.2;
                         FeltHighLatitude = User.Latitude + 1.2;
-                        if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
-                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
-                        {
-                            userEarthquakes.Add(Eq);
-                        }
-                    }
-                    else if(Eq.Magnitude <= 4)
-                    {
-                        FeltLowLongitude = User.Longitude - 0.9;
-                        FeltHighLongitutde = User.Longitude + 0.9;
-                        FeltLowLatitude = User.Latitude - 0.9;
-                        FeltHighLatitude = User.Latitude + 0.9;
                         if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
                             Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
                         {
@@ -76,84 +79,8 @@ namespace NaturalDisastersAPIFinal.Controllers
                 }
             }
             ViewBag.Results = userEarthquakes;
-			double totalQuakes = userEarthquakes.Count;
-			double allQuakesUS = db.EarthQuakeTables.Count();
-			double division = totalQuakes / allQuakesUS;
-			double percent = division * 100;
-			ViewBag.Chance = Math.Round(percent, 6);
-			ViewBag.Count = totalQuakes;
-            //if (q.Magnitude >= 3 && q.Magnitude <= 4.00)
-            //{
-            //    DmgLowLongititude = q.Longitude * 0.998;
-            //    DmgHighLongititude = q.Longitude * 1.002;
-            //    DmgLowLatitude = q.Latitude * 0.998;
-            //    DmgHighLatitude = q.Latitude * 1.002;
-        
-
-            //else if (q.Magnitude > 4 && q.Magnitude <= 6.00)
-            //{
-            //    DmgLowLongititude = q.Longitude * 0.992;
-            //    DmgHighLongititude = q.Longitude * 1.008;
-            //    DmgLowLatitude = q.Latitude * 0.992;
-            //    DmgHighLatitude = q.Latitude * 1.008;
-            
-
-            return View();
-        }
-
-
-        public ActionResult SpeedUpSearch()
-        {
-            NaturalDisastersEntities db = new NaturalDisastersEntities();
-
-           
-            UserLocation User = (UserLocation)Session["UserInfo"];
-            TimeSpan userTime = (TimeSpan)Session["UserTime"];
-
-            ViewBag.User = User;
-
-            double FeltLowLongitude = User.Longitude - 2.3;
-            double FeltHighLongitutde = User.Longitude + 2.3;
-            double FeltLowLatitude = User.Latitude - 2.3;
-            double FeltHighLatitude = User.Latitude + 2.3;
-
-
-            List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
-            userEarthquakes = db.EarthQuakeTables.Where(x => x.Magnitude > 8 && x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList();
-
-            FeltLowLongitude = User.Longitude - 1.5;
-            FeltHighLongitutde = User.Longitude + 1.5;
-            FeltLowLatitude = User.Latitude - 1.5;
-            FeltHighLatitude = User.Latitude + 1.5;
-            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 6 && x.Magnitude <= 8 &&
-                                x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
-
-            FeltLowLongitude = User.Longitude - 1.2;
-            FeltHighLongitutde = User.Longitude + 1.2;
-            FeltLowLatitude = User.Latitude - 1.2;
-            FeltHighLatitude = User.Latitude + 1.2;
-            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 4 && x.Magnitude <= 6 &&
-                                x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
-
-
-            FeltLowLongitude = User.Longitude - 0.9;
-            FeltHighLongitutde = User.Longitude + 0.9;
-            FeltLowLatitude = User.Latitude - 0.9;
-            FeltHighLatitude = User.Latitude + 0.9;
-            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude <= 4 &&
-                                x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
-
-
-            //int userMonth = (int)Session["Month"];
-            //List<int> UserMonthRisk = new List<int>();
-
-            //var EQCount = userEarthquakes.Where(x => x.Time.Value.Month ==userMonth);
-            
-
-         
-            ViewBag.Results = userEarthquakes;
             double totalQuakes = userEarthquakes.Count;
-            double allQuakesUS = 83944;
+            double allQuakesUS = db.EarthQuakeTables.Count();
             double division = totalQuakes / allQuakesUS;
             double percent = division * 100;
             ViewBag.Chance = Math.Round(percent, 6);
@@ -161,9 +88,119 @@ namespace NaturalDisastersAPIFinal.Controllers
             return View();
         }
 
-		public ActionResult Redirecting()
-	  	{
-        return View();
-	  	}
-   }
+
+        public ActionResult SpeedUpSearch()
+        {
+            NaturalDisastersEntities db = new NaturalDisastersEntities();
+            UserLocation User = (UserLocation)Session["UserInfo"];
+            TimeSpan userTime = (TimeSpan)Session["UserTime"];
+
+            ViewBag.User = User;
+
+            double FeltLowLongitude = User.Longitude - 5.0;
+            double FeltHighLongitutde = User.Longitude + 5.0;
+            double FeltLowLatitude = User.Latitude - 5.0;
+            double FeltHighLatitude = User.Latitude + 5.0;
+
+
+            List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
+            userEarthquakes = db.EarthQuakeTables.Where(x => x.Magnitude > 8 && x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList();
+
+            FeltLowLongitude = User.Longitude - 2.5;
+            FeltHighLongitutde = User.Longitude + 2.5;
+            FeltLowLatitude = User.Latitude - 2.5;
+            FeltHighLatitude = User.Latitude + 2.5;
+            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 6 && x.Magnitude <= 8 &&
+                                x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
+
+            FeltLowLongitude = User.Longitude - 1.5;
+            FeltHighLongitutde = User.Longitude + 1.5;
+            FeltLowLatitude = User.Latitude - 1.5;
+            FeltHighLatitude = User.Latitude + 1.5;
+            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 4 && x.Magnitude <= 6 &&
+                                x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
+
+
+            FeltLowLongitude = User.Longitude - 1.2;
+            FeltHighLongitutde = User.Longitude + 1.2;
+            FeltLowLatitude = User.Latitude - 1.2;
+            FeltHighLatitude = User.Latitude + 1.2;
+            userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude <= 4 &&
+                                x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
+
+
+
+
+            ViewBag.Results = userEarthquakes;
+            double totalQuakes = userEarthquakes.Count;
+            double allQuakesUS = 83944;
+            double division = totalQuakes / allQuakesUS;
+            double percent = division * 100;
+            ViewBag.Chance = Math.Round(percent, 6);//felt earthquakes only
+            List<EarthQuakeTable> dmgRisk = EarthquakeDamageRisk();
+            double dmgPercent = Math.Round((100 * (dmgRisk.Count() / totalQuakes)), 6);
+            ViewBag.dmgPercent = dmgPercent;
+            ViewBag.Count = totalQuakes;
+
+            Dictionary<string, double> stats = MonthStats(userEarthquakes, totalQuakes);
+            ViewBag.MonthSafety = stats;
+
+            return View();
+        }
+
+        public ActionResult Redirecting()
+        {
+            return View();
+        }
+        public List<EarthQuakeTable> EarthquakeDamageRisk()
+        {
+            NaturalDisastersEntities db = new NaturalDisastersEntities();
+            UserLocation User = (UserLocation)Session["UserInfo"];
+            ViewBag.User = User;
+            double DmgLowLongitude = User.Longitude - 1.5;
+            double DmgHighLongitude = User.Longitude + 1.5;
+            double DmgLowLatitude = User.Latitude - 1.5;
+            double DmgHighLatitude = User.Latitude + 1.5;
+            List<EarthQuakeTable> userEarthquakesDmg = new List<EarthQuakeTable>();
+
+            userEarthquakesDmg = db.EarthQuakeTables.Where(x => x.Magnitude > 8 && x.Latitude <= DmgHighLatitude && x.Latitude >= DmgLowLatitude
+                                                        && x.Longitude <= DmgHighLongitude && x.Longitude >= DmgLowLongitude).ToList();
+
+            DmgLowLongitude = User.Longitude - 0.25;
+            DmgHighLongitude = User.Longitude + 0.25;
+            DmgLowLatitude = User.Latitude - 0.25;
+            DmgHighLatitude = User.Latitude + 0.25;
+            userEarthquakesDmg.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 4 && x.Magnitude <= 6 &&
+                                                       x.Latitude <= DmgHighLatitude && x.Latitude >= DmgLowLatitude && x.Longitude <= DmgHighLongitude && x.Longitude >= DmgLowLongitude).ToList());
+
+            DmgLowLongitude = User.Longitude - 1;
+            DmgHighLongitude = User.Longitude + 1;
+            DmgLowLatitude = User.Latitude - 1;
+            DmgHighLatitude = User.Latitude + 1;
+            userEarthquakesDmg.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 6 && x.Magnitude <= 8 &&
+                                                       x.Latitude <= DmgHighLatitude && x.Latitude >= DmgLowLatitude && x.Longitude <= DmgHighLongitude && x.Longitude >= DmgLowLongitude).ToList());
+            List<EarthQuakeTable> dmgRisk = new List<EarthQuakeTable>();
+            dmgRisk.AddRange(userEarthquakesDmg.Where(y => y.Magnitude >= 5));
+
+            return dmgRisk;
+        }
+
+        public Dictionary<string, double> MonthStats(List<EarthQuakeTable> userEvents, double totalEvents)
+        {
+
+            var stats = (userEvents.GroupBy(o => new { Month = o.Time.Value.Month })
+                                                    .Select(b => new { Month = b.Key.Month, Total = b.Count() }))
+                                                    .OrderBy(c => c.Month)
+                                                    .ToList();
+            Dictionary<string, double> output = new Dictionary<string, double>();
+            foreach (var month in stats)
+            {
+                string MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month.Month);
+                double Percentage = Math.Round(((month.Total / totalEvents) * 100), 2);
+                output.Add(MonthName, Percentage);
+            }
+
+            return output;
+        }
+    }
 }
