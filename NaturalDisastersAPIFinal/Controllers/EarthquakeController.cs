@@ -1,8 +1,12 @@
-﻿using NaturalDisastersAPIFinal.Models;
+﻿using NaturalDisastersAPIFinal.APIKey;
+using NaturalDisastersAPIFinal.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -185,6 +189,7 @@ namespace NaturalDisastersAPIFinal.Controllers
             return dmgRisk;
         }
 
+
         public Dictionary<string, double> MonthStats(List<EarthQuakeTable> userEvents, double totalEvents)
         {
 
@@ -202,5 +207,65 @@ namespace NaturalDisastersAPIFinal.Controllers
 
             return output;
         }
-    }
+
+
+
+		public ActionResult UserQuakes(string Location, DateTime? StartDate = null, DateTime? EndDate = null)
+		{
+			MyKey key = new MyKey();
+			string APIkey = key.GetKey();
+			string APIText = $"https://maps.googleapis.com/maps/api/geocode/json?components=" +
+				$"locality:{Location}|country:US&key={APIkey}";
+			HttpWebRequest request = WebRequest.CreateHttp(APIText);
+			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+			StreamReader rd = new StreamReader(response.GetResponseStream());
+			string data = rd.ReadToEnd();
+			rd.Close();
+
+			JToken UserLocation = JToken.Parse(data);
+			List<JToken> ParsedLocation = UserLocation["results"].ToList();
+
+			if (ParsedLocation.Count == 0)
+			{
+				ViewBag.TitleError = "Wrong Country";
+				ViewBag.Error = "You gave a country out of bounds!";
+				return View("Error");
+			}
+			ViewBag.Address = ParsedLocation[0]["formatted_address"].ToString();
+			ViewBag.UserLat = ParsedLocation[0]["geometry"]["location"]["lat"].ToString();
+			ViewBag.UserLong = ParsedLocation[0]["geometry"]["location"]["lng"].ToString();
+
+			UserLocation User = new UserLocation();
+
+			string latitude = ParsedLocation[0]["geometry"]["location"]["lat"].ToString();
+			float.TryParse(latitude, out float UserLat);
+			string longitude = ParsedLocation[0]["geometry"]["location"]["lng"].ToString();
+			float.TryParse(longitude, out float UserLong);
+
+
+
+
+			User.Location = ParsedLocation[0]["formatted_address"].ToString();
+			User.Latitude = UserLat;
+			User.Longitude = UserLong;
+
+			Session["UserInfo"] = User;
+
+			if (!StartDate.HasValue)
+			{
+				StartDate = DateTime.Now;
+			}
+			if (!EndDate.HasValue)
+			{
+				EndDate = DateTime.Now.AddDays(0.1);
+			}//maybe change this later - not certain how we want to calculate risk if they just want to see a specific location.
+			 //DateTime date = StartDate;
+			TimeSpan userTime = (DateTime)EndDate - (DateTime)StartDate;
+			int userMonth = StartDate.Value.Month;  //code to grab the month out of the StartDate - what will we do if the user selects multiple months?
+
+			Session["UserTime"] = userTime;
+			return View();
+		}
+   }
 }
