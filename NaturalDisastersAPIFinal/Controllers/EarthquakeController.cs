@@ -164,10 +164,12 @@ namespace NaturalDisastersAPIFinal.Controllers
 			ViewBag.Safer = Math.Round(timesSafer, 2);
 			double timesDanger = totalQuakes / 2;
 			ViewBag.Danger = Math.Round(timesDanger, 2);
+
 			Dictionary<string, double> stats = MonthStats(userEarthquakes, totalQuakes);
             ViewBag.MonthSafety = stats;
 
-            return View();
+
+			return View();
         }
 
         public ActionResult Redirecting()

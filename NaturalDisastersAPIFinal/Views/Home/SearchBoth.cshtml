@@ -119,79 +119,112 @@
 
 
 
+		<div id="AllQuakes">
+			<br />
 
-
-
-
-
-
-
-
-
-
-
-	<div id="AllQuakes">
-		<br />
-		@{int nadoNum = 0, quakeNum = 0, i = 0; }
-		@while (i < ViewBag.TotalDisaster)
-		{
-			if (nadoNum < ViewBag.NadoCount)
+			<br />
+			@if (ViewBag.TotalDisaster != 0)
 			{
-				//for loop for tornados
-				for (int x = 0; x < 1; x++)
-				{
-					<h3>TORNADOS!</h3>
-					<div id="Tornados">
-						<br />
 
-
-						<p>Where did it hit?: @ViewBag.nadoResults[nadoNum].NAME,@ViewBag.nadoResults[nadoNum].USPS</p>
-						<p>Gimme the longitude: @ViewBag.nadoResults[nadoNum].Longitude</p>
-						<p>Now Latitude kthx: @ViewBag.nadoResults[nadoNum].Latitude</p>
-						<p> @ViewBag.nadoResults[nadoNum].Time </p>
-						<p>Alert status: @ViewBag.nadoResults[nadoNum].Alert</p>
-						<br /><br />
-						@{
-							nadoNum++;
-							i++;
+				<h4>Percentages based off total local tornados</h4>
+				<div id="MonthlyStats">
+					<table class="table-bordered">
+						<tr>
+							<th>Month</th>
+							<th>Percentage of Tornados </th>
+						</tr>
+						@foreach (KeyValuePair<string, double> month in ViewBag.NadoSafety)
+						{
+							<tr>
+								<td> @month.Key </td>
+								<td class="percentData"> @month.Value % </td>
+							</tr>
 						}
-					</div>
+
+
+					</table>
+				</div>
+				<h4>Percentages based off total local earthquakes</h4>
+				<div id="MonthlyStats">
+					<table class="table-bordered">
+						<tr>
+							<th>Month</th>
+							<th>Percentage of earthquakes </th>
+						</tr>
+						@foreach (KeyValuePair<string, double> month in ViewBag.QuakeSafety)
+						{
+							<tr>
+								<td> @month.Key </td>
+								<td class="percentData"> @month.Value % </td>
+							</tr>
+						}
+
+
+					</table>
+				</div>
+
+			}
+			<br />
+			@{int nadoNum = 0, quakeNum = 0, i = 0; }
+			@while (i < ViewBag.TotalDisaster)
+			{
+				if (nadoNum < ViewBag.NadoCount)
+				{
+					//for loop for tornados
+					for (int x = 0; x < 1; x++)
+					{
+						<h3>TORNADOS!</h3>
+						<div id="Tornados">
+							<br />
+
+
+							<p>Where did it hit?: @ViewBag.nadoResults[nadoNum].NAME,@ViewBag.nadoResults[nadoNum].USPS</p>
+							<p>Gimme the longitude: @ViewBag.nadoResults[nadoNum].Longitude</p>
+							<p>Now Latitude kthx: @ViewBag.nadoResults[nadoNum].Latitude</p>
+							<p> @ViewBag.nadoResults[nadoNum].Time </p>
+							<p>Alert status: @ViewBag.nadoResults[nadoNum].Alert</p>
+							<br /><br />
+							@{
+								nadoNum++;
+								i++;
+							}
+						</div>
+
+					}
+				}
+				else
+				{
+				}
+
+				if (quakeNum < ViewBag.QuakeCount)
+				{
+					//For loop for quakes
+					for (int g = 0; g < 1; g++)
+					{
+						<h3>EARTHQUAKES!</h3>
+						<div id="QuakeData">
+							<br />
+
+							<p>Magnitude: @ViewBag.quakeResults[quakeNum].Magnitude</p>
+							<p>Where did it hit?: @ViewBag.quakeResults[quakeNum].Place</p>
+							<p>Gimme the longitude: @ViewBag.quakeResults[quakeNum].Longitude</p>
+							<p>Now Latitude kthx: @ViewBag.quakeResults[quakeNum].Latitude</p>
+							<p> @ViewBag.quakeResults[quakeNum].Time </p>
+							<br /><br />
+							@{
+								quakeNum++;
+								i++;
+							}
+						</div>
+					}
 
 				}
-			}
-			else
-			{
-			}
-
-			if (quakeNum < ViewBag.QuakeCount)
-			{
-				//For loop for quakes
-				for (int g = 0; g < 1; g++)
+				else
 				{
-					<h3>EARTHQUAKES!</h3>
-					<div id="QuakeData">
-						<br />
-
-						<p>Magnitude: @ViewBag.quakeResults[quakeNum].Magnitude</p>
-						<p>Where did it hit?: @ViewBag.quakeResults[quakeNum].Place</p>
-						<p>Gimme the longitude: @ViewBag.quakeResults[quakeNum].Longitude</p>
-						<p>Now Latitude kthx: @ViewBag.quakeResults[quakeNum].Latitude</p>
-						<p> @ViewBag.quakeResults[quakeNum].Time </p>
-						<br /><br />
-						@{
-							quakeNum++;
-							i++;
-						}
-					</div>
 				}
-
 			}
-			else
-			{
-			}
-		}
 
-	</div>
+		</div>
 
 	</body>
 </html>

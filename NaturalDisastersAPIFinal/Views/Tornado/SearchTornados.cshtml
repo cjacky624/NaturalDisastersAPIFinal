@@ -70,6 +70,31 @@
 	}
 	<div id="AllQuakes">
 		<br />
+
+		<br />
+		@if (ViewBag.Results != null)
+		{
+
+			<h4>Percentages based off total local tornados</h4>
+			<div id="MonthlyStats">
+				<table class="table-bordered">
+					<tr>
+						<th>Month</th>
+						<th>Percentage of Earthquakes </th>
+					</tr>
+					@foreach (KeyValuePair<string, double> month in ViewBag.MonthSafety)
+					{
+						<tr>
+							<td> @month.Key </td>
+							<td class="percentData"> @month.Value % </td>
+						</tr>
+					}
+
+
+				</table>
+			</div>
+		}
+		<br />
 		@foreach (var item in ViewBag.Results)
 		{
 			<br /><br />
