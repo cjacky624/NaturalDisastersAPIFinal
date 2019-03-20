@@ -28,8 +28,6 @@ namespace NaturalDisastersAPIFinal.Models
         public virtual DbSet<EarthQuakeTable> EarthQuakeTables { get; set; }
         public virtual DbSet<Tornado> Tornadoes { get; set; }
         public virtual DbSet<County> Counties { get; set; }
-
         public virtual DbSet<UpdatedTornado> UpdatedTornadoes { get; set; }
-
     }
 }
