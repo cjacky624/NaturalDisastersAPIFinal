@@ -155,7 +155,7 @@ namespace NaturalDisastersAPIFinal.Controllers
             double DmgLowLatitude = User.Latitude - 1.5;
             double DmgHighLatitude = User.Latitude + 1.5;
 
-            List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
+            List<EarthQuakeTable> userEarthquakesDmg = new List<EarthQuakeTable>();
             foreach (EarthQuakeTable EqDmg in db.EarthQuakeTables)
             {
 
