@@ -125,6 +125,7 @@ warning 6002: The table/view 'NaturalDisasters.dbo.UpdatedTornado' does not have
           <EntitySet Name="Tornadoes" EntityType="Self.Tornado" />
           <EntitySet Name="Counties" EntityType="Self.County" />
         </EntityContainer>
+
           <EntitySet Name="UpdatedTornadoes" EntityType="NaturalDisastersModel.UpdatedTornado" />
         </EntityContainer>
         <EntityType Name="UpdatedTornado">
@@ -143,6 +144,7 @@ warning 6002: The table/view 'NaturalDisasters.dbo.UpdatedTornado' does not have
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="USPS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -179,6 +181,7 @@ warning 6002: The table/view 'NaturalDisasters.dbo.UpdatedTornado' does not have
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="INTPTLAT" ColumnName="INTPTLAT" />
                 <ScalarProperty Name="INTPTLONG" ColumnName="INTPTLONG" />
+
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -193,6 +196,7 @@ warning 6002: The table/view 'NaturalDisasters.dbo.UpdatedTornado' does not have
                 <ScalarProperty Name="INTPTLAT" ColumnName="INTPTLAT" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

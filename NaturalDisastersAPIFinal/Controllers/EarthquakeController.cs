@@ -26,40 +26,48 @@ namespace NaturalDisastersAPIFinal.Controllers
 
             ViewBag.User = User;
 
-            double FeltLowLongitude = User.Longitude - 5.0;
-            double FeltHighLongitutde = User.Longitude + 5.0;
-            double FeltLowLatitude = User.Latitude - 5.0;
-            double FeltHighLatitude = User.Latitude + 5.0;
+
+            double FeltLowLongitude = User.Longitude - 5;
+            double FeltHighLongitude = User.Longitude + 5;
+            double FeltLowLatitude = User.Latitude - 5;
+            double FeltHighLatitude = User.Latitude + 5;
+
 
 
             List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
 
             foreach (EarthQuakeTable Eq in db.EarthQuakeTables)
             {
-                if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
-                    Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
+
+                if(Eq.Latitude>=FeltLowLatitude && Eq.Latitude<=FeltHighLatitude &&
+                    Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitude)
+
                 {
 
                     if (Eq.Magnitude > 6 && Eq.Magnitude <= 8)
                     {
                         FeltLowLongitude = User.Longitude - 2.5;
-                        FeltHighLongitutde = User.Longitude + 2.5;
+
+                        FeltHighLongitude = User.Longitude + 2.5;
+
                         FeltLowLatitude = User.Latitude - 2.5;
                         FeltHighLatitude = User.Latitude + 2.5;
                         if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
-                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
+                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitude)
                         {
                             userEarthquakes.Add(Eq);
                         }
                     }
                     else if (Eq.Magnitude <= 6 && Eq.Magnitude > 4)
                     {
-                        FeltLowLongitude = User.Longitude - 2.5;
-                        FeltHighLongitutde = User.Longitude + 2.5;
-                        FeltLowLatitude = User.Latitude - 2.5;
-                        FeltHighLatitude = User.Latitude + 2.5;
+
+                        FeltLowLongitude = User.Longitude - 1.5;
+                        FeltHighLongitude = User.Longitude + 1.5;
+                        FeltLowLatitude = User.Latitude - 1.5;
+                        FeltHighLatitude = User.Latitude + 1.5;
+
                         if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
-                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
+                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitude)
                         {
                             userEarthquakes.Add(Eq);
                         }
@@ -67,11 +75,13 @@ namespace NaturalDisastersAPIFinal.Controllers
                     else if (Eq.Magnitude <= 4)
                     {
                         FeltLowLongitude = User.Longitude - 1.2;
-                        FeltHighLongitutde = User.Longitude + 1.2;
+
+                        FeltHighLongitude = User.Longitude + 1.2;
+
                         FeltLowLatitude = User.Latitude - 1.2;
                         FeltHighLatitude = User.Latitude + 1.2;
                         if (Eq.Latitude >= FeltLowLatitude && Eq.Latitude <= FeltHighLatitude &&
-                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitutde)
+                            Eq.Longitude >= FeltLowLongitude && Eq.Longitude <= FeltHighLongitude)
                         {
                             userEarthquakes.Add(Eq);
                         }
@@ -83,6 +93,7 @@ namespace NaturalDisastersAPIFinal.Controllers
                 }
             }
             ViewBag.Results = userEarthquakes;
+
             double totalQuakes = userEarthquakes.Count;
             double allQuakesUS = db.EarthQuakeTables.Count();
             double division = totalQuakes / allQuakesUS;
@@ -90,13 +101,14 @@ namespace NaturalDisastersAPIFinal.Controllers
             ViewBag.Chance = Math.Round(percent, 6);
             ViewBag.Count = totalQuakes;
             return View();
+
         }
-
-
         public ActionResult SpeedUpSearch()
         {
             NaturalDisastersEntities db = new NaturalDisastersEntities();
+
             UserLocation User = (UserLocation)Session["UserInfo"];
+
             TimeSpan userTime = (TimeSpan)Session["UserTime"];
 
             ViewBag.User = User;
@@ -105,6 +117,7 @@ namespace NaturalDisastersAPIFinal.Controllers
             double FeltHighLongitutde = User.Longitude + 5.0;
             double FeltLowLatitude = User.Latitude - 5.0;
             double FeltHighLatitude = User.Latitude + 5.0;
+
 
 
             List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
@@ -269,3 +282,4 @@ namespace NaturalDisastersAPIFinal.Controllers
 		}
    }
 }
+
