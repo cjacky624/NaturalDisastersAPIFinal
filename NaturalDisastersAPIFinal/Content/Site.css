@@ -60,7 +60,7 @@ h3 {
 }
 #NadosButton {
 	position: relative;
-	left: 175px;
+	left: 125px;
 }
 .navbar-inverse {
 	background-color:aquamarine !important;
@@ -100,8 +100,13 @@ h4 {
 	left: 350px;
 }
 #ourTitle {
-	text-align:center;
-	padding-top:1in;
+	text-align: center;
+	padding-top: .2in;
+	align-content: center;
+	align-items:center;
+	width: 400px;
+	position:relative;
+	left: 350px;
 }
 
 #leftBox {
@@ -109,17 +114,47 @@ h4 {
 	width: 40%;
 	position: relative;
 	right: 50px;
-	text-align:center;
+	text-align: center;
+	bottom: 150px;
+}
+#UpperLeftBox {
+	border: 1px black solid;
+	width: 40%;
+	position: relative;
+	right: 120px;
+	text-align: center;
+	bottom:300px;
+}
+#LowerLeftBox {
+	border: 1px black solid;
+	width: 40%;
+	position: relative;
+	right: 120px;
+	text-align: center;
+	bottom: 300px;
 }
 
-#earthquakesPic {
-	position:relative;
+#BothPics {
+	position: relative;
 	left: 800px;
-	bottom: 200px;
+	bottom: 725px;
+	width: 300px;
+}
+#TornadosPic {
+	position: relative;
+	left: 800px;
+	bottom: 375px;
+	width: 300px;
+}
+#earthquakesPic {
+	position: relative;
+	left: 800px;
+	bottom: 375px;
+	width: 300px;
 }
 
 #errorResult {
-	text-align:center;
+	text-align: center;
 	padding-bottom: 2in;
 }
 #AllQuakes {
@@ -128,4 +163,32 @@ h4 {
 #LoadMoreButton {
 	position:relative;
 	left:480px;
+}
+#searchAgain {
+	position:relative;
+	font-size: 20px;
+	left: 500px;
+}
+#dangerBox1 {
+	width: 500px;
+	align-content: center;
+	text-align: center;
+	float:left;
+}
+#dangerBox2 {
+	width: 500px;
+	align-content: center;
+	text-align: center;
+	float:right;
+	
+}
+#boxContainer{
+	width: 1000px;
+	height: 300px;
+	position:relative;
+	left: 70px;
+}
+.TitlePage {
+	height: 625px;
+	
 }

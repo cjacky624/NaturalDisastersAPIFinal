@@ -1,9 +1,8 @@
 ﻿<html>
 <head>
-	<title>Quakes in your area</title>
+	<title>Tornados in your area</title>
 </head>
 <body>
-	
 	<script>
 		function LoadMore() {
 			var x = document.getElementById("AllQuakes");
@@ -17,13 +16,11 @@
 	</script>
 
 	<p>@ViewBag.Time</p>
-	<br />
-	<br />
-	<br />
+	<br /><br /><br />
 	<div id="dangerBox">
 		<br />
-		<p id="percentEarthquake">@ViewBag.Chance % of all US earthquakes happened here in the past 50 years!</p>
-		@if (ViewBag.Chance <= .005)
+		<p id="percentEarthquake">@ViewBag.Chance % of all US tornados happened here in the past 50 years!</p>
+		@if (ViewBag.Chance <= .05)
 		{
 			<style>
 				#dangerBox {
@@ -32,23 +29,23 @@
 			</style>
 			<p id="chanceMessage">Your plans will most likely be okay, don't worry!</p>
 		}
-		else if (ViewBag.Chance <= .01 && ViewBag.Chance > .005)
+		else if (ViewBag.Chance <= .1 && ViewBag.Chance > .05)
 		{
 			<style>
 				#dangerBox {
 					border: 5px yellow solid;
 				}
 			</style>
-			<p id="chanceMessage">There's a chance you may experience a small quake, but highly unlikely!</p>
+			<p id="chanceMessage">There's a chance you may experience high winds, but highly unlikely!</p>
 		}
-		else if (ViewBag.Chance <= .1 && ViewBag.Chance > .01)
+		else if (ViewBag.Chance <= 5 && ViewBag.Chance > .1)
 		{
 			<style>
 				#dangerBox {
 					border: 5px orange solid;
 				}
 			</style>
-			<p id="chanceMessage">An earthquake may happen while you visit, it's possible that it could just be a ground shaker.</p>
+			<p id="chanceMessage">There may be heavy winds, but no real chance of a tornado.</p>
 		}
 		else
 		{
@@ -57,9 +54,9 @@
 					border: 5px red solid;
 				}
 			</style>
-			<p id="chanceMessage">Why are you going there? You're probably gonna die.</p>
+			<p id="chanceMessage">You may see a tornado.</p>
 		}
-		<p>Total earthquakes in this area since 1970: @ViewBag.Count</p>
+		<p>Total tornados in this area since 1970: @ViewBag.Count</p>
 	</div>
 	<br />
 	@if (ViewBag.Results.Count != 0)
@@ -68,7 +65,7 @@
 	}
 	else
 	{
-		<h3>The location you chose has no earthquakes near it, you're lucky!</h3>
+		<h3>The location you chose has no tornados near it, you're lucky!</h3>
 		<a href="~/Home/Index" id="searchAgain">Search again?</a>
 	}
 	<div id="AllQuakes">
@@ -76,15 +73,16 @@
 		@foreach (var item in ViewBag.Results)
 		{
 			<br /><br />
-			<h3>EARTHQUAKES!</h3>
-			<div id="QuakeData">
+			<h3>TORNADOS!</h3>
+			<div id="Tornados">
 				<br />
 
-				<p>Magnitude: @item.Magnitude</p>
-				<p>Where did it hit?: @item.Place</p>
+
+				<p>Where did it hit?: @item.NAME,@item.USPS</p>
 				<p>Gimme the longitude: @item.Longitude</p>
 				<p>Now Latitude kthx: @item.Latitude</p>
 				<p> @item.Time </p>
+				<p>Alert status: @item.Alert</p>
 				<br /><br />
 
 			</div>

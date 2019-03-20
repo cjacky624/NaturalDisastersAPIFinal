@@ -87,69 +87,11 @@ namespace NaturalDisastersAPIFinal.Controllers
 
 		}
 
-		public ActionResult Tornados() //this method is to populate the database table Tornado. we will need a method to search the database based off user input
+		public ActionResult Tornados()
 		{
-			int offset;
-
-
-			//1174 FEMA disasters are Tornados since 1970 
-			List<FemaDisaster> Tornados = new List<FemaDisaster>();
-			for (offset = 0; offset <= 1000; offset += 1000)
-			{
-				string APIText = "https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$filter=(incidentType  eq 'Tornado') and incidentBeginDate gt '1970-01-01T00:00:00.000z'&$skip=" + offset;
-				//string APIText = "https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$skip=" + offset;
-
-				HttpWebRequest request = WebRequest.CreateHttp(APIText);
-				HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-				StreamReader rd = new StreamReader(response.GetResponseStream());
-				string data = rd.ReadToEnd();
-				rd.Close();
-
-				MetaDataWrapper Disasters = JsonConvert.DeserializeObject<MetaDataWrapper>(data);
-				Tornados.AddRange(Disasters.DisasterDeclarationsSummaries.ToList());
-
-
-				//.add only does one object, while .addRange does ALL the objects
-
-			}
-			for (int i = 0; i < Tornados.Count(); i++)
-			{
-				Tornados[i].declaredCountyArea = Tornados[i].declaredCountyArea.Replace("(", "").Replace(")", "");
-
-			}
-
-
-
-			NaturalDisastersEntities db = new NaturalDisastersEntities();
-
-			List<Tornado> FematoTornadoObjects = new List<Tornado>();
-			foreach (FemaDisaster incident in Tornados)
-			{
-				Tornado t = new Tornado();
-				var latlong = db.Counties.Where(x => x.USPS == incident.state && x.NAME == incident.declaredCountyArea).Select(l => new { l.INTPTLAT, l.INTPTLONG }).FirstOrDefault();
-				if (latlong == null)
-				{
-					latlong = db.Counties.Where(x => x.USPS == incident.state && x.NAME == incident.declaredCountyArea + " County").Select(l => new { l.INTPTLAT, l.INTPTLONG }).FirstOrDefault();
-				}
-				if (latlong != null)
-				{
-					t.Latitude = latlong.INTPTLAT;
-					t.Longitude = latlong.INTPTLONG;
-				}
-
-				t.Alert = incident.title;
-
-				t.Time = Convert.ToDateTime(incident.incidentBeginDate);
-				FematoTornadoObjects.Add(t);
-				
-			}
-
-			ViewBag.TornadoCount = FematoTornadoObjects.Count();
-			ViewBag.TornadoList = FematoTornadoObjects;
-
 			return View();
 		}
+		
 
 		public ActionResult OtherFEMADisasters(string Disaster, string StateCode, string UserCounty)//method to call the others in the DisasterDeclarationSummaries API - available options (their count):
 																									//"Coastal Storm"(474), "Chemical"(9), "Dam/Levee Break" (6), "Drought" (1292), "Fire" (3040), "Fishing Losses" (42), "Flood" (9739), "Freezing" (301), "Hurricane" (10555),
@@ -184,10 +126,80 @@ namespace NaturalDisastersAPIFinal.Controllers
 				//.add only does one object, while .addRange does ALL the objects
 
 			}
-
+			
 			
 			ViewBag.Disasters = UniqueDisasters;
 
+			return View();
+		}
+
+		public ActionResult SearchBoth()
+		{
+			NaturalDisastersEntities db = new NaturalDisastersEntities();
+
+
+
+			UserLocation User = (UserLocation)Session["UserInfo"];
+			TimeSpan userTime = (TimeSpan)Session["UserTime"];
+
+			ViewBag.User = User;
+
+			double FeltLowLongitude = User.Longitude - 2.3;
+			double FeltHighLongitutde = User.Longitude + 2.3;
+			double FeltLowLatitude = User.Latitude - 2.3;
+			double FeltHighLatitude = User.Latitude + 2.3;
+
+
+			List<EarthQuakeTable> userEarthquakes = new List<EarthQuakeTable>();
+			userEarthquakes = db.EarthQuakeTables.Where(x => x.Magnitude > 8 && x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList();
+
+			FeltLowLongitude = User.Longitude - 1.5;
+			FeltHighLongitutde = User.Longitude + 1.5;
+			FeltLowLatitude = User.Latitude - 1.5;
+			FeltHighLatitude = User.Latitude + 1.5;
+			userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 6 && x.Magnitude <= 8 &&
+								x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
+
+			FeltLowLongitude = User.Longitude - 1.2;
+			FeltHighLongitutde = User.Longitude + 1.2;
+			FeltLowLatitude = User.Latitude - 1.2;
+			FeltHighLatitude = User.Latitude + 1.2;
+			userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude > 4 && x.Magnitude <= 6 &&
+								x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
+
+
+			FeltLowLongitude = User.Longitude - 0.9;
+			FeltHighLongitutde = User.Longitude + 0.9;
+			FeltLowLatitude = User.Latitude - 0.9;
+			FeltHighLatitude = User.Latitude + 0.9;
+			userEarthquakes.AddRange(db.EarthQuakeTables.Where(x => x.Magnitude <= 4 &&
+								x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList());
+
+
+			 FeltLowLongitude = User.Longitude - 2.3;
+			 FeltHighLongitutde = User.Longitude + 2.3;
+			 FeltLowLatitude = User.Latitude - 2.3;
+			 FeltHighLatitude = User.Latitude + 2.3;
+			List<UpdatedTornado> userTornados = new List<UpdatedTornado>();
+			userTornados = db.UpdatedTornadoes.Where(x => x.Latitude <= FeltHighLatitude && x.Latitude >= FeltLowLatitude && x.Longitude <= FeltHighLongitutde && x.Longitude >= FeltLowLongitude).ToList();
+
+			ViewBag.nadoResults = userTornados;
+			double totalNados = userTornados.Count;
+			double nadoDivision = totalNados / 1160;
+			double nadoPercent = nadoDivision * 100;
+			ViewBag.NadoChance = Math.Round(nadoPercent, 6);
+			ViewBag.NadoCount = totalNados;
+
+
+			ViewBag.quakeResults = userEarthquakes;
+			double totalQuakes = userEarthquakes.Count;
+			double allQuakesUS = 83944;
+			double division = totalQuakes / allQuakesUS;
+			double percent = division * 100;
+			ViewBag.QuakeChance = Math.Round(percent, 6);
+			ViewBag.QuakeCount = totalQuakes;
+
+			ViewBag.TotalDisaster = totalNados + totalQuakes;
 			return View();
 		}
 	}
@@ -283,6 +295,71 @@ namespace NaturalDisastersAPIFinal.Controllers
 //}
 
 
-	//To populate the tornados DB
-	//db.Tornadoes.Add(t);
-	//db.SaveChanges();
+//To populate the tornados DB
+//db.Tornadoes.Add(t);
+//db.SaveChanges();
+
+
+//public ActionResult Tornados() //this method is to populate the database table Tornado. we will need a method to search the database based off user input
+//{
+//	int offset;
+
+
+//	//1174 FEMA disasters are Tornados since 1970 
+//	List<FemaDisaster> Tornados = new List<FemaDisaster>();
+//	for (offset = 0; offset <= 1000; offset += 1000)
+//	{
+//		string APIText = "https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$filter=(incidentType  eq 'Tornado') and incidentBeginDate gt '1970-01-01T00:00:00.000z'&$skip=" + offset;
+//		//string APIText = "https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$skip=" + offset;
+
+//		HttpWebRequest request = WebRequest.CreateHttp(APIText);
+//		HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+//		StreamReader rd = new StreamReader(response.GetResponseStream());
+//		string data = rd.ReadToEnd();
+//		rd.Close();
+
+//		MetaDataWrapper Disasters = JsonConvert.DeserializeObject<MetaDataWrapper>(data);
+//		Tornados.AddRange(Disasters.DisasterDeclarationsSummaries.ToList());
+
+
+//		//.add only does one object, while .addRange does ALL the objects
+
+//	}
+//	for (int i = 0; i < Tornados.Count(); i++)
+//	{
+//		Tornados[i].declaredCountyArea = Tornados[i].declaredCountyArea.Replace("(", "").Replace(")", "");
+
+//	}
+
+
+
+//	NaturalDisastersEntities db = new NaturalDisastersEntities();
+
+//	List<Tornado> FematoTornadoObjects = new List<Tornado>();
+//	foreach (FemaDisaster incident in Tornados)
+//	{
+//		Tornado t = new Tornado();
+//		var latlong = db.Counties.Where(x => x.USPS == incident.state && x.NAME == incident.declaredCountyArea).Select(l => new { l.INTPTLAT, l.INTPTLONG }).FirstOrDefault();
+//		if (latlong == null)
+//		{
+//			latlong = db.Counties.Where(x => x.USPS == incident.state && x.NAME == incident.declaredCountyArea + " County").Select(l => new { l.INTPTLAT, l.INTPTLONG }).FirstOrDefault();
+//		}
+//		if (latlong != null)
+//		{
+//			t.Latitude = latlong.INTPTLAT;
+//			t.Longitude = latlong.INTPTLONG;
+//		}
+
+//		t.Alert = incident.title;
+
+//		t.Time = Convert.ToDateTime(incident.incidentBeginDate);
+//		FematoTornadoObjects.Add(t);
+
+//	}
+
+//	ViewBag.TornadoCount = FematoTornadoObjects.Count();
+//	ViewBag.TornadoList = FematoTornadoObjects;
+
+//	return View();
+//}

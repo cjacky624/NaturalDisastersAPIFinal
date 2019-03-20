@@ -6,35 +6,55 @@
 	<link rel="shortcut icon"  href="~/Images/Airplane ico.ico" />
 </head>
 <body>
-	<div id="ourTitle">
-		<h1>Trip Risk Evaluator!</h1>
-	</div>
+	<div class="TitlePage">
+		<div id="ourTitle">
+			<h1>Trip Risk Evaluator!</h1>
+			<h3>This will calculate all earthquakes and tornados in the US!</h3>
+			<p>If you want a high damage area for both tornados and earthquakes try these out.</p>
+			<ol>
+				<li>Union City, Tennessee</li>
+				<li>Dexter, Missouri</li>
+			</ol>
+			<a href="~/Home/Earthquakes">Want earthquakes instead?</a> or maybe <a href="~/Home/Tornados">just tornados?</a>
+		</div>
 
-	<div class="SearchBox">
-		<form action="/Home/UserLocation">
-			<h4>Pick a location ("City name/state" preferred!)</h4>
-			<input id="TextBox" required @Html.TextBox("Location")<br/><br/>
-            <label for="Start">First Day</label><input type="date" name="StartDate" data-date-inline-picker="true" /><br/>
-            <label for="End">Last Day</label><input type="date" name="EndDate" data-date-inline-picker="true" />
-            
-				<br/> <br/>
-			<input type="submit" value="Search now" />
-		</form>
-	</div>
+		<div class="SearchBox">
+			<form action="/Home/UserLocation">
+				<h4>Pick a location ("City name/state" preferred!)</h4>
+				<input id="TextBox" required @Html.TextBox("Location")<br /><br />
+				<label for="Start">First Day</label><input type="date" name="StartDate" data-date-inline-picker="true" /><br />
+				<label for="End">Last Day</label><input type="date" name="EndDate" data-date-inline-picker="true" />
 
-	<div id="leftBox">
-		<p>Want to check out some locations with heavy earthquake data?!</p>
-		<p>Type these into the search!</p>
-		<ul>
-			<li>San Francisco, California (Or just "San Fran")</li>
-			<li>Anchorage, Alaska</li>
-			<li>Hilo, Hawaii (Or you can just type "Hilo"!</li>
-			<li>Portland, Oregon (Or just "Portland")</li>
-			<li>Seattle, Washington (Or just "Seattle")</li>
-		</ul>
-	</div>
-	<div id="earthquakesPic">
-		<img src="~/Images/ShakesAndQuakes.jpg" width="500" height="auto"/>
+				<br /> <br />
+				<input type="submit" value="Search now" />
+			</form>
+		</div>
+		<div id="UpperLeftBox">
+			<p>Want some states with high tornado volume?</p>
+			<p>Type these into the search!</p>
+			<ul>
+				<li>Texas</li>
+				<li>Kansas</li>
+				<li>Oklahoma</li>
+				<li>Florida</li>
+				<li>Nebraska</li>
+			</ul>
+		</div>
+		<div id="LowerLeftBox">
+			<p>Want to check out some locations with heavy earthquake data?!</p>
+			<p>Type these into the search!</p>
+			<ul>
+				<li>San Francisco, California (Or just "San Fran")</li>
+				<li>Anchorage, Alaska</li>
+				<li>Hilo, Hawaii (Or you can just type "Hilo"!</li>
+				<li>Portland, Oregon (Or just "Portland")</li>
+				<li>Seattle, Washington (Or just "Seattle")</li>
+			</ul>
+		</div>
+		<div id="BothPics">
+			<img src="~/Images/ShakesAndQuakes.jpg" width="375" height="auto" />
+			<img src="~/Images/Tornados.png" width="375" height="auto" />
+		</div>
 	</div>
 </body>
 </html>
