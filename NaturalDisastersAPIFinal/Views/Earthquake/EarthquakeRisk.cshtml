@@ -1,4 +1,4 @@
-﻿<script>
+<script>
 	function LoadMore() {
 		var x = document.getElementById("AllQuakes");
 		if (x.style.display === "none")
@@ -55,6 +55,13 @@
 				}
 				<p>Total earthquakes in this area since 1970: @ViewBag.Count</p>
 			</div>
+					@foreach (var item in ViewBag.Results)
+						{
+							<br /><br />
+							<h3>EARTHQUAKES!</h3>
+							<div class="col-sm-2" id="QuakeData">
+								<br />
+
 			<br />
 <button onclick="LoadMore()"name="SeeMore" title="Click to see me!" id="LoadMoreButton">Click to see more details</button>
 

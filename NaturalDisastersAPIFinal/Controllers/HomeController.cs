@@ -63,17 +63,21 @@ namespace NaturalDisastersAPIFinal.Controllers
 			User.Latitude = UserLat;
 			User.Longitude = UserLong;
 
+
+            if (!StartDate.HasValue)
+            { StartDate = DateTime.Now; }
+            if (!EndDate.HasValue)
+            { EndDate = DateTime.Now.AddDays(0.1); }//maybe change this later - not certain how we want to calculate risk if they just want to see a specific location.
+            //DateTime date = StartDate;
+            TimeSpan userTime = (DateTime)EndDate - (DateTime)StartDate;
+            int userMonth = StartDate.Value.Month;  //code to grab the month out of the StartDate - what will we do if the user selects multiple months?
+            Session["Month"] = userMonth;
+            Session["UserTime"] = userTime;
+
 			Session["UserInfo"] = User;
 
-			if (!StartDate.HasValue)
-			{ StartDate = DateTime.Now; }
-			if (!EndDate.HasValue)
-			{ EndDate = DateTime.Now.AddDays(0.1); }//maybe change this later - not certain how we want to calculate risk if they just want to see a specific location.
-													//DateTime date = StartDate;
-			TimeSpan userTime = (DateTime)EndDate - (DateTime)StartDate;
-			int userMonth = StartDate.Value.Month;  //code to grab the month out of the StartDate - what will we do if the user selects multiple months?
 
-			Session["UserTime"] = userTime;
+			
 
 			return View();
 		}
@@ -114,6 +118,11 @@ namespace NaturalDisastersAPIFinal.Controllers
 				HttpWebRequest request = WebRequest.CreateHttp(APIText);
 				HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
+            }
+            for (int i = 0; i < Tornados.Count(); i++)
+            {
+                Tornados[i].declaredCountyArea = Tornados[i].declaredCountyArea.Replace("(", "").Replace(")", "");
+
 				StreamReader rd = new StreamReader(response.GetResponseStream());
 				string data = rd.ReadToEnd();
 				rd.Close();
@@ -122,6 +131,7 @@ namespace NaturalDisastersAPIFinal.Controllers
 				UniqueDisasters.AddRange(Disasters.DisasterDeclarationsSummaries.ToList());
 
 				//warning county returns null at times we will need to default to the state name for the long and lat
+
 
 				//.add only does one object, while .addRange does ALL the objects
 

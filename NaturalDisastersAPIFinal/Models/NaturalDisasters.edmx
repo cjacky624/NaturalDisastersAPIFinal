@@ -4,7 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="NaturalDisastersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="NaturalDisastersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+
         <!--Errors Found During Generation:
 warning 6002: The table/view 'NaturalDisasters.dbo.Counties' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Counties">
@@ -123,6 +124,7 @@ warning 6002: The table/view 'NaturalDisasters.dbo.UpdatedTornado' does not have
           <EntitySet Name="EarthQuakeTables" EntityType="Self.EarthQuakeTable" />
           <EntitySet Name="Tornadoes" EntityType="Self.Tornado" />
           <EntitySet Name="Counties" EntityType="Self.County" />
+        </EntityContainer>
           <EntitySet Name="UpdatedTornadoes" EntityType="NaturalDisastersModel.UpdatedTornado" />
         </EntityContainer>
         <EntityType Name="UpdatedTornado">
