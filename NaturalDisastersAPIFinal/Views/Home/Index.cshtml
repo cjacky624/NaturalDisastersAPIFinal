@@ -23,8 +23,8 @@
 			<form action="/Home/UserLocation">
 				<h4>Pick a location ("City name/state" preferred!)</h4>
 				<input id="TextBox" required @Html.TextBox("Location")<br /><br />
-				<label for="Start">First Day</label><input type="date" name="StartDate" data-date-inline-picker="true" /><br />
-				<label for="End">Last Day</label><input type="date" name="EndDate" data-date-inline-picker="true" />
+				<label for="Start">First Day</label><input type="date" name="StartDate" min="2019-03-22" data-date-inline-picker="true" /><br />
+				<label for="End">Last Day</label><input type="date" name="EndDate" min="2019-03-22"  data-date-inline-picker="true" />
 
 				<br /> <br />
 				<input type="submit" value="Search now" />
