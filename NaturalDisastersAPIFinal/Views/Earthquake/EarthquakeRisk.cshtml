@@ -1,4 +1,18 @@
-﻿<p>@ViewBag.Time</p>
+<script>
+	function LoadMore() {
+		var x = document.getElementById("AllQuakes");
+		if (x.style.display === "none")
+		{
+			x.style.display = "block";
+		}
+		else
+		{
+			x.style.display = "none";
+		}
+	}
+</script>
+
+<p>@ViewBag.Time</p>
 <br /><br /><br />
 			<div id="dangerBox">
 				<br/>
@@ -45,16 +59,28 @@
 						{
 							<br /><br />
 							<h3>EARTHQUAKES!</h3>
-							<div id="QuakeData">
+							<div class="col-sm-2" id="QuakeData">
 								<br />
 
-								<p>Magnitude: @item.Magnitude</p>
-								<p>Where did it hit?: @item.Place</p>
-								<p>Gimme the longitude: @item.Longitude</p>
-								<p>Now Latitude kthx: @item.Latitude</p>
-								<p> @item.Time </p>
-								<br /><br />
+			<br />
+<button onclick="LoadMore()"name="SeeMore" title="Click to see me!" id="LoadMoreButton">Click to see more details</button>
 
-							</div>
-						}
+<div id="AllQuakes">
+	<br/>
+	@foreach (var item in ViewBag.Results)
+	{
+		<br /><br />
+		<h3>EARTHQUAKES!</h3>
+		<div id="QuakeData">
+			<br />
 
+			<p>Magnitude: @item.Magnitude</p>
+			<p>Where did it hit?: @item.Place</p>
+			<p>Gimme the longitude: @item.Longitude</p>
+			<p>Now Latitude kthx: @item.Latitude</p>
+			<p> @item.Time </p>
+			<br /><br />
+
+		</div>
+	}
+</div>
