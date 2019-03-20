@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
 	<title>Quakes in your area</title>
 </head>
@@ -15,7 +15,6 @@
 			}
 		}
 	</script>
-
 	<p>@ViewBag.Time</p>
 	<br />
 	<br />
@@ -72,6 +71,27 @@
 		<a href="~/Home/Index" id="searchAgain">Search again?</a>
 	}
 	<div id="AllQuakes">
+    <div id="MonthlyStats">
+    <br />
+
+    <br />
+    @if (ViewBag.Results != null)
+    {
+        <h4>Percentages based off total local earthquakes</h4>
+        <table class="table-bordered">
+            <th>Month</th>
+            <th>Percentage of Earthquakes </th>
+            @foreach (KeyValuePair<string, double> month in ViewBag.MonthSafety)
+            {
+                <tr>
+                    <td>@month.Key</td>
+                    <td>@month.Value %</td>
+                </tr>
+            }
+
+
+        </table>
+          </div>
 		<br />
 		@foreach (var item in ViewBag.Results)
 		{
@@ -86,7 +106,6 @@
 				<p>Now Latitude kthx: @item.Latitude</p>
 				<p> @item.Time </p>
 				<br /><br />
-
 			</div>
 		}
 	</div>

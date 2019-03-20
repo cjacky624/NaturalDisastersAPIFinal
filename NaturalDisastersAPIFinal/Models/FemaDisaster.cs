@@ -22,7 +22,7 @@ namespace NaturalDisastersAPIFinal.Models
     public class MetaDataWrapper
     {
         //this is literally wrapping around out entity name of the FEMA Data
-        //public List<FemaDisaster> FemaWebDisasterDeclarations { get; set; }
+   
         public List<FemaDisaster> DisasterDeclarationsSummaries { get; set; }
     }
 }
