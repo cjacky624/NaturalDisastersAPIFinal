@@ -8,6 +8,7 @@ using System.Net;
 using System.Web.Mvc;
 using NaturalDisastersAPIFinal.APIKey;
 using System;
+using System.Globalization;
 
 namespace NaturalDisastersAPIFinal.Controllers
 {
@@ -101,9 +102,14 @@ namespace NaturalDisastersAPIFinal.Controllers
 		//																							//"Coastal Storm"(474), "Chemical"(9), "Dam/Levee Break" (6), "Drought" (1292), "Fire" (3040), "Fishing Losses" (42), "Flood" (9739), "Freezing" (301), "Hurricane" (10555),
 		//																							//"Mud/Landslide" (31), "Severe Ice Storm" (1990), "Severe Storm(s)" (16127), "Snow" (3659), "Tsunami" (9), "Typhoon" (135), "Volcano" (51- 47 of these are from Mt. Helens on 1980)
 		//{
+
+
+		//	NaturalDisastersEntities db = new NaturalDisastersEntities();
+
 		//	//will need to add the comment code below to the UserLocation() to grab this data and find the matching county incidents.
 		//	//string StateCode = ParsedLocation[0]["address_components"][2]["short_name"].ToString();
 		//	//string UserCounty = ParsedLocation[0]["address_components"][1]["short_name"].ToString();
+
 
 			
 		//	int offset;
@@ -133,7 +139,40 @@ namespace NaturalDisastersAPIFinal.Controllers
 		//		//warning county returns null at times we will need to default to the state name for the long and lat
 
 
+		//	int offset;
+
+		//	//there is a total of 49314 disaster declarations as of 3-17-19
+		//	List<FemaDisaster> UniqueDisasters = new List<FemaDisaster>();
+		//	//for loop size will change based on the disaster entered into the OtherFEMADisasters()
+		//	for (offset = 0; offset <= 2000; offset += 1000)
+		//	{
+		//		string APIText = "https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$filter=(incidentType eq '" + Disaster + "') and (incidentBeginDate gt '1970-01-01T00:00:00.000z') and (state eq '" + StateCode + "' and declaredCountyArea eq '" + UserCounty + " County')&$skip=" + offset;
+
+		//		HttpWebRequest request = WebRequest.CreateHttp(APIText);
+		//		HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+  //          }
+  //          for (int i = 0; i < Tornados.Count(); i++)
+  //          {
+  //              Tornados[i].declaredCountyArea = Tornados[i].declaredCountyArea.Replace("(", "").Replace(")", "");
+
+		//		StreamReader rd = new StreamReader(response.GetResponseStream());
+		//		string data = rd.ReadToEnd();
+		//		rd.Close();
+
+		//		MetaDataWrapper Disasters = JsonConvert.DeserializeObject<MetaDataWrapper>(data);
+		//		UniqueDisasters.AddRange(Disasters.DisasterDeclarationsSummaries.ToList());
+
+
+		//		//warning county returns null at times we will need to default to the state name for the long and lat
+
+
 		//		//.add only does one object, while .addRange does ALL the objects
+
+
+
+		//		//.add only does one object, while .addRange does ALL the objects
+
 
 		//	}
 			
@@ -209,8 +248,48 @@ namespace NaturalDisastersAPIFinal.Controllers
 			ViewBag.QuakeChance = Math.Round(percent, 6);
 			ViewBag.QuakeCount = totalQuakes;
 
+			Dictionary<string, double> quakeStats = QuakeStats(userEarthquakes, totalQuakes);
+			ViewBag.QuakeSafety = quakeStats;
+			Dictionary<string, double> nadoStats = NadoStats(userTornados, totalNados);
+			ViewBag.NadoSafety = nadoStats;
+
 			ViewBag.TotalDisaster = totalNados + totalQuakes;
 			return View();
+		}
+
+		public Dictionary<string, double> QuakeStats(List<EarthQuakeTable> userEvents, double totalEvents)
+		{
+
+			var stats = (userEvents.GroupBy(o => new { Month = o.Time.Value.Month })
+													.Select(b => new { Month = b.Key.Month, Total = b.Count() }))
+													.OrderBy(c => c.Month)
+													.ToList();
+			Dictionary<string, double> output = new Dictionary<string, double>();
+			foreach (var month in stats)
+			{
+				string MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month.Month);
+				double Percentage = Math.Round(((month.Total / totalEvents) * 100), 2);
+				output.Add(MonthName, Percentage);
+			}
+
+			return output;
+		}
+		public Dictionary<string, double> NadoStats(List<UpdatedTornado> userEvents, double totalEvents)
+		{
+
+			var stats = (userEvents.GroupBy(o => new { Month = o.Time.Value.Month })
+													.Select(b => new { Month = b.Key.Month, Total = b.Count() }))
+													.OrderBy(c => c.Month)
+													.ToList();
+			Dictionary<string, double> output = new Dictionary<string, double>();
+			foreach (var month in stats)
+			{
+				string MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month.Month);
+				double Percentage = Math.Round(((month.Total / totalEvents) * 100), 2);
+				output.Add(MonthName, Percentage);
+			}
+
+			return output;
 		}
 	}
 }

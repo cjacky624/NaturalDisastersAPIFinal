@@ -211,3 +211,14 @@ h4 {
 .percentData {
     text-align: center;
 }
+.percentData {
+	text-align:center;
+	align-content:center;
+	
+}
+#MonthlyStats {
+	position: relative;
+	left: 450px;
+	text-align: center !important;
+	width: 400px;
+}

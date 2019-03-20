@@ -1,4 +1,8 @@
+<<<<<<< HEAD:NaturalDisastersAPIFinal/Models/Model1.Designer.cs
 ﻿// T4 code generation is enabled for model 'C:\Users\user\source\repos\NaturalDisastersAPIFinal\NaturalDisastersAPIFinal\Models\Model1.edmx'. 
+=======
+﻿// T4 code generation is enabled for model 'C:\Users\Ronad\Desktop\New folder\NaturalDisastersAPIFinal\Models\NaturalDisasters.edmx'. 
+>>>>>>> 510588196b7d00a68726e34452ba19c455354ca3:NaturalDisastersAPIFinal/Models/NaturalDisasters.Designer.cs
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
