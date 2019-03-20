@@ -125,7 +125,7 @@
 			<br />
 			@if (ViewBag.TotalDisaster != 0)
 			{
-
+                
 				<h4>Percentages based off total local tornados</h4>
 				<div id="MonthlyStats">
 					<table class="table-bordered">
@@ -134,17 +134,19 @@
 							<th>Percentage of Tornados </th>
 						</tr>
 						@foreach (KeyValuePair<string, double> month in ViewBag.NadoSafety)
-						{
+                        {
 							<tr>
 								<td> @month.Key </td>
 								<td class="percentData"> @month.Value % </td>
 							</tr>
-						}
+                        }
 
 
 					</table>
 				</div>
-				<h4>Percentages based off total local earthquakes</h4>
+                
+                
+                <h4>Percentages based off total local earthquakes</h4>
 				<div id="MonthlyStats">
 					<table class="table-bordered">
 						<tr>
@@ -152,18 +154,16 @@
 							<th>Percentage of earthquakes </th>
 						</tr>
 						@foreach (KeyValuePair<string, double> month in ViewBag.QuakeSafety)
-						{
+                        {
 							<tr>
 								<td> @month.Key </td>
 								<td class="percentData"> @month.Value % </td>
 							</tr>
-						}
-
-
+                        }
 					</table>
 				</div>
-
-			}
+                
+            }
 			<br />
 			@{int nadoNum = 0, quakeNum = 0, i = 0; }
 			@while (i < ViewBag.TotalDisaster)
