@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using NaturalDisastersAPIFinal.APIKey;
 using Newtonsoft.Json.Linq;
 using NaturalDisastersAPIFinal.Models;
+using System.Globalization;
 
 namespace NaturalDisastersAPIFinal.Controllers
 {
@@ -99,7 +100,27 @@ namespace NaturalDisastersAPIFinal.Controllers
 			double percent = division * 100;
 			ViewBag.Chance = Math.Round(percent, 6);
 			ViewBag.Count = totalNados;
+
+			Dictionary<string, double> stats = MonthStats(userTornados, totalNados);
+			ViewBag.MonthSafety = stats;
 			return View();
 		}
-    }
+		public Dictionary<string, double> MonthStats(List<UpdatedTornado> userEvents, double totalEvents)
+		{
+
+			var stats = (userEvents.GroupBy(o => new { Month = o.Time.Value.Month })
+													.Select(b => new { Month = b.Key.Month, Total = b.Count() }))
+													.OrderBy(c => c.Month)
+													.ToList();
+			Dictionary<string, double> output = new Dictionary<string, double>();
+			foreach (var month in stats)
+			{
+				string MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month.Month);
+				double Percentage = Math.Round(((month.Total / totalEvents) * 100), 2);
+				output.Add(MonthName, Percentage);
+			}
+
+			return output;
+		}
+	}
 }

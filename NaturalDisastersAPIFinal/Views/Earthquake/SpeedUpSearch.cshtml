@@ -59,6 +59,22 @@
 			<p id="chanceMessage">Why are you going there? You're probably gonna die.</p>
 		}
 		<p>Total earthquakes in this area since 1970: @ViewBag.Count</p>
+		@if (ViewBag.Safer >= 0 && ViewBag.Safer <= 1.1)
+		{
+			<p>You're in one of the most dangerous areas for earthquakes</p>
+		}
+		else
+		{
+			<p>The area you're in is @ViewBag.Safer times more safe than San Fran!</p>
+		}
+		@if (ViewBag.Danger >= 0 && ViewBag.Danger <= 1.5)
+		{
+			<p>The area you're in is about as safe as Detroit for earthquakes!</p>
+		}
+		else
+		{
+			<p>and @ViewBag.Danger times more dangerous than Detroit for earthquakes</p>
+		}
 	</div>
 	<br />
 	@if (ViewBag.Results.Count != 0)
@@ -70,44 +86,48 @@
 		<h3>The location you chose has no earthquakes near it, you're lucky!</h3>
 		<a href="~/Home/Index" id="searchAgain">Search again?</a>
 	}
-	<div id="AllQuakes">
-    <div id="MonthlyStats">
-    <br />
+		<div id="AllQuakes">
+			<br />
 
-    <br />
-    @if (ViewBag.Results != null)
-    {
-        <h4>Percentages based off total local earthquakes</h4>
-        <table class="table-bordered">
-            <th>Month</th>
-            <th>Percentage of Earthquakes </th>
-            @foreach (KeyValuePair<string, double> month in ViewBag.MonthSafety)
-            {
-                <tr>
-                    <td>@month.Key</td>
-                    <td>@month.Value %</td>
-                </tr>
-            }
+			<br />
+			@if (ViewBag.Results != null)
+			{
+
+				<h4>Percentages based off total local earthquakes</h4>
+				<div id="MonthlyStats">
+					<table class="table-bordered">
+						<tr>
+							<th>Month</th>
+							<th>Percentage of Earthquakes </th>
+						</tr>
+						@foreach (KeyValuePair<string, double> month in ViewBag.MonthSafety)
+						{
+							<tr>
+								<td> @month.Key </td>
+								<td class="percentData"> @month.Value % </td>
+							</tr>
+						}
 
 
-        </table>
-          </div>
-		<br />
-		@foreach (var item in ViewBag.Results)
-		{
-			<br /><br />
-			<h3>EARTHQUAKES!</h3>
-			<div id="QuakeData">
-				<br />
-
-				<p>Magnitude: @item.Magnitude</p>
-				<p>Where did it hit?: @item.Place</p>
-				<p>Gimme the longitude: @item.Longitude</p>
-				<p>Now Latitude kthx: @item.Latitude</p>
-				<p> @item.Time </p>
+					</table>
+				</div>
+			}
+			<br />
+			@foreach (var item in ViewBag.Results)
+			{
 				<br /><br />
-			</div>
-		}
-	</div>
+				<h3>EARTHQUAKES!</h3>
+				<div id="QuakeData">
+					<br />
+
+					<p>Magnitude: @item.Magnitude</p>
+					<p>Where did it hit?: @item.Place</p>
+					<p>Gimme the longitude: @item.Longitude</p>
+					<p>Now Latitude kthx: @item.Latitude</p>
+					<p> @item.Time </p>
+					<br /><br />
+				</div>
+			}
+		</div>
 </body>
 </html>

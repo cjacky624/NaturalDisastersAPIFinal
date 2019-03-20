@@ -5,7 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="NaturalDisastersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-
         <!--Errors Found During Generation:
 warning 6002: The table/view 'NaturalDisasters.dbo.Counties' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Counties">
@@ -83,7 +82,8 @@ warning 6002: The table/view 'NaturalDisasters.dbo.UpdatedTornado' does not have
     FROM [dbo].[UpdatedTornado] AS [UpdatedTornado]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NaturalDisastersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -120,14 +120,6 @@ warning 6002: The table/view 'NaturalDisasters.dbo.UpdatedTornado' does not have
           <Property Name="INTPTLAT" Type="Double" Nullable="false" />
           <Property Name="INTPTLONG" Type="Double" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="NaturalDisastersEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="EarthQuakeTables" EntityType="Self.EarthQuakeTable" />
-          <EntitySet Name="Tornadoes" EntityType="Self.Tornado" />
-          <EntitySet Name="Counties" EntityType="Self.County" />
-        </EntityContainer>
-
-          <EntitySet Name="UpdatedTornadoes" EntityType="NaturalDisastersModel.UpdatedTornado" />
-        </EntityContainer>
         <EntityType Name="UpdatedTornado">
           <Key>
             <PropertyRef Name="INTPTLAT" />
@@ -141,10 +133,15 @@ warning 6002: The table/view 'NaturalDisasters.dbo.UpdatedTornado' does not have
           <Property Name="INTPTLONG" Type="Double" Nullable="false" />
           <Property Name="Alert" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
           <Property Name="Time" Type="DateTime" Precision="3" />
-          <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="USPS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="USPS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-
+        <EntityContainer Name="NaturalDisastersEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EarthQuakeTables" EntityType="Self.EarthQuakeTable" />
+          <EntitySet Name="Tornadoes" EntityType="Self.Tornado" />
+          <EntitySet Name="Counties" EntityType="Self.County" />
+          <EntitySet Name="UpdatedTornadoes" EntityType="Self.UpdatedTornado" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -181,22 +178,20 @@ warning 6002: The table/view 'NaturalDisasters.dbo.UpdatedTornado' does not have
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="INTPTLAT" ColumnName="INTPTLAT" />
                 <ScalarProperty Name="INTPTLONG" ColumnName="INTPTLONG" />
-
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UpdatedTornadoes">
             <EntityTypeMapping TypeName="NaturalDisastersModel.UpdatedTornado">
               <MappingFragment StoreEntitySet="UpdatedTornado">
-                <ScalarProperty Name="USPS" ColumnName="USPS" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Alert" ColumnName="Alert" />
-                <ScalarProperty Name="INTPTLONG" ColumnName="INTPTLONG" />
-                <ScalarProperty Name="INTPTLAT" ColumnName="INTPTLAT" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="INTPTLAT" ColumnName="INTPTLAT" />
+                <ScalarProperty Name="INTPTLONG" ColumnName="INTPTLONG" />
+                <ScalarProperty Name="Alert" ColumnName="Alert" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="USPS" ColumnName="USPS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

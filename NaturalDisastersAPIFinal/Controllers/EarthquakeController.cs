@@ -100,7 +100,9 @@ namespace NaturalDisastersAPIFinal.Controllers
             double percent = division * 100;
             ViewBag.Chance = Math.Round(percent, 6);
             ViewBag.Count = totalQuakes;
-            return View();
+		
+
+			return View();
 
         }
         public ActionResult SpeedUpSearch()
@@ -158,8 +160,11 @@ namespace NaturalDisastersAPIFinal.Controllers
             double dmgPercent = Math.Round((100 * (dmgRisk.Count() / totalQuakes)), 6);
             ViewBag.dmgPercent = dmgPercent;
             ViewBag.Count = totalQuakes;
-
-            Dictionary<string, double> stats = MonthStats(userEarthquakes, totalQuakes);
+			double timesSafer = 3370 / totalQuakes;
+			ViewBag.Safer = Math.Round(timesSafer, 2);
+			double timesDanger = totalQuakes / 2;
+			ViewBag.Danger = Math.Round(timesDanger, 2);
+			Dictionary<string, double> stats = MonthStats(userEarthquakes, totalQuakes);
             ViewBag.MonthSafety = stats;
 
             return View();
