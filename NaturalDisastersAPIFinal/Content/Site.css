@@ -121,27 +121,36 @@ h4 {
 	border: 1px black solid;
 	width: 40%;
 	position: relative;
-	right: 50px;
+	right: 120px;
 	text-align: center;
-	bottom:150px;
+	bottom:300px;
+}
+#LowerLeftBox {
+	border: 1px black solid;
+	width: 40%;
+	position: relative;
+	right: 120px;
+	text-align: center;
+	bottom: 300px;
 }
 
 #BothPics {
 	position: relative;
 	left: 800px;
-	bottom: 575px;
-	padding-right: 4.4in;
-	margin: 0px;
+	bottom: 725px;
+	width: 300px;
 }
 #TornadosPic {
-	position:relative;
+	position: relative;
 	left: 800px;
-	bottom:400px;
+	bottom: 375px;
+	width: 300px;
 }
 #earthquakesPic {
 	position: relative;
 	left: 800px;
-	bottom: 400px;
+	bottom: 375px;
+	width: 300px;
 }
 
 #errorResult {
@@ -178,4 +187,8 @@ h4 {
 	height: 300px;
 	position:relative;
 	left: 70px;
+}
+.TitlePage {
+	height: 800px;
+	
 }
